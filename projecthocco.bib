@@ -134,6 +134,7 @@
 @Entry{repo,
   description-de = {Eine Sammlung von verschiedenen \glspl{branch} und \glspl{commit}.},
   name           = {Repository},
+  plural 	= {Repositories},
 }
 
 @Entry{2-man-rule,
@@ -439,7 +440,7 @@
 	url={https://www.vaultproject.io/},
 }
 
-@Entry{rest_api,
+@Entry{restapi,
 	name={ReST-API},
 	description-de={
 		 \gls{api},
@@ -575,7 +576,7 @@
 		 },
 }
 
-@entry{vm_host,
+@entry{vmhost,
 	name={{}\gls{vm}-Host},
 	description-de={
 		 System,
@@ -707,7 +708,7 @@
 	parent={ansible},
 }
 
-@Entry{pre_commit_hook,
+@Entry{precommithook,
 	name={pre-commit-hook},
 	description-de={
 		\gls{git:hook} der vor der Annahme
@@ -715,7 +716,7 @@
 		},
 	parent={git:hook},
 }
-@Entry{update_hook,
+@Entry{updatehook,
 	name={update-hook},
 	description-de={
 		\gls{git:hook} der vor der Annahme
@@ -767,7 +768,7 @@
 }
 
 
-@Entry{organizational_changemanagement,
+@Entry{organizationalchangemanagement,
 	name={Organisatorisches \"Anderungsmanagement},
 	description-de={
 		 Prozesse,
@@ -788,7 +789,7 @@
 	},
 }
 
-@Entry{loose_coupling,
+@Entry{loosecoupling,
 	name={\enquote{Lose Kopplung}},
 	description-de={
 		eine geringe Abh\"angigkeit
@@ -853,6 +854,14 @@
 	see={ansible:role},
 }
 
+@index{softwaremanagement,
+	name={Software-Management},
+}
+
+@index{softwaremanagementsolution,
+	name={{}\gls{softwaremanagement}-L\"osung},
+}
+
 @index{configmanagement,
 	name={Konfigurationsmanagement},
 }
@@ -865,7 +874,7 @@
 	name={{}\gls{configmanagement}-L\"osung},
 }
 
-@role{ansible:dev:admin_users,
+@role{ansible:dev:adminusers,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/admin_users},
         name={admin_users},
 }
@@ -875,12 +884,12 @@
         name={centos_vm},
 }
 
-@role{ansible:dev:certificate_default,
+@role{ansible:dev:certificatedefault,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/certificate_default},
         name={certificate_default},
 }
 
-@role{ansible:dev:certificate_domain,
+@role{ansible:dev:certificatedomain,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/certificate_domain},
         name={certificate_domain},
 }
@@ -900,32 +909,32 @@
         name={drone_runner},
 }
 
-@role{ansible:dev:gitea_ub_theme,
+@role{ansible:dev:giteaubtheme,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/gitea_ub_theme},
         name={gitea_ub_theme},
 }
 
-@role{ansible:dev:grafana_host,
+@role{ansible:dev:grafanahost,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/grafana_host},
         name={grafana_host},
 }
 
-@role{ansible:dev:icinga2_host,
+@role{ansible:dev:icinga2host,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/icinga2_host},
         name={icinga2_host},
 }
 
-@role{ansible:dev:icinga2_monitored.git,
+@role{ansible:dev:icinga2monitored.git,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/icinga2_monitored.git},
         name={icinga2_monitored},
 }
 
-@role{ansible:dev:jump_host.git,
+@role{ansible:dev:jumphost.git,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/jump_host.git},
         name={jump_host},
 }
 
-@role{ansible:dev:kvm_host,
+@role{ansible:dev:kvmhost,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/kvm_host},
         name={kvm_host},
 }
@@ -935,12 +944,12 @@
         name={logrotate},
 }
 
-@role{ansible:dev:managed_host,
+@role{ansible:dev:managedhost,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/managed_host},
         name={managed_host},
 }
 
-@role{ansible:dev:managment_host,
+@role{ansible:dev:managmenthost,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/managment_host},
         name={managment_host},
 }
@@ -955,7 +964,7 @@
         name={mongodb},
 }
 
-@role{ansible:dev:monitor_host,
+@role{ansible:dev:monitorhost,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/monitor_host},
         name={monitor_host},
 }
@@ -975,42 +984,42 @@
         name={ocrd-pilot},
 }
 
-@role{ansible:dev:php_fpm_nginx,
+@role{ansible:dev:phpfpmnginx,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/php_fpm_nginx},
         name={php_fpm_nginx},
 }
 
-@role{ansible:dev:podman_registry,
+@role{ansible:dev:podmanregistry,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/podman_registry},
         name={podman_registry},
 }
 
-@role{ansible:dev:prometheus_apache_exporter,
+@role{ansible:dev:prometheusapacheexporter,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/prometheus_apache_exporter},
         name={prometheus_apache_exporter},
 }
 
-@role{ansible:dev:prometheus_blackbox_exporter,
+@role{ansible:dev:prometheusblackboxexporter,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/prometheus_blackbox_exporter},
         name={prometheus_blackbox_exporter},
 }
 
-@role{ansible:dev:prometheus_node,
+@role{ansible:dev:prometheusnode,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/prometheus_node},
         name={prometheus_node},
 }
 
-@role{ansible:dev:prometheus_node_exporter,
+@role{ansible:dev:prometheusnodeexporter,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/prometheus_node_exporter},
         name={prometheus_node_exporter},
 }
 
-@role{ansible:dev:reverse_proxy.git,
+@role{ansible:dev:reverseproxy.git,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/reverse_proxy.git},
         name={reverse_proxy},
 }
 
-@role{ansible:dev:rocket_chat_host,
+@role{ansible:dev:rocketchathost,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/rocket_chat_host},
         name={rocket_chat_host},
 }
@@ -1025,12 +1034,12 @@
         name={sles_vm},
 }
 
-@role{ansible:dev:supervisord_host,
+@role{ansible:dev:supervisordhost,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/supervisord_host},
         name={supervisord_host},
 }
 
-@role{ansible:dev:supervisord_service,
+@role{ansible:dev:supervisordservice,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/supervisord_service},
         name={supervisord_service},
 }
@@ -1045,17 +1054,17 @@
         name={traefik},
 }
 
-@role{ansible:dev:traefik_simple_proxy,
+@role{ansible:dev:traefiksimpleproxy,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/traefik_simple_proxy},
         name={traefik_simple_proxy},
 }
 
-@role{ansible:dev:tsm_client,
+@role{ansible:dev:tsmclient,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/tsm_client},
         name={tsm_client},
 }
 
-@role{ansible:dev:update_notifications,
+@role{ansible:dev:updatenotifications,
         url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/update_notifications},
         name={update_notifications},
 }
