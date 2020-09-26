@@ -1,0 +1,107 @@
+% Encoding: UTF-8
+
+@software{gitea11-3,
+	version={11.3},
+	url={gitea.io},
+	crossref={gitea},
+	name={GiTea - Version 11.3},
+	seealso={git},
+}
+
+@software{traefik,
+	name={Traefik},
+	url={https://traefik.io/traefik/},
+}
+
+@software{gitea10-3,
+	version={10.3},
+	url={gitea.io},
+	name={GiTea - Version 10.3},
+	crossref={gitea},
+	seealso={git},
+}
+% Liste alle Software
+% nutzbar mit bib2gls und biber
+
+@software{gitea,
+	name={GiTea},
+	url={gitea.io},
+	license={MIT},
+	seealso={git},
+	description-de={
+		 \foreigntextquote{english}[\autocite{gitea:homepage}]{
+		 Gitea is a community managed lightweight code hosting solution written in Go
+		 }
+	}
+}
+
+@software{pre-commit,
+	name={pre-commit},
+	url={https://pre-commit.com/},
+	description-de={
+		 \foreigntextquote{english}[\autocite{pre-commit:homepage}]{
+		 A framework for managing and maintaining multi-language pre-commit hooks
+		 }
+	},
+	license={MIT},
+}
+
+@software{ansible,
+	name={Ansible},
+	url={ansible.com},
+	license={GPL-3.0},
+	seealso={managmenttool},
+	description-de={
+		\foreigntextquote{english}[\autocite{ansible:homepage}]{%
+		Ansible is the only automation language that can be used across entire IT teams from systems and network administrators to developers and managers.
+		}
+	 },
+}
+
+@software{git,
+	name={\texttt{git}},
+	description-de={
+			Eine von Linus Torwals entwickeltes \gls{versioncontrolsystem}.
+		},
+	url={https://git-scm.com/},
+	license={GPLv2},
+	seealso={versioncontrolsystem},
+}
+
+@jinja2var{j2:ansible:distribution,
+	name={ansible_distribution},
+}
+
+@jinja2var{j2:default:version,
+	name={APPLICATION_version},
+}
+
+@jinja2var{j2:default:conf:path,
+	name={APPLICATION\_conf\_path},
+}
+
+@jinja2var{j2:default:base:path,
+	name={APPLICATION\_base\_path},
+}
+
+@Software{dinglehopper,
+  description-de = { Ein Tool zur Evaluierung von \gls{ocr} Ergebnissen. },
+  license        = {Apache-2.0},
+  name           = {\texttt{dinglehopper}},
+  url            = {https://github.com/qurator-spk/dinglehopper},
+}
+
+@filename{requirements:yml,
+	name={requirements.yml},
+}
+
+@filename{meta:yml,
+	name={meta/main.yml},
+}
+
+@repo{ansible:pub:template,
+	url={https://dev.git.ub.uni-frankfurt.de/ansible-pub/template},
+	name={template},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
