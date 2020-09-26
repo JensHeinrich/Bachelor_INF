@@ -129,7 +129,6 @@
   description-de = {\gls{branch} eines \gls{versioncontrolsystem}, auf dem ein \gls{feature} entwickelt wird.},
   name           = {Feature-Branch},
   parent={branch},
-  seealso        = {dev-branch,master-branch},
 }
 
 @Entry{repo,
@@ -165,14 +164,12 @@
   description-de = {Der \gls{branch} des Projektes, auf dem die eigentliche Entwicklung stattfindet, und aud dem entsprechend die \glspl{feature-branch} aufbauen.},
   name           = {\texttt{dev}-Branch},
   parent={branch},
-  seealso        = {master-branch,feature-branch},
 }
 
 @Entry{master-branch,
   description-de = {Der \gls{branch} des Projektes, der die ver\"offentlichten Versionen enth\"alt.},
   name           = {\texttt{master}-Branch},
   parent={branch},
-  seealso        = {dev-branch,feature-branch},
 }
 
 @Entry{rebase,
@@ -474,21 +471,20 @@
 @Abbreviation{foss,
   description-de = { Software, die die 4 Freiheiten \begin{itemize} \item Verwenden \item Verstehen \item Verbreiten \item Verbessern \end{itemize} \autocite{fsfe:de:freesoftware} der \gls{fsfe} bzw.\ der \gls{fsf} erf\"ullt. },
   long           = {Free Open Source Software},
-  seealso        = {floss,oss},
+  parent        = {oss},
   short          = {FOSS},
   url            = {https://fsfe.org/freesoftware/freesoftware.de.html},
 }
 
 @Abbreviation{floss,
   long    = {Free Libre Open Source Software},
-  seealso = {floss,oss},
+  parent = {oss},
   short   = {FLOSS},
 }
 
 @abbreviation{oss,
 	short={OSS},
 	long={Open Source Software},
-	seealso={floss,foss},
 	description-de={
 		Software, deren Quellcode (\"offenlich) einsehbar ist
 		},

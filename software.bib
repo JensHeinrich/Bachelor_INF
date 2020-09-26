@@ -91,8 +91,33 @@
   url            = {https://github.com/qurator-spk/dinglehopper},
 }
 
+@Software{confluence,
+	name={Confluence},
+	url={https://www.atlassian.com/de/software/confluence},
+	description-de = {
+		Wiki-Software der Firma \gls{atlassian}
+		},
+}
+
+@Software{icinga2,
+	name={Icinga 2},
+	url={https://icinga.com/docs/icinga2/latest/},
+	description-de={
+		Monitoring L\"osung der Icinga GmbH
+		},
+}
+
+@Entry{atlassian,
+	name={Atlassian},
+	url={https://www.atlassian.com},
+}
+
 @filename{requirements:yml,
 	name={requirements.yml},
+}
+
+@filename{sshconfig,
+	name={~/.ssh/config},
 }
 
 @filename{meta:yml,
@@ -102,6 +127,38 @@
 @repo{ansible:pub:template,
 	url={https://dev.git.ub.uni-frankfurt.de/ansible-pub/template},
 	name={template},
+}
+
+@role{ansible:dev:kvmhost,
+	url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/kvm_host},
+	name={kvm\_host},
+}
+
+@role{ansible:dev:managedhost,
+	url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/managed_host},
+	name={managed\_host},
+}
+
+@role{ansible:dev:centosvm,
+	url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/centos-vm},
+	name={centos-vm},
+}
+
+@role{ansible:dev:giteahost,
+	name={gitea-host},
+	url={https://dev.git.ub.uni-frankfurt.de/ansible-dev/gitea_host},
+}
+
+@repo{ansible:pub:gitea-ldap-team-sync,
+	url={https://dev.git.ub.uni-frankfurt.de/ansible-pub/gitea-ldap-team-sync},
+	name={gitea-ldap-team-sync},
+	description-de={
+		In Python geschriebene Software,
+		um
+		LDAP (bzw.\ AD)-Gruppen
+		auf
+		\gls{gitea}-Teams abzubilden
+		},
 }
 
 @Comment{jabref-meta: databaseType:bibtex;}
