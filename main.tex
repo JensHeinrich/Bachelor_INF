@@ -1,0 +1,79 @@
+% Glossary support
+\usepackage[
+   record={nameref},
+   nomain,
+   style=tree,
+]{glossaries-extra}
+
+\usepackage{gls-repo}
+\usepackage{gls-role}
+\usepackage{gls-linklist}
+
+% glossary formatting
+\setabbreviationstyle[abbreviation]{long-short}
+\setabbreviationstyle[acronym]{short-long}
+%\setabbreviationstyle[licenses]{short-long}
+\setabbreviationstyle[links]{short}
+%\GlsXtrEnableLinkCounting[part]{general}
+\glssetcategoryattribute{software}{textformat}{texttt}
+%\glssetcategoryattribute{role}{textformat}{texttt}
+\glssetcategoryattribute{filename}{textformat}{texttt}
+\glssetcategoryattribute{jinja2var}{textformat}{texttt}
+\GlsDeclareNoHyperList{filename,jinja2var}% suppress links for these types
+
+% display k8s states in typewriter font
+\glssetcategoryattribute{k8sstate}{textformat}{texttt}
+\GlsDeclareNoHyperList{k8sstate}% suppress links for these types
+
+\newglossary*{clusters}{Glossar --- QuestioningClusters}
+
+\GlsXtrLoadResources[
+   src={%
+      glossaries/QuestioningClusters.bib%
+   },%
+   sort={en-GB},% sort according to 'en-GB' locale
+   field-aliases={%
+      description-de=description%
+   },% load german description
+   entry-type-aliases={%
+      software=index,%
+      k8sstate=index,%
+      filename=index,%
+   },% needed for bib2gls to recognize entries
+   replicate-fields={%
+      description-de=description,%
+      name-de=name,%
+      long=name,%
+      %url=long,
+      %url=description,
+      %name=short,
+      url=user1,%
+   }, % optionally copy the values
+   category={same as original entry},
+   type={clusters},
+   selection={all},
+   %selection={recorded and deps and see},
+   match={%
+      %entrytype=software,%
+      %%entrytype=entry,%
+   },%
+]
+
+\GlsXtrLoadResources[
+   src={%
+      glossaries/shortcuts.bib%
+   },%
+   entry-type-aliases={%
+     abbreviation=index,%
+   },%
+   replicate-fields={%
+     short-de=name,%
+   },%
+   field-aliases={%
+      description-de=description,%
+      short-de=short,%
+      long-de=long,%
+   },% load german description
+   type={ignored},
+   selection={all},
+]

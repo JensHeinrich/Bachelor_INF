@@ -1,0 +1,284 @@
+%comment{This file was created with betterbib v3.5.16.}
+
+
+@software{LimeSurvey,
+	name = {LimeSurvey},
+	description-de = {\foreigntextquote {german}[\autocite {limesurvey:homepage}]{ LimeSurvey ist das optimale Online-Umfragetool f\"ur Forschungseinrichtungen, Universit\"aten und andere Bildungsinstitutionen. }},
+	url = {https://www.limesurvey.org},
+}
+
+@entry{LimeSurvey:Package,
+	name = {LimeSurvey Paket},
+	description-de = {komprimiertes Archiv, welches alle f\"ur die Installation ben\"otigten \gls {php}[-Dateien] enth\"alt},
+}
+
+@abbreviation{TSM,
+	short = {TSM},
+	long = {IBM\textsuperscript {\textregistered } Tivoli\textsuperscript {\textregistered } Storage Manager},
+}
+
+@software{apache,
+	name = {apache},
+	description-de = {\foreigntextquote {english}[\autocite {apache:httpd}]{ The Apache HTTP Server Project is an effort to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Window }},
+	url = {https://httpd.apache.org/},
+}
+
+@software{apache_exporter,
+	name = {apache\_exporter},
+	url = {https://github.com/Lusitaniae/apache_exporter},
+	description-en = {\foreigntextquote {english}[Lusitaniae:apacheexporter]{Exports apache mod\_status statistics via HTTP for Prometheus consumption}},
+	description-de = {Stellt \gls {apache} \texttt {mod\_status} Statistiken f\"ur die Verwendung mit \gls {prometheus} zur Verf\"ugung\autocite {Lusitaniae:apacheexporter}},
+}
+
+@acronym{api,
+	short = {API},
+	long = {application programming interface},
+	description-de = {Schnittstelle, die f\"ur den Zugriff auf die Applikation durch andere Programme zur Verf\"ugung gestellt wird},
+}
+
+@entry{autoscaling,
+	name-de = {Autoscaling},
+	description-de = {Bedarfs orientiertes Erzeugen von \gls {microservice}[-Instanzen]},
+}
+
+@entry{calver,
+	name = {CalVer},
+	description-de = {Datums bzw. Kalender-basierte Versionierungsschema, wie man es \gls {eg} als \enquote {YY.MM} von Ubuntu kennt \autocite {calver}},
+	seealso = {semver},
+	parent = {versioningscheme},
+}
+
+@entry{cgroup,
+	name = {Cgroup},
+	description-de = {Beschr\"anken auf wieviel einer Ressource ein Prozess oder eine Prozessgruppe zugreifen kann \autocite [3.2.3]{Liebel2017SkalierbareContainerInfrastrukturen}.},
+	seealso = {Limitierung},
+}
+
+@filename{chartyaml,
+	name = {Chart.yaml},
+}
+
+@index{container,
+	name = {Container},
+}
+
+@index{crio,
+	name = {CRI-O},
+}
+
+@abbreviation{dbms,
+	short = {DBMS},
+	long = {DataBase Management Solution},
+}
+
+@index{docker,
+	name = {Docker},
+	description-de = {\gls {container}[-Hypervisor] der Docker Inc.},
+	type = {ignored},
+	category = {ignored},
+}
+
+@index{dockerfile,
+	name = {Dockerfile},
+}
+
+@software{grok_exporter,
+	name = {grok\_exporter},
+	url = {https://github.com/fstab/grok_exporter},
+	description-de = {erzeugt \gls {prometheus}[-Metriken] aus unstrukturierten Log-Dateien},
+	description-en = {\foreigntextquote {english}[fstab:grok\_exporter]{Export Prometheus metrics from arbitrary unstructured log data.}},
+}
+
+@software{helm,
+	name = {Helm},
+	description-de = {Software f\"ur die Verwaltung komplexer {\gls {k8s}[-Anwendungen]}, welche aus mehreren \glspl {k8s:workload} bestehen},
+}
+
+@entry{helm:chart,
+	name = {{\glsfmtname {helm}[-\texttt {chart}]}},
+	description-de = {Paketierungsformat f\"ur \gls {k8s}[-Applikationen]},
+}
+
+@entry{highavailability,
+	short = {HA},
+	name = {High Availability},
+}
+
+@software{icinga2,
+	name = {Icinga},
+	description-de = {Monitoring System, welches die Verf\"ugbarkeit von Netzwerkressourcen \"uberpr\"uft, Nutzer \"uber Ausf\"alle informiert \autocite {icinga2:about}},
+	url = {https://icinga.com/docs/icinga-2/latest/doc/01-about/},
+}
+
+@filename{ingressyaml,
+	name = {ingress.yaml},
+}
+
+@software{k8s,
+	name = {Kubernetes},
+	description-en = {\foreigntextquote {english}[\autocite {Kubernetes:homepage}]{ Production-Grade Container Orchestration }},
+	url = {kubernetes.io},
+}
+
+@index{k8s:cronjob,
+	name = {CronJob},
+	parent = {k8s},
+}
+
+@entry{k8s:ingress,
+	name = {Ingress},
+	description-de = {\gls {k8s:object}, welches den externen Zugang zu Clusterinternen \glspl {k8s:service}, verwaltet},
+	parent = {k8s},
+}
+
+@index{k8s:job,
+	name = {Job},
+	parent = {k8s},
+}
+
+@k8sstate{k8s:lifecycle:success,
+	name = {success},
+}
+
+@entry{k8s:node,
+	name = {Node},
+	parent = {k8s},
+	description-de = {virtuelle oder physikalische Maschine, die Teil des Clusters ist\autocite {kubernetes:docs:concepts:architecture:nodes}},
+}
+
+@index{k8s:object,
+	name = {Objekt},
+	parent = {k8s},
+}
+
+@index{k8s:pod,
+	name = {Pod},
+	parent = {k8s},
+}
+
+@index{k8s:pvc,
+	name = {PVC},
+	description-de = {Dauerhaft erzeugtes \gls {k8s:volume}},
+	parent = {k8s},
+}
+
+@index{k8s:secret,
+	name = {secret},
+	parent = {k8s},
+}
+
+@entry{k8s:service,
+	name = {Service},
+	description-de = {abstrakte M\"oglichkeit eine Applikation, die auf einer Menge von Pods l\"auft, als Netzwerk Service zur Verf\"ugung zu stellen. Hierf\"ur wird ein Quell-Port (\texttt {port}) auf einen Ziel-Port (\texttt {targetPort}) unter Festlegung des Protokolls abgebildet. \"Uber die Defintion des Typs (\texttt {type}) wird festgelegt auf welcher IP-Adresse der Service erreichbar ist, zB. einer Cluster-eigenen (\texttt {ClusterIP}).\autocite {kubernetes:docs:concepts:service}},
+	parent = {k8s},
+}
+
+@index{k8s:volume,
+	name = {Volume},
+	parent = {k8s},
+}
+
+@entry{k8s:workload,
+	name = {Workload},
+	description-de = {Gruppe von \glspl {container}, die sich Netzwerk- und Speicherressourcen teilen, und zus\"aztliche Spezifikationen zur Verwaltung dieser},
+	parent = {k8s},
+}
+
+@entry{kernelnamespace,
+	name = {Kernel Namespace},
+	description-de = {Beschreiben \gls {bzw} defininieren, auf was bestimmter Prozess zugreifen kann \autocite [3.2.3]{Liebel2017SkalierbareContainerInfrastrukturen}.},
+	seealso = {Isolierung},
+}
+
+@abbreviation{ldap,
+	short = {LDAP},
+	long = {Lightweight Directory Access Protocol},
+}
+
+@entry{microservice,
+	name = {Microservice},
+	description-de = {\gls {service}, welcher nur einen bestimmten Teil eines gr\"osseren \gls {service} durchf\"uhrt und der unabh\"angig von anderen \glspl {microservice} ausgerollt werden kann \autocite {newman2019monolith}},
+}
+
+@software{nginx,
+	name = {nginx},
+	description-de = {\foreigntextquote {english}[\autocite {}]{ NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. }},
+	url = {https://nginx.org/},
+}
+
+@entry{overprovisioning,
+	name-de = {\"Uberprovisionierung},
+	description-de = {um im Rahmen schwankenden Bedarfs auch in Zeiten hohen Bedarfs gen\"ugend Ressourcen zu haben, werden mehr Ressourcen reserviert bzw. zugeteilt, als im Standardfall notwendig},
+}
+
+@acronym{php,
+	short = {PHP},
+	url = {https://www.php.net/},
+	long = {\foreigntextquote {english}[\autocite {php:faq}]{PHP: Hypertext Preprocessor}},
+	description-de = {\foreigntextquote {english}[php:homepage]{PHP is a popular general-purpose scripting language that is especially suited to web development.}},
+}
+
+@software{phpfpm,
+	name = {PHP-FPM},
+	description-de = {ein \texttt {FastCGI} -Prozessmanager f\"ur \gls {php} \autocite {phpfpm:homepage}},
+}
+
+@software{prometheus,
+	name = {Prometheus},
+	description-de = {Monitoring L\"osung},
+	url = {prometheus.io},
+}
+
+@entry{selfservice,
+	name = {selfservice},
+	description-de = {Nutzer k\"onnen Dinge ohne Hilfe selber \enquote {machen} und werden nur in Ausnahmesituationen unterst\"utzt. Beispiele hierf\"ur sind Selbstscannerkassen im Supermarkt oder One-Click-Deployment von VMs},
+}
+
+@entry{semver,
+	name-de = {semantische Version},
+	description-de = {Eine Versionskennung, die grob dem Schema \enquote {MAJOR.MINOR.PATCH} entspricht, wobei eine \"Anderung der \enquote {MAJOR}-Version eine inkompatible \gls {api}[-\"Anderung] anzeigt, eine \"Anderung der \enquote {MINOR}-Version von einer \foreigntextquote {english}{backwards compatible} --also eine h\"ohere \enquote {MINOR}[-Version] problemlos eine niedrigere abl\"osen kann (aber nicht umgekehrt)-- \"Anderung verusacht wird, und die Reperatur von kleinen Fehlern in einer auf- und abw\"artskompatiblen Art durch eine \"Anderung der \enquote {PATCH}[-Version] angezeigt wird. Diese Defintion stammt von \autocite {semver:2.0.0} und dort werden noch weitere Details spezifiziert},
+	seealso = {calver},
+	parent = {versioningscheme},
+}
+
+@entry{sensitivedata,
+	name = {sensitive Data},
+	description-de = {Daten, welche besonderen Schutz ben\"otigen, wie \gls {eg} Passw\"orter, Token, private Schl\"ussel},
+}
+
+@entry{service,
+	description-de = {Funktionalit\"at, die ein Nutzer wahrnimmt},
+	name = {Service},
+	plural = {Services},
+}
+
+@filename{serviceyaml,
+	name = {service.yaml},
+}
+
+@entry{sla,
+	short = {SLA},
+	long = {Service Level Agreement},
+	description-de = {Vertraglich festgelegtes \gls {slo}, meistens mit Vertragsstrafen bei Nichteinhaltung verkn\"upft},
+}
+
+@entry{sli,
+	short = {SLI},
+	long = {Service Level Indicator},
+	description-de = {Indikator, um auf die Zufriedenheit der Nutzer oder Funktionsf\"ahigkeit eines \gls {service} zu schliessen},
+}
+
+@entry{slo,
+	short = {SLO},
+	long = {Service Level Objective},
+	description-de = {Zielwert eines \gls {sli}},
+}
+
+@filename{valuesyaml,
+	name = {values.yaml},
+}
+
+@entry{versioningscheme,
+	name = {Versionierungsschema},
+	description-de = {Festgelegte Strategie zur Festlegung von Versionskennungen},
+}
