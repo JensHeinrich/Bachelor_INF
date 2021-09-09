@@ -1,0 +1,32 @@
+% Citation support
+\usepackage[
+	style=numeric,
+	backend=biber,
+	sorting=nyt,
+]{biblatex}
+
+\usepackage{bibdriver}
+
+\AtEndDocument{% citation
+	% https://tex.stackexchange.com/questions/412924/create-qr-code-from-citeurl
+	\nocite{stack:tex:cite-qrcode}
+}% end AtEndDocument
+
+
+%\addbibresource{bibliographies/projecthocco.bib}
+%\addbibresource{bibliographies/ocr-d.bib}
+
+% Add bib file from earlier talk
+%\addbibresource{bibliographies/cicdcdont_lightning.bib}
+
+% Add bib from previous thesis
+%\addbibresource{bibliographies/import-from-math.bib}
+
+% Add bib for technical tweaks
+\addbibresource{bibliographies/technical.bib}
+
+% Add bib for previous project
+%\addbibresource{bibliographies/BlackAluminiumFox.bib}
+
+% Add bib for this project
+\addbibresource{bibliographies/QuestioningClusters.bib}
