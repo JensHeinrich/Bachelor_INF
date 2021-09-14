@@ -55,7 +55,7 @@
 
 \GlsXtrLoadResources[
    src={%
-      glossaries/QuestioningClusters.bib%
+	   glossaries/QuestioningClusters.bib%
    },%
    sort={en-GB},% sort according to 'en-GB' locale
    field-aliases={%
@@ -102,4 +102,28 @@
    },% load german description
    type={ignored},
    selection={all},
+]
+
+\newglossary*{blackaluminuiumfoxpresentation}{Glossar --- BlackAlumniumFox --- Presentation}
+
+\GlsXtrLoadResources[
+  src={%
+    glossaries/blackaluminuiumfoxpresentation%
+  },
+  sort={de-DE},
+  sort-field={category},
+  entry-type-aliases={%
+    software = entry,%
+    repo = entry,%
+  },
+  replicate-fields={%
+    description-de=description,%
+    text-de=text,%
+    name-de=name,%
+    plural-de=plural,%
+    url=user1,%
+    short=name,%
+  }, % optionally copy the values
+  type={blackaluminuiumfoxpresentation},
+  selection={recorded and deps},
 ]
