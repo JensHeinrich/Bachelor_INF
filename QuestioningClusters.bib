@@ -7,11 +7,11 @@
 
 @preamble{"\RequirePackage{biblatex}"}
 
-@preamble{"\addbibresource{bibliographies/QuestioningClusters.bib}"}
+@preamble{"\addbibresource{bibliographies/QuestioningClusters}"}
 
 @software{LimeSurvey,
 	name = {LimeSurvey},
-	description-de = {\foreigntextquote {german}[\autocite {limesurvey:homepage}]{ LimeSurvey ist das optimale Online-Umfragetool f\"ur Forschungseinrichtungen, Universit\"aten und andere Bildungsinstitutionen. }},
+	description-de = {\hybridblockquote {german}[\autocite {limesurvey:homepage}]{ LimeSurvey ist das optimale Online-Umfragetool f\"ur Forschungseinrichtungen, Universit\"aten und andere Bildungsinstitutionen. }},
 	url = {https://www.limesurvey.org},
 }
 
@@ -27,14 +27,14 @@
 
 @software{apache,
 	name = {apache},
-	description-de = {\foreigntextquote {english}[\autocite {apache:httpd}]{ The Apache HTTP Server Project is an effort to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Window }},
+	description-de = {\hybridblockquote {english}[\autocite {apache:httpd}]{ The Apache HTTP Server Project is an effort to develop and maintain an open-source HTTP server for modern operating systems including UNIX and Window }},
 	url = {https://httpd.apache.org/},
 }
 
 @software{apache_exporter,
 	name = {apache\_exporter},
 	url = {https://github.com/Lusitaniae/apache_exporter},
-	description-en = {\foreigntextquote {english}[Lusitaniae:apacheexporter]{Exports apache mod\_status statistics via HTTP for Prometheus consumption}},
+	description-en = {\hybridblockquote {english}[Lusitaniae:apacheexporter]{Exports apache mod\_status statistics via HTTP for Prometheus consumption}},
 	description-de = {Stellt \gls {apache} \texttt {mod\_status} Statistiken f\"ur die Verwendung mit \gls {prometheus} zur Verf\"ugung\autocite {Lusitaniae:apacheexporter}},
 }
 
@@ -94,7 +94,7 @@
 	name = {grok\_exporter},
 	url = {https://github.com/fstab/grok_exporter},
 	description-de = {erzeugt \gls {prometheus}[-Metriken] aus unstrukturierten Log-Dateien},
-	description-en = {\foreigntextquote {english}[fstab:grok\_exporter]{Export Prometheus metrics from arbitrary unstructured log data.}},
+	description-en = {\hybridblockquote {english}[fstab:grok\_exporter]{Export Prometheus metrics from arbitrary unstructured log data.}},
 }
 
 @software{helm,
@@ -124,8 +124,8 @@
 
 @software{k8s,
 	name = {Kubernetes},
-	description-en = {\foreigntextquote {english}[\autocite {Kubernetes:homepage}]{ Production-Grade Container Orchestration }},
-	description-de = {\foreigntextquote {german}[\autocite {Kubernetes:homepage:de}]{ Produktionsreife Container-Orchestrierung }},
+	description-en = {\hybridblockquote {english}[\autocite {Kubernetes:homepage}]{ Production-Grade Container Orchestration }},
+	description-de = {\hybridblockquote {german}[\autocite {Kubernetes:homepage:de}]{ Produktionsreife Container-Orchestrierung }},
 	url = {kubernetes.io},
 }
 
@@ -211,7 +211,7 @@
 
 @software{nginx,
 	name = {nginx},
-	description-de = {\foreigntextquote {english}[\autocite {}]{ NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. }},
+	description-de = {\hybridblockquote {english}[\autocite {}]{ NGINX is a free, open-source, high-performance HTTP server and reverse proxy, as well as an IMAP/POP3 proxy server. }},
 	url = {https://nginx.org/},
 }
 
@@ -223,8 +223,8 @@
 @acronym{php,
 	short = {PHP},
 	url = {https://www.php.net/},
-	long = {\foreigntextquote {english}[\autocite {php:faq}]{PHP: Hypertext Preprocessor}},
-	description-de = {\foreigntextquote {english}[php:homepage]{PHP is a popular general-purpose scripting language that is especially suited to web development.}},
+	long = {\hybridblockquote {english}[\autocite {php:faq}]{PHP: Hypertext Preprocessor}},
+	description-de = {\hybridblockquote {english}[php:homepage]{PHP is a popular general-purpose scripting language that is especially suited to web development.}},
 }
 
 @software{phpfpm,
@@ -245,7 +245,7 @@
 
 @entry{semver,
 	name-de = {semantische Version},
-	description-de = {Eine Versionskennung, die grob dem Schema \enquote {MAJOR.MINOR.PATCH} entspricht, wobei eine \"Anderung der \enquote {MAJOR}-Version eine inkompatible \gls {api}[-\"Anderung] anzeigt, eine \"Anderung der \enquote {MINOR}-Version von einer \foreigntextquote {english}{backwards compatible} --also eine h\"ohere \enquote {MINOR}[-Version] problemlos eine niedrigere abl\"osen kann (aber nicht umgekehrt)-- \"Anderung verusacht wird, und die Reperatur von kleinen Fehlern in einer auf- und abw\"artskompatiblen Art durch eine \"Anderung der \enquote {PATCH}[-Version] angezeigt wird. Diese Defintion stammt von \autocite {semver:2.0.0} und dort werden noch weitere Details spezifiziert},
+	description-de = {Eine Versionskennung, die grob dem Schema \enquote {MAJOR.MINOR.PATCH} entspricht, wobei eine \"Anderung der \enquote {MAJOR}-Version eine inkompatible \gls {api}[-\"Anderung] anzeigt, eine \"Anderung der \enquote {MINOR}-Version von einer \hybridblockquote {english}{backwards compatible} --also eine h\"ohere \enquote {MINOR}[-Version] problemlos eine niedrigere abl\"osen kann (aber nicht umgekehrt)-- \"Anderung verusacht wird, und die Reperatur von kleinen Fehlern in einer auf- und abw\"artskompatiblen Art durch eine \"Anderung der \enquote {PATCH}[-Version] angezeigt wird. Diese Defintion stammt von \autocite {semver:2.0.0} und dort werden noch weitere Details spezifiziert},
 	seealso = {calver},
 	parent = {versioningscheme},
 }
