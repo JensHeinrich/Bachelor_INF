@@ -1,0 +1,136 @@
+% Encoding: UTF-8
+@Entry{ocr-d,
+	description-de={Koordinierte Förderinitiative zur Weiterentwicklung von Verfahren für die Optical-Character-Recognition (OCR)},
+	name={OCR-D},
+	}
+
+@abbreviation{ocr,
+	long={Optical Character Recognition},
+	short={OCR},
+	}
+
+@Entry{goldstandard,
+  name={Goldstandard},
+  alias = {GT},
+  description-de={
+		  Als perfekt angenommene Referenz
+		  },
+}
+
+@Entry{GT,
+  description-de = {Ground Truth (W\"ortlich: Anerkannte Wahrheit) meint eine als Grundlage definierte Version gegen welche die Ergebnisse evaluiert werden k\"onnen. Im Fall von \gls{ocr-d} eine den \href{https://ocr-d.de/en/gt-guidelines/trans/}{\foreignquote{english}{Ground-Truth-Guidelines}} entsprechende Quelle, die dem entspricht, was von dem \gls{ocr}-Prozess als Ergebnis erwartet wird. },
+  name           = {Ground Truth},
+  alias={goldstandard},
+}
+
+@Entry{character_error_rate,
+	name={Zeichen-Fehler-Rate},
+	description-de={
+		Durchschnittliche Distanz der Zeichen
+		vom jeweilige Zeichen der \gls{GT}
+		 },
+}
+@Entry{word_error_rate,
+	name={Wort-Fehler-Rate},
+	description-de={
+		Durchschnittliche Distanz der W\"orter
+		vom jeweilige Wort der \gls{GT}
+		 },
+}
+
+@Entry{wagner_fischer_algorithm,
+  description-de = {
+    Der Algorithmus \autocite[Algorithmus X]{WagnerFischer1974}
+    findet die \gls{levenshtein_distance}
+    zwischen zwei W\"ortern \(w_{1}\) und \(w_{2}\)
+    unter der Beachtung einer Kostenfunktion \(\gamma\).
+    Das Vorgehen in \autocite{WagnerFischer1974} ist wie folgt:\\
+    Im nullten Schritt wird eine \(n_{1}+1\times{}n_{2}+1\) Matrix \(D\) angelegt,
+    wobei \(n_{i}\) die Anzahl der Zeichen in \(w_{i}\) ist.\\
+    Der erste Schritt initialisiert das Feld \(\left(0,0\right)\) mit \(0\),
+    der zweite Schritt die \(i\)-te Stelle der nullten Spalte
+    mit der Summe \(\sum_{k=1}^{i} \delta\left(w_{1}\left[k-1\right]\leftarrow\Lambda\right)\)
+    und der dritte Schritt die \(j\)-te Stelle der nullten Zeile
+    mit der Summe
+    \(\sum_{k=1}^{j} \delta\left(\Lambda\leftarrow{}w_{2}\left[k-1\right]\right)\).
+    Das sind im ersten Schritt die Kosten,
+    um das leere Wort \(\Lambda\)
+    in das leere Wort \(\Lambda\) zu \"uberf\"uhren,
+    im zweiten Schritt die Kosten,
+    um \(w_{1}[0:i-1]\) in das leere Wort zu \"uberf\"uhren,
+    und im dritten Schritt die Kosten,
+    um das leere Wort \(\Lambda\) in das Wort \(w_{2}\) zu \"uberf\"uhren.
+    Danach wird \"uber jedes Feld \(i\) jeder Spalte \(j\) der Matrix iteriert
+    und es werden f\"ur die Stelle \( \left(i,j\right)\) jeweils drei Kosten berechnet:\\
+    Die Kosten f\"ur eine Ersetzung
+    \(D\left(i-2,j-2\right)+\delta\left(w_{1}\left[i-1\right]\leftarrow{}w_{2}\left[j-1\right]\right)\),
+    die Kosten f\"ur eine Auslassung
+    \(D\left(i-2,j-1\right)+\delta\left(w_{1}\left[i-1\right]\leftarrow{}\Lambda\right)\)
+    und die Kosten f\"ur eine Einf\"ugung
+    \(D\left(i-1,j-2\right)+\delta\left(\Lambda\leftarrow{}w_{2}\left[j-1\right]\right)\).
+    Der minimale Wert der drei wird in die Matrix eingetragen
+    und im letzten Schritt
+    (also f\"ur \(i=n_{1},j=n_{2}\))
+    erh\"alt man die minimale Distanz zwischen den W\"ortern.
+    },
+  name           = {Wagner-Fischer-Algorithmus},
+}
+
+@Entry{levenshtein_distance,
+  description-de = { Die Levensthein-Distanz
+	    zwischen zwei (Code-)W\"ortern,
+	    ist die minimale Anzahl von Zeichen,
+	    die ersetzt (\foreigntextquote{english}[\autocite{Levenshtein1966}]{reversal}),
+	    gel\"oscht (\foreigntextquote{english}[\autocite{Levenshtein1966}]{deletion}),
+	    bzw.\ hinzugef\"ugt
+	    (\foreigntextquote{english}[\autocite{Levenshtein1966}]{insertion})
+	    werden m\"ussen,
+	    um eines der Worte in das andere zu \"uberf\"uhren.\\
+	    Dies ist symmetrisch,
+	    da eine Ersetzung in beide Richtungen eine Ersetzung erfordert
+	    und jede L\"oschung einem Hinzuf\"ugen in die andere Richtung entspricht.
+	    Sie beruht auf dem Artikel~\autocite{Levenshtein1966}
+	    von \citeauthor{Levenshtein1966},
+	    in dem er \"uber eine Klasse von \glspl{code} schreibt,
+	    die auch solche St\"orungen korrigieren k\"onnen.
+	    },
+  name           = {Levenshtein-Distanz},
+}
+
+@Entry{code,
+	name={Code},
+	description-de={
+	Ein \emph{\gls{alphabet}}
+	\( \glssymbol{alphabet} \)
+	ist eine Menge von Zeichen
+	und ein \emph{\gls{code}}
+	\( \glssymbol{code} \)
+	von \emph{L\"ange}
+	\( n \)
+	ist eine Teilmenge von
+	\( \glssymbol{alphabet}^n\)
+	\autocite{PriesMalmskog2008}
+	{\autocite[1.1,1.2,]{Walker1999}}
+	{\autocite[2.1]{Heinrich2019thesis}}
+	},
+}
+
+@Entry{xml,
+	short={XML},
+	long={Extensible Markup Language},
+	description-de={
+		 \foreigntextquote{english}[\autocite{w3:xml}]{%
+		 The Extensible Markup Language (XML) is a subset of SGML that is completely described in this document%
+		 }
+	},
+}
+
+@Entry{open-access,
+	name={Open-Access},
+	description-de={
+		\textquote[\autocite{BOAI:german}]{%
+		Open access meint, dass diese Literatur kostenfrei und öffentlich im Internet zugänglich sein sollte, so dass Interessierte die Volltexte lesen, herunterladen, kopieren, verteilen, drucken, in ihnen suchen, auf sie verweisen und sie auch sonst auf jede denkbare legale Weise benutzen können, ohne finanzielle, gesetzliche oder technische Barrieren jenseits von denen, die mit dem Internet-Zugang selbst verbunden sind%
+		}
+	},
+}
+@Comment{jabref-meta: databaseType:bibtex;}
