@@ -1,0 +1,31 @@
+---
+repos:
+  - repo: https://github.com/nschloe/betterbib/
+    rev: "90e2a596523aa26934a6e9693618f467885d7382"
+    hooks:
+      - id: betterbib-format
+        args:
+          - "--sort-by-bibkey"
+          - "--tab-indent"
+  - repo: https://github.com/jonasbb/pre-commit-latex-hooks
+    rev: 7113aa5e91499b4850dafecb31bf7450855e501d
+    hooks:
+      - id: csquotes
+      - id: tilde-cite
+        # - id: ensure-labels-for-sections
+      - id: cispa-syssec-forbidden-words
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 7eb0512c687ed3502fea11bae9b5ad0f657eb8ef
+    hooks:
+      - id: check-merge-conflict
+      - id: check-yaml
+        exclude: "listings/.*"
+      - id: trailing-whitespace
+        files: ".*\\.(?:tex|py)$"
+  - repo: https://github.com/perltidy/perltidy
+    rev: "20210717.03"
+    hooks:
+      - id: perltidy
+        files: ".latexmkrc"
+        types:
+          - text
