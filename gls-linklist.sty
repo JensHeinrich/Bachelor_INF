@@ -1,0 +1,27 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{gls-linklist}[2021/08/12 1.0.0 Glossary Style linklist]
+
+\RequirePackage[
+]{glossaries-extra}
+
+\newglossarystyle{linklist}% style name
+{%
+   \setglossarystyle{list}% use list as base
+   % % main entries :
+   \renewcommand*{\glossentry}[2]{%
+   \item[\glsentryitem{##1}%
+      \glstarget{##1}{\glossentryname{##1}}]
+      \glsxtrifhasfield{useri}{##1}{%
+         \url{\glscurrentfieldvalue}%
+         \vspace{2cm}%
+         \marginnote{%
+            \qrcode[%
+               height=1.5cm,%
+            ]{\glscurrentfieldvalue}%
+         }%
+         }{% false
+      }%
+   }%
+}
+
+\endinput
