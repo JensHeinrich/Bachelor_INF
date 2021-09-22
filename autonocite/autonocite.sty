@@ -1,0 +1,25 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{autonocite}[2021/08/12 1.0.0 Auto-No-Cite]
+
+\RequirePackage{biblatex}
+\RequirePackage{xparse}
+
+% Load internal citaions
+\addbibresource{autonocite.bib}%
+
+% Declare the macro
+\NewDocumentCommand{% command
+	\autonocite%
+	}{% args
+	m % mandatory
+	}{% definition
+	\AtEndDocument{%
+		\nocite{#1}
+	}
+}
+
+% cite internal sources
+\autonocite{overleaf:Writing_your_own_package}
+\autonocite{newbedev:LaTeXPackage}
+
+\endinput
