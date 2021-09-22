@@ -1,0 +1,42 @@
+% gitversion.sty
+% !TEX root = projektbericht.tex
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{gitversion}[2021/08/13 1.0.0 gitversion]
+
+
+\RequirePackage{autonocite}
+
+% Load internal citaions
+\addbibresource{gitversion.bib}%
+
+% https://www.adityabasu.me/blog/2019/07/resume-with-git-sha-version/
+\autonocite{BasuVersioning}%
+% https://tex.stackexchange.com/questions/377118/read-a-file-and-store-its-contents-in-a-variable
+\autonocite{stack:tex:filetovar}
+% https://tex.stackexchange.com/questions/88614/how-do-you-detect-restricted-write18-support
+\autonocite{stack:tex:checkwrite18}
+
+% Check if write18 is supported
+\RequirePackage{pdftexcmds}
+
+\ifcase\pdf@shellescape
+  \message{No shell escape}\or
+  \message{Unrestricted shell escape}\or
+  \message{Restricted shell escape}\fi
+
+% Store the command output in a temporary file
+\immediate\write18{git rev-parse --short HEAD > gitrefhead}
+
+% Read the git version
+\newread\gitversionfile
+\openin\gitversionfile=gitrefhead
+    \read\gitversionfile to\gitversion
+\closein\gitversionfile
+
+% Use the output
+% \input{gitrefhead}
+
+\AtEndDocument{%
+   % Remove the temporary file
+   \immediate\write18{rm gitrefhead}%
+}
