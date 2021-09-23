@@ -151,3 +151,27 @@
   type={blackaluminuiumfoxpresentation},
   selection={recorded and deps},
 ]
+
+\newglossary*{ocrd}{Glossar --- Project Hocco}
+
+\GlsXtrLoadResources[
+  src={%
+    glossaries/projecthocco.bib%
+  },
+  sort={de-DE},
+  sort-field={category},
+  entry-type-aliases={%
+    software = entry,%
+    repo = entry,%
+  },
+  replicate-fields={%
+    description-de=description,%
+    text-de=text,%
+    name-de=name,%
+    plural-de=plural,%
+    url=user1,%
+    short=name,%
+  }, % optionally copy the values
+  type={blackaluminuiumfoxpresentation},
+  selection={recorded and deps},
+]
