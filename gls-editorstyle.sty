@@ -1,0 +1,31 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{gls-editorstyle}[2021/08/23 1.0.0 Glossaries-extra editorstyle]
+
+% % define custom glossary style
+\newglossarystyle{editorstyle}% style name
+{%
+   \setglossarystyle{list}% use list as base
+   % % main entries :
+   \renewcommand*{\glossentry}[2]{%
+   \item[\glsentryitem{##1}%
+     %\glstarget{##1}{\glossentryname{##1}}%
+      ]
+     \glossentryname{##1}%
+      \\
+      \glsentrydesc{##1}\\
+      \glsxtrifhasfield{useri}{##1}{%
+         Homepage: \url{\glscurrentfieldvalue}\\%
+         \marginnote{%
+            \qrcode[%
+               height=1.5cm,%
+            ]{\glscurrentfieldvalue}%
+         }%
+         }{% false
+      }%
+			letzte Aktualisierung: {\glsentryuserii{##1}}\\
+			Vorschau: {\glsentryuseriii{##1}}\\
+			Offline-Nutzbarkeit: {\glsentryuseriv{##1}} \\
+			Mehrbenutzerfähigkeit: {\glsentryuserv{##1}} \\
+			\gls{foss}: {\glsentryuservi{##1}}
+   }%
+}
