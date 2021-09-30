@@ -25,6 +25,92 @@
 \glssetcategoryattribute{k8sstate}{textformat}{texttt}
 \GlsDeclareNoHyperList{k8sstate}% suppress links for these types
 
+
+\usepackage{gls-editorstyle}
+
+\GlsXtrLoadResources[
+   src={%
+      glossaries/editors%
+   },%
+   sort={de-DE},%
+   field-aliases={%
+      %description-de=description%
+   },% load german description
+   entry-type-aliases={%
+      editor=entry,%
+   },% use software entries
+   flatten-lonely=presort,
+   flatten-lonely-rule={discard unrecorded},
+   description-case-change={firstuc},
+   replicate-fields={%
+      description-de=description,%
+      %long=name,%
+      url=user1,%
+      last-commit=user2,%
+      preview=user3,%
+      offline=user4,%
+      multiuser=user5,%
+      foss=user6,%
+   }, % optionally copy the values
+   type={editors},
+   selection={all},
+   %label-prefix={ocrd.},
+   secondary={de-DE:lable:ocrd-index},
+]
+
+\newglossary*{software}{Software-Versionen}
+
+\GlsXtrLoadResources[
+   src={%
+      glossaries/blackaluminuiumfox,%
+      glossaries/software%
+   },%
+   sort={en-GB},% sort according to 'en-GB' locale
+   field-aliases={%
+      description-de=description%
+   },% load german description
+   entry-type-aliases={%
+      software=index,%
+   },% needed for bib2gls to recognize entries
+   replicate-fields={%
+      description-de=description,%
+      %url=long,
+      %url=description,
+      %name=short,
+      url=user1,%
+   }, % optionally copy the values
+   category={same as original entry},
+   type={software},
+   selection={recorded and deps and see},
+   match={%
+      entrytype=software,%
+   },%
+]
+
+\newignoredglossary*{licenses}%{Lizenzen}
+
+\GlsXtrLoadResources[
+   src={%
+      glossaries/software,%
+      glossaries/licenses%
+   },% data in entries.bib
+   sort={de-DE},% sort according to 'en-GB' locale
+   field-aliases={%
+   },% load german description
+    %flatten-lonely=presort,%
+    %flatten-lonely-rule={discard unrecorded},%
+    entry-type-aliases={%
+       license=index,%
+    },% needed for bib2gls to recognize entries
+    replicate-fields={%
+       %name=short,% use short style for abbreviations
+         url=user1,%
+    }, % optionally copy the values
+    category={same as original entry},
+    type={licenses},
+    selection={recorded and deps},
+]
+
 \newglossary*{blackaluminuiumfox}{Glossar --- BlackAlumniumFox}
 
 \GlsXtrLoadResources[
