@@ -1,0 +1,51 @@
+\documentclass[
+enable-debug,
+debug,
+german,
+showframe,
+]{t3_3000}
+
+\title{Ein Titel}
+\author{Ein Name}
+\email{something@somewhere.tld}
+\company{ACME Corp.}
+
+\usepackage{lipsum}
+\usepackage{csquotes}
+\usepackage{babel}
+
+
+\setlength{\columnseprule}{2pt}
+
+\addbibresource{t3_3000_technical.bib}
+
+\begin{document}
+
+\maketitle
+
+% change the abstract
+\renewenvironment{abstract}{%
+  \quotation
+  \footnotesize
+  \textbf{\textit{\abstractname.}} % with a normal space
+}{\endquotation}\abstract{An example abstract}
+
+\begin{abstract}
+	An example abstract environment
+
+\end{abstract}
+
+\section{Header}
+
+\subsection{Subheader}
+
+\section{Style}
+
+\lipsum[5-10]
+
+\section{Umfang}
+Der Umfang der Arbeit sollte 3-7 Seiten betragen \autocite[Abschnitt 5.2]{FKT:Leitlinien:2021}
+
+\printbibliography
+
+\end{document}
