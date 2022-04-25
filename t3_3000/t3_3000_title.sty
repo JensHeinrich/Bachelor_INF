@@ -1,5 +1,5 @@
 \RequirePackage{expl3}
-\ProvidesExplClass{t3_3000_title}{2022/04/19}{1.0.0}{Package to create a the title matching the requirements of the t3_3000 for DHBW mannheim's informatics courses}
+\ProvidesExplClass{t3_3000_title}{2022/04/25}{1.0.1}{Package to create a the title matching the requirements of the t3_3000 for DHBW mannheim's informatics courses}
 
 % the fontsizes are declared from the table here
 % https://latex-tutorial.com/changing-font-size/
@@ -15,8 +15,8 @@
 	{%
 		\bf
 		\Large
-		\__jensheinrich_tthree_threethousand_check_before_use_str:n {%
-			\l__jensheinrich_tthree_threethousand_title_str
+		\__jensheinrich_tthree_threethousand_check_before_use_tl:n {%
+			\l__jensheinrich_tthree_threethousand_title_tl
 		}
 	}
 	\par
@@ -24,25 +24,25 @@
 	\par
 	{
 		\bf
-		\__jensheinrich_tthree_threethousand_check_before_use_str:n {%
-			\l__jensheinrich_tthree_threethousand_author_str
+		\__jensheinrich_tthree_threethousand_check_before_use_tl:n {%
+			\l__jensheinrich_tthree_threethousand_author_tl
 		}
 	}
 		\par
 	{%
 		\small
-		\__jensheinrich_tthree_threethousand_check_before_use_str:n {%
-			\l__jensheinrich_tthree_threethousand_matrikelnr_str
+		\__jensheinrich_tthree_threethousand_check_before_use_tl:n {%
+			\l__jensheinrich_tthree_threethousand_matrikelnr_tl
 		},
-		\__jensheinrich_tthree_threethousand_check_before_use_str:n {%
-			\l__jensheinrich_tthree_threethousand_company_str
+		\__jensheinrich_tthree_threethousand_check_before_use_tl:n {%
+			\l__jensheinrich_tthree_threethousand_company_tl
 		}
 	}
 		\par
 	{
 		\small
-		\__jensheinrich_tthree_threethousand_check_before_use_str:n {%
-			\l__jensheinrich_tthree_threethousand_email_str
+		\__jensheinrich_tthree_threethousand_check_before_use_tl:n {%
+			\l__jensheinrich_tthree_threethousand_email_tl
 		}
 	}
 	\vspace{.5cm}

@@ -1,5 +1,5 @@
 \RequirePackage{expl3}
-\ProvidesExplClass{t3_3000}{2022/04/13}{1.0.0}{Class to create a document matching the requirements of the tthree_threethousand for DHBW mannheim's informatics courses}
+\ProvidesExplClass{t3_3000}{2022/04/25}{1.0.1}{Class to create a document matching the requirements of the tthree_threethousand for DHBW mannheim's informatics courses}
 
 % \debug_on:n {all}
 
@@ -11,12 +11,12 @@ twocolumn,
 
 \msg_new:nnnn {t3_3000} {debug} {#1 #2 #3 } {}
 
-\str_const:Nn \c__jensheinrich_tthree_threethousand_prefix {__jensheinrich_tthree_threethousand}
+\tl_const:Nn \c__jensheinrich_tthree_threethousand_prefix {__jensheinrich_tthree_threethousand}
 
 \cs_new_nopar:cpn {
 	__jensheinrich_tthree_threethousand
-_create_str_with_defaults_and_description
-\str_use:N \c_colon_str
+_create_tl_with_defaults_and_description
+\tl_use:N \c_colon_str
 nnnn
 }
  #1% name
@@ -24,115 +24,115 @@ nnnn
  #3% default
  {
 
-	 % create string variable
-	 \str_new:c {%
+	 % create tling variable
+	 \tl_new:c {%
 		 l% local
 		 \c__jensheinrich_tthree_threethousand_prefix % prefix
 		 _
 		 #1 % name
-		 _str % type
+		 _tl % type
 	 }
 
 	 % create default
-	 \str_const:cn {%
+	 \tl_const:cn {%
 		 c %constant
 		 \c__jensheinrich_tthree_threethousand_prefix % prefix
 		 _
 		 #1 % name
-		 _str % type
+		 _tl % type
 		 _default % suffix to mark default values
 	 }
 	 {#3}
 
 	 % create description
-	 \str_const:cn {%
+	 \tl_const:cn {%
 		 c %constant
 		 \c__jensheinrich_tthree_threethousand_prefix % prefix
 		 _
 		 #1 % name
-		 _str % type
+		 _tl % type
 		 _description % suffix to mark description values
 	 } {#2}
 
 	 % set default value
-	 \str_set_eq:cc
+	 \tl_set_eq:cc
 	 {
 		 l% local
 		 \c__jensheinrich_tthree_threethousand_prefix % prefix
 		 _
 		 #1 % name
-		 _str % type
+		 _tl % type
 	 }
 	 {
 		 c %constant
 		 \c__jensheinrich_tthree_threethousand_prefix % prefix
 		 _
 		 #1 % name
-		 _str % type
+		 _tl % type
 		 _default % suffix to mark default values
 	 }
  }
 
 
-\__jensheinrich_tthree_threethousand_create_str_with_defaults_and_description:nnnn
+\__jensheinrich_tthree_threethousand_create_tl_with_defaults_and_description:nnnn
 	{email}
 	{Mail adress}
 	{SomeOne@SomeDomain.TLD}
 
-\__jensheinrich_tthree_threethousand_create_str_with_defaults_and_description:nnnn
+\__jensheinrich_tthree_threethousand_create_tl_with_defaults_and_description:nnnn
 	{author}
 	{Author name}
 	{An Assigned Author}
 
-\__jensheinrich_tthree_threethousand_create_str_with_defaults_and_description:nnnn
+\__jensheinrich_tthree_threethousand_create_tl_with_defaults_and_description:nnnn
 	{company}
 	{company name}
 	{ACME Corp.}
 
-\__jensheinrich_tthree_threethousand_create_str_with_defaults_and_description:nnnn
+\__jensheinrich_tthree_threethousand_create_tl_with_defaults_and_description:nnnn
 	{title}
 	{title}
 	{A weird title}
 
-\__jensheinrich_tthree_threethousand_create_str_with_defaults_and_description:nnnn
+\__jensheinrich_tthree_threethousand_create_tl_with_defaults_and_description:nnnn
 	{matrikelnr}
 	{matrikelno}
-	{123 456 789}
+	{123~456~789}
 
 % create variables
-%\str_new:N \l__jensheinrich_tthree_threethousand_email_str
-%\str_new:N \l__jensheinrich_tthree_threethousand_company_str
-%\str_new:N \l__jensheinrich_tthree_threethousand_author_str
-%\str_new:N \l__jensheinrich_tthree_threethousand_title_str
-%\str_new:N \l__jensheinrich_tthree_threethousand_matrikelnr_str
+%\tl_new:N \l__jensheinrich_tthree_threethousand_email_tl
+%\tl_new:N \l__jensheinrich_tthree_threethousand_company_tl
+%\tl_new:N \l__jensheinrich_tthree_threethousand_author_tl
+%\tl_new:N \l__jensheinrich_tthree_threethousand_title_tl
+%\tl_new:N \l__jensheinrich_tthree_threethousand_matrikelnr_tl
 
 % create default values
-%\str_const:Nn \l__jensheinrich_tthree_threethousand_email_str_default {SomeOne@SomeDomain.TLD}
-% \str_const:Nn \l__jensheinrich_tthree_threethousand_company_str_default {ACME Corp.}
-% \str_const:Nn \l__jensheinrich_tthree_threethousand_author_str_default {An Assigned Author}
-% \str_const:Nn \l__jensheinrich_tthree_threethousand_title_str_default {A weird title}
-% \str_const:Nn \l__jensheinrich_tthree_threethousand_matrikelnr_str_default {123 456 789}
+%\tl_const:Nn \l__jensheinrich_tthree_threethousand_email_tl_default {SomeOne@SomeDomain.TLD}
+% \tl_const:Nn \l__jensheinrich_tthree_threethousand_company_tl_default {ACME Corp.}
+% \tl_const:Nn \l__jensheinrich_tthree_threethousand_author_tl_default {An Assigned Author}
+% \tl_const:Nn \l__jensheinrich_tthree_threethousand_title_tl_default {A weird title}
+% \tl_const:Nn \l__jensheinrich_tthree_threethousand_matrikelnr_tl_default {123 456 789}
 
 % assign default values
-% \str_set_eq:NN \l__jensheinrich_tthree_threethousand_email_str \l__jensheinrich_tthree_threethousand_email_str_default
-% \str_set_eq:NN \l__jensheinrich_tthree_threethousand_company_str \l__jensheinrich_tthree_threethousand_company_str_default
-% \str_set_eq:NN \l__jensheinrich_tthree_threethousand_author_str \l__jensheinrich_tthree_threethousand_author_str_default
-% \str_set_eq:NN \l__jensheinrich_tthree_threethousand_title_str \l__jensheinrich_tthree_threethousand_title_str_default
-% \str_set_eq:NN \l__jensheinrich_tthree_threethousand_matrikelnr_str \l__jensheinrich_tthree_threethousand_matrikelnr_str_default
+% \tl_set_eq:NN \l__jensheinrich_tthree_threethousand_email_tl \l__jensheinrich_tthree_threethousand_email_tl_default
+% \tl_set_eq:NN \l__jensheinrich_tthree_threethousand_company_tl \l__jensheinrich_tthree_threethousand_company_tl_default
+% \tl_set_eq:NN \l__jensheinrich_tthree_threethousand_author_tl \l__jensheinrich_tthree_threethousand_author_tl_default
+% \tl_set_eq:NN \l__jensheinrich_tthree_threethousand_title_tl \l__jensheinrich_tthree_threethousand_title_tl_default
+% \tl_set_eq:NN \l__jensheinrich_tthree_threethousand_matrikelnr_tl \l__jensheinrich_tthree_threethousand_matrikelnr_tl_default
 %
 % assign command names
-\str_const:Nn \l__jensheinrich_tthree_threethousand_email_str_cmd {email}
-\str_const:Nn \l__jensheinrich_tthree_threethousand_company_str_cmd {company}
-\str_const:Nn \l__jensheinrich_tthree_threethousand_author_str_cmd {author}
-\str_const:Nn \l__jensheinrich_tthree_threethousand_title_str_cmd {title}
-\str_const:Nn \l__jensheinrich_tthree_threethousand_matrikelnr_str_cmd {matrikelnr}
+\tl_const:Nn \l__jensheinrich_tthree_threethousand_email_tl_cmd {email}
+\tl_const:Nn \l__jensheinrich_tthree_threethousand_company_tl_cmd {company}
+\tl_const:Nn \l__jensheinrich_tthree_threethousand_author_tl_cmd {author}
+\tl_const:Nn \l__jensheinrich_tthree_threethousand_title_tl_cmd {title}
+\tl_const:Nn \l__jensheinrich_tthree_threethousand_matrikelnr_tl_cmd {matrikelnr}
 
 % assign descriptions
-%\str_const:Nn \l__jensheinrich_tthree_threethousand_email_str_description {email}
-% \str_const:Nn \l__jensheinrich_tthree_threethousand_company_str_description {company}
-% \str_const:Nn \l__jensheinrich_tthree_threethousand_author_str_description {author}
-% \str_const:Nn \l__jensheinrich_tthree_threethousand_title_str_description {title}
-% \str_const:Nn \l__jensheinrich_tthree_threethousand_matrikelnr_str_description {matrikelnr}
+%\tl_const:Nn \l__jensheinrich_tthree_threethousand_email_tl_description {email}
+% \tl_const:Nn \l__jensheinrich_tthree_threethousand_company_tl_description {company}
+% \tl_const:Nn \l__jensheinrich_tthree_threethousand_author_tl_description {author}
+% \tl_const:Nn \l__jensheinrich_tthree_threethousand_title_tl_description {title}
+% \tl_const:Nn \l__jensheinrich_tthree_threethousand_matrikelnr_tl_description {matrikelnr}
 
 
 
@@ -140,66 +140,67 @@ nnnn
 \msg_new:nnnn
 	{t3_3000} % module
 	{undefined} % message name
-{#1~has~not~been~defined.~Please~set~it~using~\str_use:N \c_backslash_str #2} % main message
+{#1~has~not~been~defined.~Please~set~it~using~\tl_use:N \c_backslash_tl #2} % main message
 	{The~default~value~of~\use:c{#1}~will~be~used~for~#1} % additional text
 
 %
 \DeclareDocumentCommand{\email}{%
 	m% mail address
 }{%
-	\str_set:Nn \l__jensheinrich_tthree_threethousand_email_str {#1}
+	\tl_set:Nn \l__jensheinrich_tthree_threethousand_email_tl {#1}
 }
 %
 \DeclareDocumentCommand{\company}{%
 	m% company name
 }{%
-	\str_set:Nn \l__jensheinrich_tthree_threethousand_company_str {#1}
+	\tl_set:Nn \l__jensheinrich_tthree_threethousand_company_tl {#1}
 }
 
 \DeclareDocumentCommand{\author}{%
 	m% author name
 }{%
-	\str_set:Nn \l__jensheinrich_tthree_threethousand_author_str {#1}
+	\tl_set:Nn \l__jensheinrich_tthree_threethousand_author_tl {#1}
 }
 
 \DeclareDocumentCommand{\title}{%
 	m% title
 }{%
-	\str_set:Nn \l__jensheinrich_tthree_threethousand_title_str {#1}
+	\tl_set:Nn \l__jensheinrich_tthree_threethousand_title_tl {#1}
 }
 
 \DeclareDocumentCommand{\matrikelnr}{%
 	m% student matrikelno
 }{%
-	\str_set:Nn \l__jensheinrich_tthree_threethousand_matrikelnr_str {#1}
+	\tl_set:Nn \l__jensheinrich_tthree_threethousand_matrikelnr_tl {#1}
 }
 
 % helper
 
-\cs_new:Npn \__jensheinrich_tthree_threethousand_check_before_use_str:n
-#1% string command to check
+\cs_new:Npn \__jensheinrich_tthree_threethousand_check_before_use_tl:n
+#1% tling command to check
 {%
 
-\str_set:Nn \l_tmpa_str {\cs_to_str:N #1 _default }
+\tl_set:Nn \l_tmpa_tl {\cs_to_tl:N #1 _default }
 
-	\str_replace_once:Nnn
-		\l_tmpa_str
+	\tl_replace_once:Nnn
+		\l_tmpa_tl
 		{l}
 		{c}
 
-	\str_if_eq:cNT {#1} \l_tmpa_str
+	\tl_if_eq:cNT {#1} \l_tmpa_tl
 	{% True
 		\msg_warning:nnxx
 			{t3_3000}
 			{undefined}
-			{\use:c { \cs_to_str:N #1 _description}}
-			{\use:c { \cs_to_str:N #1 _cmd}}
+			{\use:c { \cs_to_tl:N #1 _description}}
+			{\use:c { \cs_to_tl:N #1 _cmd}}
 	}
 
-	\str_use:N #1
+	\tl_use:N #1
 }
 
 \RequirePackage{t3_3000_title}
+\RequirePackage{t3_3000_declaration}
 
 \RequirePackage[
 left=0.75in,
