@@ -1,0 +1,169 @@
+\RequirePackage{expl3}
+\ProvidesExplClass{bibdriver_url_in_qrcode}{2022/04/26}{1.0.0}{Bibdriver to show the url of an entry as a qrcode in the margin}
+
+% load packages for driver
+\RequirePackage{etoolbox}
+\RequirePackage{qrcode}
+\RequirePackage{marginnote}
+\RequirePackage{biblatex}
+\RequirePackage{tcolorbox}
+\RequirePackage{xparse}
+
+\dim_new:N \l__jensheinrich_bibdriver_url_in_qrcode_min_bib_heigth_dim
+\dim_new:N \l__jensheinrich_bibdriver_url_in_qrcode_qrcode_min_height_dim
+\dim_new:N \l__jensheinrich_bibdriver_url_in_qrcode_qrcode_min_width_dim
+
+\dim_set:Nn \l__jensheinrich_bibdriver_url_in_qrcode_min_bib_heigth_dim {2cm}
+\dim_set:Nn \l__jensheinrich_bibdriver_url_in_qrcode_qrcode_min_height_dim {1.5cm}
+\dim_set:Nn \l__jensheinrich_bibdriver_url_in_qrcode_qrcode_min_width_dim {1.5cm}
+
+
+\int_zero_new:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int
+
+\dim_new:N \l__jensheinrich_bibdriver_url_in_qrcode_bibentry_content_height_dim
+\dim_new:N \l__jensheinrich_bibdriver_url_in_qrcode_bibentry_missing_height_dim
+
+\coffin_new:N \l__jensheinrich_bibdriver_url_in_qrcode_bibentry_coffin
+\coffin_new:N \l__jensheinrich_bibdriver_url_in_qrcode_bibentry_filler_coffin
+
+
+
+\DeclareDocumentEnvironment {minheightbox}
+{
+	% arguments
+	m % height
+	%b+ % content
+}
+{
+
+	\coffin_clear:N
+	\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_coffin
+
+	\coffin_clear:N
+	\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_filler_coffin
+
+	% start code
+	\vcoffin_set:Nnw
+	\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_coffin
+	{
+		\linewidth
+	}
+
+}
+{
+	% end code
+	\vcoffin_set_end:
+
+	% calculate current height
+	\dim_set:Nn
+	\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_content_height_dim
+	{
+		\dim_eval:n {
+			\coffin_dp:N
+			\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_coffin
+			+
+			\coffin_ht:N
+			\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_coffin
+		}
+	}
+
+	% calculate the still needed height
+	\dim_set:Nn
+	\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_missing_height_dim
+	{
+	\dim_max:nn {
+		\dim_eval:n {
+		\l__jensheinrich_bibdriver_url_in_qrcode_min_bib_heigth_dim
+		-
+		\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_content_height_dim
+		}
+	}
+	{
+		% if the needed height is negative, fall back to 0
+		\c_zero_dim
+	}
+	}
+
+
+	\dim_set:Nn \l_tmpb_dim
+	{
+		\coffin_wd:N
+		\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_coffin
+	}
+
+	\coffin_typeset:Nnnnn
+		\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_coffin
+	{
+	l
+}
+	{
+	T % align with baseline of top content
+}
+		{0pt}
+		{0pt}
+
+	% debugging
+% 	\coffin_log_structure:N
+% 		\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_coffin
+%
+%  	\coffin_display_handles:Nn
+%  		\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_filler_coffin
+%  		{red}
+%
+% 	\coffin_display_handles:Nn
+% 		\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_coffin
+% 		{blue}
+%
+
+}
+
+\renewbibmacro*{begentry}{
+	\int_incr:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int
+	\int_compare:nNnT
+	{\int_use:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int}
+	=
+	{1}
+	{
+		\begin{minheightbox}{
+				\dim_use:N
+				\l__jensheinrich_bibdriver_url_in_qrcode_min_bib_heigth_dim
+			}
+		}
+	}
+
+\renewbibmacro*{finentry}{
+		\int_compare:nNnT
+		{\int_use:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int}
+		=
+		{1}
+		{
+		\end{minheightbox}
+	\vspace*{
+		\dim_use:N
+	\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_missing_height_dim
+	}\bigskip
+% https://tex.stackexchange.com/questions/630213/put-an-xcoffin-around-an-environments-content
+	}
+	\int_decr:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int
+}
+
+
+% \DeclareFieldFormat{url}{%
+% 	\url{#1}%
+% 	\marginpar{\qrcode{#1}}%
+% }
+
+% \AtEveryBibitem{%
+% 	\iffieldundef{url}{%
+% 	}{% NOOP for no URL
+% 		\marginpar{%
+% 		\vskip0pt%
+% 			%\vskip0.5\bibqrcodesize%
+% 			\hskip-\bibqrcodesize%
+% 			\qrcode[nolink,%
+% 			height=\bibqrcodesize]{\strfield{urlraw}}%
+% 		}%
+% 			%\marginpar{\vskip\qrcode[nolink,height=1.5cm]{\strfield{urlraw}}}%
+% 		%\marginnote{\qrcode[nolink,height=\bibqrcodesize]{\strfield{urlraw}}}%
+% 	}
+% }
