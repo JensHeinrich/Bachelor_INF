@@ -1,5 +1,5 @@
 \RequirePackage{expl3}
-\ProvidesExplClass{t3_3000}{2022/04/25}{1.0.1}{Class to create a document matching the requirements of the tthree_threethousand for DHBW mannheim's informatics courses}
+\ProvidesExplClass{t3_3000}{2022/04/25}{1.0.2}{Class to create a document matching the requirements of the tthree_threethousand for DHBW mannheim's informatics courses}
 
 % \debug_on:n {all}
 
@@ -220,8 +220,9 @@ nomarginpar,
 
 %\setlength{\columnsep}{\dimexpr(3.313in-3.688in)}
 
-\RequirePackage{biblatex}
 % set the required citation style
 \PassOptionsToPackage{
-	authoryear,
+	style=alphabetic,
 }{biblatex}
+
+\RequirePackage{biblatex}
