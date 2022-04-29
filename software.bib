@@ -1,5 +1,9 @@
 %comment{This file was created with betterbib v4.0.0.}
 
+@preamble{
+"\RequirePackage{csquotes}",
+"\RequirePackage{babel}"
+	}
 
 @software{abbyfinereader,
 	name = {ABBYY FineReader},
@@ -313,6 +317,24 @@
 	description-de = {Monitoring L\"osung der Icinga GmbH},
 }
 
+@software{jinja2,
+	url = {https://jinja.palletsprojects.com/en/3.1.x/},
+	description-en = {\foreigntextquote{english}{Jinja is a fast, expressive, extensible templating engine. Special placeholders in the template allow writing code similar to Python syntax. Then the template is passed data to render the final document.}},
+	name = {Jinja},
+	description-de = {erweiterbare \gls{python} \gls{templating-engine}},
+	version = {3.1.x},
+}
+
+@software{python,
+	name={Python},
+	url = {https://www.python.org/},
+}
+
+@entry{templating-engine,
+	name = {Templating Engine},
+	description-de = {Software zum Erzeugen von Text oder Objekten aus Vorlagen},
+}
+
 @jinja2var{j2:ansible:distribution,
 	name = {ansible\_distribution},
 }
@@ -357,4 +379,17 @@
 @software{traefik,
 	name = {Traefik},
 	url = {https://traefik.io/traefik/},
+}
+
+@software{molecule,
+	name = {Ansible Molecule},
+	url = {https://github.com/ansible-community/molecule},
+	description-de = {Ein Projekt zur Unterstützung der Entwicklung und des Testens von \glspl{ansible:role}},
+	license = {MIT},
+}
+
+@role{role:dfn:aai:shibboleth:idp,
+	url = {https://jugit.fz-juelich.de/dfn/dfn-aai-shibboleth-idp},
+	name = {dfn-aai-shibboleth-idp},
+	license =  {GNU AGPLv3},
 }
