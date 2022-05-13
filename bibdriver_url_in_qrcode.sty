@@ -9,6 +9,12 @@
 \RequirePackage{tcolorbox}
 \RequirePackage{xparse}
 
+\bool_new:N \l__jensheinrich_bibdriver_url_in_qrcode_show_qr_code_bool
+\keys_define:nn {bibdriver_url_in_qrcode}
+{
+	show-qr-code-in-bibliography .bool_set:N = \l__jensheinrich_bibdriver_url_in_qrcode_show_qr_code_bool,
+}
+
 \dim_new:N \l__jensheinrich_bibdriver_url_in_qrcode_min_bib_heigth_dim
 \dim_new:N \l__jensheinrich_bibdriver_url_in_qrcode_qrcode_min_height_dim
 \dim_new:N \l__jensheinrich_bibdriver_url_in_qrcode_qrcode_min_width_dim
@@ -117,34 +123,37 @@
 
 }
 
-\renewbibmacro*{begentry}{
-	\int_incr:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int
-	\int_compare:nNnT
-	{\int_use:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int}
-	=
-	{1}
-	{
-		\begin{minheightbox}{
-				\dim_use:N
-				\l__jensheinrich_bibdriver_url_in_qrcode_min_bib_heigth_dim
-			}
-		}
-	}
-
-\renewbibmacro*{finentry}{
+\bool_if:nT \l__jensheinrich_bibdriver_url_in_qrcode_show_qr_code_bool
+{
+	\renewbibmacro*{begentry}{
+		\int_incr:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int
 		\int_compare:nNnT
 		{\int_use:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int}
 		=
 		{1}
 		{
-		\end{minheightbox}
-	\vspace*{
-		\dim_use:N
-	\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_missing_height_dim
-	}\bigskip
-% https://tex.stackexchange.com/questions/630213/put-an-xcoffin-around-an-environments-content
+			\begin{minheightbox}{
+					\dim_use:N
+					\l__jensheinrich_bibdriver_url_in_qrcode_min_bib_heigth_dim
+				}
+			}
+		}
+
+		\renewbibmacro*{finentry}{
+			\int_compare:nNnT
+			{\int_use:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int}
+			=
+			{1}
+			{
+			\end{minheightbox}
+			\vspace*{
+				\dim_use:N
+				\l__jensheinrich_bibdriver_url_in_qrcode_bibentry_missing_height_dim
+			}\bigskip
+			% https://tex.stackexchange.com/questions/630213/put-an-xcoffin-around-an-environments-content
+		}
+		\int_decr:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int
 	}
-	\int_decr:N \g__jensheinrich_bibdriver_url_in_qrcode_entrydepth_int
 }
 
 
