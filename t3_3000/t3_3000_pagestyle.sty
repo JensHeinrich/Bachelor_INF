@@ -1,0 +1,24 @@
+\RequirePackage{expl3}
+\ProvidesExplClass{t3_3000_pagestyle}{2022/05/13}{1.0.0}{Package to create a the pagestyle including footers and headers matching the requirements of the t3_3000 for DHBW mannheim's informatics courses}
+
+\RequirePackage[
+left=0.75in,
+right=0.75in,
+%bottom=0.64in,
+bottom=\dim_eval:n{0.64in+0.04in+0.57in},
+top=0in,
+twocolumn,
+nomarginpar,
+]{geometry}
+
+
+\setlength{\headsep}{0.71in}
+
+%\setlength{\columnsep}{\dimexpr(3.313in-3.688in)}
+
+\nocite{texdoc:fancyhdr}
+
+\RequirePackage[
+]{fancyhdr}
+
+\fancyfoot[C]{\thepage}

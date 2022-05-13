@@ -9,6 +9,25 @@ twocolumn,
 10pt,
 ]{article}
 
+\RequirePackage{stix}
+%\usepackage{unicode-math}
+\RequirePackage{emoji}
+% https://tex.stackexchange.com/questions/458627/how-do-i-display-unicode-characters-with-minted
+
+\RequirePackage{newunicodechar}
+
+% \defaultfontfeatures{Scale = MatchLowercase}
+% \setmainfont{CMU Serif}[Scale = 1.0]
+% \setsansfont{CMU Sans Serif}
+% \setmonofont{CMU Typewriter Text}
+%\setmathfont{Latin Modern Math}
+
+% https://tex.stackexchange.com/questions/503431/minted-unicode-characters-in-listing
+\usepackage{fontspec}
+%\setmonofont{DejaVu Sans Mono}
+\setmonofont{Ubuntu Mono Regular}
+
+
 \msg_new:nnnn {t3_3000} {debug} {#1 #2 #3 } {}
 
 \tl_const:Nn \c__jensheinrich_tthree_threethousand_prefix {__jensheinrich_tthree_threethousand}
@@ -201,24 +220,7 @@ nnnn
 
 \RequirePackage{t3_3000_title}
 \RequirePackage{t3_3000_declaration}
-
-\RequirePackage[
-left=0.75in,
-right=0.75in,
-bottom=0.64in,
-top=0in,
-twocolumn,
-nomarginpar,
-]{geometry}
-
-
-
-\RequirePackage[
-]{fancyhdr}
-
-\setlength{\headsep}{0.71in}
-
-%\setlength{\columnsep}{\dimexpr(3.313in-3.688in)}
+\RequirePackage{t3_3000_pagestyle}
 
 % set the required citation style
 \PassOptionsToPackage{
