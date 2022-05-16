@@ -1,6 +1,11 @@
 \RequirePackage{expl3}
 \ProvidesExplClass{t3_3000_pagestyle}{2022/05/13}{1.0.0}{Package to create a the pagestyle including footers and headers matching the requirements of the t3_3000 for DHBW mannheim's informatics courses}
 
+\bool_new:N \l__jensheinrich_tthree_threethousand_pagestyle_draft_bool
+\keys_define:nn {jensheinrich_tthree_threethousand_pagestyle} {
+	draft .bool_set:N \l__jensheinrich_tthree_threethousand_pagestyle_draft_bool,
+}
+
 \RequirePackage[
 left=0.75in,
 right=0.75in,
