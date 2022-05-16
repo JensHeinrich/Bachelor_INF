@@ -30,6 +30,11 @@ twocolumn,
 
 \msg_new:nnnn {t3_3000} {debug} {#1 #2 #3 } {}
 
+\bool_new:N \l__jensheinrich_tthree_threethousand_draft_bool
+\keys_define:nn {jensheinrich_tthree_threethousand} {
+	draft .bool_set:N \l__jensheinrich_tthree_threethousand_draft_bool,
+}
+
 \tl_const:Nn \c__jensheinrich_tthree_threethousand_prefix {__jensheinrich_tthree_threethousand}
 
 \cs_new_nopar:cpn {
