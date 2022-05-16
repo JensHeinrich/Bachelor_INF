@@ -32,7 +32,7 @@ twocolumn,
 
 \bool_new:N \l__jensheinrich_tthree_threethousand_draft_bool
 \keys_define:nn {jensheinrich_tthree_threethousand} {
-	draft .bool_set:N \l__jensheinrich_tthree_threethousand_draft_bool,
+	draft .bool_set:N = \l__jensheinrich_tthree_threethousand_draft_bool,
 }
 
 \tl_const:Nn \c__jensheinrich_tthree_threethousand_prefix {__jensheinrich_tthree_threethousand}
