@@ -77,6 +77,71 @@
 	url = {https://www.atlassian.com},
 }
 
+
+@software{debian,
+	name = {debian},
+	url = {https://www.debian.org},
+	parent = {linux},
+}
+
+@software{ubuntu,
+	name = {ubuntu},
+	url = {https://ubuntu.com},
+	description-de = {\gls{debian}[-Derivat] der Firma Canonical Ltd.},
+	parent = {linux},
+}
+
+@software{windows,
+	name = {Windows},
+	url = {https://www.microsoft.com/de-de/windows},
+	description-de = {Proprietäres Betriebsystem der Firma Microsoft},
+}
+
+
+@software{apt,
+	short = {APT},
+	command = {apt},
+	long = {Advanced Packaging Tool},
+	description-de = {Paketmanager auf \gls{debian}[-basierten] Systemen},
+}
+
+@software{yum,
+	short = {YUM},
+	command = {yum},
+	long ={Yellowdow update modifier},
+	description-de = {Paketmanager auf \gls{centos}[-basierten] und anderen \gls{redhat} Systemen},
+}
+
+@module{ansible:builtin:apt,
+	name = {ansible.builtin.apt},
+	description-de = {\gls{ansible:module} zur Installation von Software mit \gls{apt}},
+	parent = {collection:ansible:builtin},
+	url = {https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html},
+}
+
+@module{ansible:builtin:package,
+	name = {ansible.builtin.package},
+	description-de = {\gls{ansible:module} zur Installation von Software auf Systemen, die kein \gls{windows} verwenden},
+	parent = {collection:ansible:builtin},
+	url = {https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_module.html},
+}
+
+@module{ansible:builtin:yum,
+	name = {ansible.builtin.yum},
+	description-de = {\gls{ansible:module} zur Installation von Software mit \gls{yum}},
+	parent = {collection:ansible:builtin},
+	url = {https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_module.html},
+}
+
+
+@module{community:docker:docker_container,
+	name = {community.docker.docker\_container},
+	description-de = {\gls{ansible:module} zum Verwalten von Docker Containern}},
+	parent = {collection:community:docker},
+	url = {https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_module.html},
+	see = {ansible:module},
+}
+
 @module{ansible:builtin:template,
 	name = {ansible.builtin.template},
 	description-de = {\gls{ansible:module} zum Erzeugen von Text bzw. Konfigurationsdateien aus Templates},
