@@ -16,7 +16,7 @@
 \setabbreviationstyle[links]{short}
 %\GlsXtrEnableLinkCounting[part]{general}
 \glssetcategoryattribute{software}{textformat}{texttt}
-%\glssetcategoryattribute{role}{textformat}{texttt}
+\glssetcategoryattribute{role}{textformat}{texttt}
 \glssetcategoryattribute{filename}{textformat}{texttt}
 \glssetcategoryattribute{jinja2var}{textformat}{texttt}
 \GlsDeclareNoHyperList{filename,jinja2var}% suppress links for these types
@@ -26,6 +26,7 @@
 \GlsDeclareNoHyperList{k8sstate}% suppress links for these types
 
 
+\glsaddstoragekey{command}{}{\glsentrycommand}
 \newglossary*{testing}{Glossar}
 
 \GlsXtrLoadResources[
@@ -39,7 +40,7 @@
   sort={de-DE},
   sort-field={category},
   not-match = {%
-  category=software,%
+  category=software%
   },
   entry-type-aliases={%
 	  module = entry,%
