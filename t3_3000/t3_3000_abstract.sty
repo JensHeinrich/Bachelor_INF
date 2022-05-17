@@ -1,6 +1,17 @@
 \RequirePackage{expl3}
 \ProvidesExplClass{t3_3000_abstract}{2022/05/17}{1.0.0}{Package to configure the abstract matching the requirements of the t3_3000 for DHBW mannheim's informatics courses}
 
+
+% change abstractname
+\RequirePackage{babel}
+\addto\captionsgerman{
+	\renewcommand{\abstractname}{Abstrakt}
+}
+\RequirePackage{biblatex}
+\addbibresource{t3_3000_technical.bib}
+\nocite{wiki:en:latex:documentStructure}
+\nocite{texfaq:FAQ:latexwords}
+
 % change the abstract
 \renewenvironment{abstract}{%
   \quotation
@@ -9,11 +20,7 @@
   \textbf
 \abstractname
 \par
-}\\ % with a normal space
+}
   \footnotesize
 }{\endquotation}
 
-\renewcommand{\abstractname}{Abstrakt}
-\RequirePackage{biblatex}
-\addbibresource{t3_3000_technical.bib}
-\nocite{wiki:en:latex:documentStructure}
