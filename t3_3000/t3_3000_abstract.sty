@@ -16,11 +16,44 @@
 \renewenvironment{abstract}{%
   \quotation
   {
-  \center
-  \textbf
-\abstractname
-\par
-}
+	  \small
+	  \center
+	  \textbf
+	  \abstractname
+	  \par
+  }
   \footnotesize
+}{\endquotation}
+
+% new environment for "Problemstellung"
+\NewDocumentEnvironment {problemstellung}
+{ O{Problemstellung~und~Ziel~der~Arbeit\ (qualifizierte~Erläuterung)} +b }
+{
+  \quotation
+  {
+	  \small
+	  \center
+	  \bf
+	  #1
+	  \par
+  }
+  \footnotesize
+  #2
+}{\endquotation}
+
+% new environment for "Vorgehen"
+\NewDocumentEnvironment {vorgehen}
+{ O{Geplantes~Vorgehen\ (qualifizierte~Erläuterung)} +b }
+{
+  \quotation
+  {
+	  \small
+	  \center
+	  \bf
+	  #1
+	  \par
+  }
+  \footnotesize
+  #2
 }{\endquotation}
 
