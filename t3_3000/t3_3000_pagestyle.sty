@@ -22,8 +22,23 @@ nomarginpar,
 %\setlength{\columnsep}{\dimexpr(3.313in-3.688in)}
 
 \nocite{texdoc:fancyhdr}
+\RequirePackage{biblatex}
+\addbibresource{t3_3000_technical.bib}
+
+\nocite{stack:tex:centeringHeading}
 
 \RequirePackage[
 ]{fancyhdr}
 
 \fancyfoot[C]{\thepage}
+
+% Headings
+\RequirePackage{titlesec}
+% https://tex.stackexchange.com/questions/8546/section-heading-centering-problem
+\nocite{texdoc:titlesec}
+
+\PassOptionsToPackage{
+	center,
+}{titlesec}
+
+\RequirePackage{titlesec}
