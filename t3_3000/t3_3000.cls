@@ -226,6 +226,7 @@ nnnn
 \RequirePackage{t3_3000_title}
 \RequirePackage{t3_3000_declaration}
 \RequirePackage{t3_3000_pagestyle}
+\RequirePackage{t3_3000_abstract}
 
 % set the required citation style
 \PassOptionsToPackage{
