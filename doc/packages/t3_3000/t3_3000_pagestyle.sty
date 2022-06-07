@@ -1,0 +1,42 @@
+\RequirePackage{expl3}
+\ProvidesExplClass{t3_3000_pagestyle}{2022/05/13}{1.0.0}{Package to create a the pagestyle including footers and headers matching the requirements of the t3_3000 for DHBW mannheim's informatics courses}
+
+\bool_new:N \l__jensheinrich_tthree_threethousand_pagestyle_draft_bool
+\keys_define:nn {jensheinrich_tthree_threethousand_pagestyle} {
+	draft .bool_set:N = \l__jensheinrich_tthree_threethousand_pagestyle_draft_bool,
+}
+
+\RequirePackage[
+left=0.75in,
+right=0.75in,
+%bottom=0.64in,
+bottom=\dim_eval:n {0.64in+0.04in+0.57in},
+top=0in,
+twocolumn,
+nomarginpar,
+]{geometry}
+
+\setlength{ \headsep }{\dim_eval:n {0.71in}}
+
+%\setlength{\columnsep}{\dimexpr(3.313in-3.688in)}
+
+\nocite{texdoc:fancyhdr}
+\RequirePackage{biblatex}
+\addbibresource{t3_3000_technical.bib}
+
+\nocite{stack:tex:centeringHeading}
+
+\RequirePackage[
+]{fancyhdr}
+
+\fancyfoot[C]{\thepage}
+
+% Headings
+% https://tex.stackexchange.com/questions/8546/section-heading-centering-problem
+\nocite{texdoc:titlesec}
+
+\PassOptionsToPackage{
+	center,
+}{titlesec}
+
+\RequirePackage{titlesec}
