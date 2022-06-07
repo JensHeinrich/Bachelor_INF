@@ -27,6 +27,38 @@
 
 
 \glsaddstoragekey{command}{}{\glsentrycommand}
+
+\newglossary*{bachelor_inf}{Glossar}
+\GlsXtrLoadResources[
+src={%
+glossaries/nlp.bib,
+},
+sort={de-DE},
+  sort-field={category},
+  not-match = {%
+  category=software%
+  },
+  entry-type-aliases={%
+	  module = entry,%
+    software = entry,%
+    collection = entry,%
+    repo = entry,%
+    role = index,%
+    jinja2var = index,%
+    filename=index,%
+  },
+  replicate-fields={%
+    description-de=description,%
+    text-de=text,%
+    name-de=name,%
+    plural-de=plural,%
+    url=user1,%
+    short=name,%
+  }, % optionally copy the values
+  type={testing},
+  selection={recorded and deps},
+]
+
 \newglossary*{testing}{Glossar}
 
 \GlsXtrLoadResources[
