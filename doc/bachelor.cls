@@ -77,6 +77,12 @@ nnnn
 	{__jensheinrich_bachelor}
 
 \__jensheinrich_bachelor_create_tl_with_defaults_and_description:nnnn
+	{date}
+	{Date}
+	{\today}
+	{__jensheinrich_bachelor}
+
+\__jensheinrich_bachelor_create_tl_with_defaults_and_description:nnnn
 	{author}
 	{Author name}
 	{An Assigned Author}
@@ -131,12 +137,24 @@ nnnn
 	m% author name
 }{%
 	\tl_set:Nn \l__jensheinrich_bachelor_author_tl {#1}
+	% legacy option
+	\gdef\@author{#1}
 }
 
 \DeclareDocumentCommand{\title}{%
 	m% title
 }{%
 	\tl_set:Nn \l__jensheinrich_bachelor_title_tl {#1}
+	% legacy option
+	\gdef\@title{#1}
+}
+
+\DeclareDocumentCommand{\date}{%
+	m% date
+}{%
+	\tl_set:Nn \l__jensheinrich_bachelor_date_tl {#1}
+	% legacy option
+	\gdef\@date{#1}
 }
 
 \DeclareDocumentCommand{\matrikelnr}{%
@@ -156,7 +174,6 @@ nnnn
 }{%
 	\tl_set:Nn \l__jensheinrich_bachelor_secondary_supervisor_tl {#1}
 }
-
 
 
 % Require packages after all options have been passed to them
