@@ -1,0 +1,565 @@
+% Encoding: UTF-8
+
+@Preamble{
+"\RequirePackage{csquotes}",
+"\RequirePackage{babel}" }
+
+@software{gitea10-3,
+	version = {10.3},
+	url = {gitea.io},
+	name = {GiTea - Version 10.3},
+	crossref = {gitea},
+	seealso = {git},
+}
+
+@software{gitea11-3,
+	version = {11.3},
+	url = {gitea.io},
+	crossref = {gitea},
+	name = {GiTea - Version 11.3},
+	seealso = {git},
+}
+
+@software{abbyfinereader,
+	name = {ABBYY FineReader},
+	description-de = {\foreigntextquote {english}[\autocite {ABBYY:homepage}]{The smarter PDF solution}},
+	url = {https://www.abbyy.com/de/finereader/},
+}
+
+@software{ansible,
+	name = {Ansible},
+	url = {ansible.com},
+	license = {GPL-3.0},
+	seealso = {managmenttool},
+	description-de = {\gls{softwaremanagementsolution}, welche von \gls{redhat} weiterentwickelt wird},
+	description-en = {\foreigntextquote {english}[\autocite {ansible:homepage}]{ Ansible is the only automation language that can be used across entire IT teams from systems and network administrators to developers and managers. }},
+}
+
+@repo{ansible:dev:ansible,
+	name = {ansible},
+	url = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/ansible},
+}
+
+@role{ansible:dev:giteahost,
+	name = {gitea-host},
+	url = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/gitea_host},
+}
+
+@repo{ansible:pub:gitea-ldap-team-sync,
+	url = {https://dev.git.ub.uni-frankfurt.de/ansible-pub/gitea-ldap-team-sync},
+	name = {gitea-ldap-team-sync},
+	description-de = {In Python geschriebene Software, um LDAP (bzw. AD)-Gruppen auf \gls {gitea}-Teams abzubilden},
+}
+
+@repo{ansible:pub:template,
+	url = {https://dev.git.ub.uni-frankfurt.de/ansible-pub/template},
+	name = {template},
+}
+
+@collection{collection:community:docker,
+	name = {community.docker}
+}
+
+@collection{collection:community:mysql,
+	name = {community.mysql}
+}
+
+@collection{collection:community:crypto,
+	name = {community.crypto}
+}
+
+@software{ansible:ansible-test,
+	name = {ansible-test},
+	description-de = {in \gls{ansible} integierte Testanwendung, welche Sanity-, Unit- und Integration-Tests unterstützt},
+}
+
+@entry{atlassian,
+	name = {Atlassian},
+	url = {https://www.atlassian.com},
+}
+
+
+@software{debian,
+	name = {debian},
+	url = {https://www.debian.org},
+	description-de = {Freies Betriebsystem},
+	parent = {linux},
+}
+
+@software{ubuntu,
+	name = {ubuntu},
+	url = {https://ubuntu.com},
+	description-de = {\gls{debian}[-Derivat] der Firma Canonical Ltd.},
+	parent = {linux},
+}
+
+@software{windows,
+	name = {Windows},
+	url = {https://www.microsoft.com/de-de/windows},
+	description-de = {Proprietäres Betriebsystem der Firma Microsoft},
+}
+
+
+@software{apt,
+	short = {APT},
+	command = {apt},
+	long = {Advanced Packaging Tool},
+	description-de = {Paketmanager auf \gls{debian}[-basierten] Systemen},
+}
+
+@software{yum,
+	short = {YUM},
+	command = {yum},
+	long ={Yellowdow update modifier},
+	description-de = {Paketmanager auf \gls{centos}[-basierten] und anderen \gls{redhat} Systemen},
+}
+
+@module{ansible:builtin:apt,
+	name = {ansible.builtin.apt},
+	description-de = {\gls{ansible:module} zur Installation von Software mit \gls{apt}},
+	parent = {collection:ansible:builtin},
+	url = {https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html},
+}
+
+@module{ansible:builtin:package,
+	name = {ansible.builtin.package},
+	description-de = {\gls{ansible:module} zur Installation von Software auf Systemen, die kein \gls{windows} verwenden},
+	parent = {collection:ansible:builtin},
+	url = {https://docs.ansible.com/ansible/latest/collections/ansible/builtin/package_module.html},
+}
+
+@module{ansible:builtin:yum,
+	name = {ansible.builtin.yum},
+	description-de = {\gls{ansible:module} zur Installation von Software mit \gls{yum}},
+	parent = {collection:ansible:builtin},
+	url = {https://docs.ansible.com/ansible/latest/collections/ansible/builtin/yum_module.html},
+}
+
+
+@module{community:docker:docker_container,
+	name = {community.docker.docker\_container},
+	description-de = {\gls{ansible:module} zum Verwalten von Docker Containern}},
+	parent = {collection:community:docker},
+	url = {https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_module.html},
+	see = {ansible:module},
+}
+
+@module{ansible:builtin:template,
+	name = {ansible.builtin.template},
+	description-de = {\glspl{ansible:module} zum Erzeugen von Text bzw. Konfigurationsdateien aus Templates},
+	parent = {collection:ansible:builtin},
+	url = {https://docs.ansible.com/ansible/latest/collections/ansible/builtin/template_module.html},
+	see = {ansible:module},
+}
+
+@collection{collection:ansible:builtin,
+	name = {ansible.builtin},
+}
+
+
+@software{confluence,
+	name = {Confluence},
+	url = {https://www.atlassian.com/de/software/confluence},
+	description-de = {Wiki-Software der Firma \gls {atlassian}},
+}
+
+@software{dinglehopper,
+	description-de = {Ein Tool zur Evaluierung von \gls {ocr} Ergebnissen.},
+	license = {Apache-2.0},
+	name = {\texttt {dinglehopper}},
+	url = {https://github.com/qurator-spk/dinglehopper},
+}
+
+@software{etherpadlite,
+	name = {etherpad-lite},
+	description-de = {},
+	url = {},
+}
+
+@software{git,
+	name = {\texttt {git}},
+	description-de = {Eine von Linus Torwals entwickeltes \gls {versioncontrolsystem}.},
+	url = {https://git-scm.com/},
+	license = {GPLv2},
+	seealso = {versioncontrolsystem},
+}
+
+@software{gitea,
+	name = {GiTea},
+	url = {gitea.io},
+	license = {MIT},
+	seealso = {git},
+	description-de = {\foreigntextquote {english}[\autocite {gitea:homepage}]{ Gitea is a community managed lightweight code hosting solution written in Go }},
+}
+
+@software{icinga2,
+	name = {Icinga 2},
+	url = {https://icinga.com/docs/icinga2/latest/},
+	description-de = {Monitoring L\"osung der Icinga GmbH},
+}
+
+@software{jinja2,
+	url = {https://jinja.palletsprojects.com/en/3.1.x/},
+	description-en = {\foreigntextquote{english}{Jinja is a fast, expressive, extensible templating engine. Special placeholders in the template allow writing code similar to Python syntax. Then the template is passed data to render the final document.}},
+	name = {Jinja},
+	description-de = {erweiterbare \gls{python} \gls{templating-engine}},
+	version = {3.1.x},
+}
+
+@software{python,
+	name={Python},
+	url = {https://www.python.org/},
+}
+
+@filename{molecule:molecule:yml,
+	parent = {molecule},
+	name = {molecule.yml},
+}
+
+@filename{molecule:converge:yml,
+	parent = {molecule},
+	name = {converge.yml},
+}
+
+@filename{ansible:role:handlers:main:yml,
+	name = {handlers/main.yml},
+}
+
+@software{pip,
+	short = {pip},
+	command = {pip},
+	long = {package installer for Python},
+}
+
+@filename{molecule:verify:yml,
+	parent = {molecule},
+	name = {verify.yml},
+}
+
+@entry{templating-engine,
+	name = {Templating Engine},
+	description-de = {Software zum Erzeugen von Text oder Objekten aus Vorlagen},
+}
+
+@jinja2var{j2:ansible:distribution,
+	name = {ansible\_distribution},
+}
+
+@jinja2var{j2:default:base:path,
+	name = {APPLICATION\\\_base\\\_path},
+}
+
+@jinja2var{j2:default:conf:path,
+	name = {APPLICATION\\\_conf\\\_path},
+}
+
+@jinja2var{j2:default:version,
+	name = {APPLICATION\_version},
+}
+
+@filename{meta:yml,
+	name = {meta/main.yml},
+}
+
+@filename{precommit:config:yml,
+	name = {.pre-commit-config.yml},
+}
+
+@software{pre-commit,
+	name = {pre-commit},
+	url = {https://pre-commit.com/},
+	description-de = {In \gls{python} geschriebene Software, welche \glspl{git:hook} verwaltet},
+	description-en = {\foreigntextquote {english}[\autocite {pre-commit:homepage}]{ A framework for managing and maintaining multi-language pre-commit hooks }},
+	license = {MIT},
+}
+
+@filename{requirements:yml,
+	name = {requirements.yml},
+}
+
+@software{rocketchat,
+	name = {Rocket.Chat},
+	url = {https://rocket.chat/de/},
+	description-de = {\textquote [\autocite {rocketchat:homepage}]{Die ultimative Kommunikationsplattform}},
+}
+
+@filename{sshconfig,
+	name = {\textasciitilde /.ssh/config},
+}
+
+@software{traefik,
+	name = {Traefik},
+	url = {https://traefik.io/traefik/},
+}
+
+@software{molecule,
+	name = {Ansible Molecule},
+	url = {https://github.com/ansible-community/molecule},
+	description-de = {Ein Projekt zur Unterstützung der Entwicklung und des Testens von \glspl{ansible:role}},
+	license = {MIT},
+}
+
+@role{role:dfn:aai:shibboleth:idp,
+	url = {https://jugit.fz-juelich.de/dfn/dfn-aai-shibboleth-idp},
+	name = {dfn-aai-shibboleth-idp},
+	license =  {GNU AGPLv3},
+}
+
+@software{yamllint,
+	url = {https://github.com/adrienverge/yamllint},
+	name = {yamllint},
+	license = {GPL-3.0},
+	description-de = {Prüft die Syntax und gewisse, definierbare Formalia von \gls{yaml}[-Dateien]},
+}
+
+@software{djlint,
+	url = {https://djlint.com/},
+	name = {dj~Lint},
+	description-de = {\gls{linter} mit Formatierungsfunktion für \gls{html}},
+	license = {GPL-3.0},
+}
+
+@software{curlylint,
+	url = {https://www.curlylint.org/},
+	license = {MIT},
+	name =  {curlylint},
+	description-de = {\gls{linter} HTML-Templates},
+}
+
+@software{jinjalint,
+	url = {https://github.com/motet-a/jinjalint},
+	license = {MIT},
+	name = {jinjalint},
+	description-de= {\gls{linter} für \gls{jinja2}[-artige] Templates},
+}
+@software{jinja2-lint,
+	url = {https://github.com/drm/jinja2-lint},
+	license = {DBAD},
+	name = {jinja2-lint},
+	description-de= {Skript zum \glslink{linter}{linten} von \gls{jinja2}[-Templates]},
+}
+
+@Role{ansible:dev:adminusers,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/admin_users},
+  name = {admin-users},
+}
+
+@Role{ansible:dev:centosvm,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/centos-vm},
+  name = {centos-vm},
+}
+
+@Role{ansible:dev:certificatedefault,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/certificate_default},
+  name = {certificate-default},
+}
+
+@Role{ansible:dev:certificatedomain,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/certificate_domain},
+  name = {certificate-domain},
+}
+
+@Role{ansible:dev:drone-baremetal,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/drone-baremetal},
+  name = {drone-baremetal},
+}
+
+@Role{ansible:dev:drone-gitea,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/drone-gitea},
+  name = {drone-gitea},
+}
+
+@Role{ansible:dev:drone-runner,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/drone-runner},
+  name = {drone-runner},
+}
+
+@Role{ansible:dev:giteaubtheme,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/gitea_ub_theme},
+  name = {gitea-ub-theme},
+}
+
+@Role{ansible:dev:grafanahost,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/grafana_host},
+  name = {grafana-host},
+}
+
+@Role{ansible:dev:icinga2host,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/icinga2_host},
+  name = {icinga2-host},
+}
+
+@Role{ansible:dev:icinga2monitoredgit,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/icinga2_monitored.git},
+  name = {icinga2-monitored},
+}
+
+@Repo{ansible:dev:inventory,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/inventory},
+  name = {inventory},
+}
+
+@Role{ansible:dev:jumphostgit,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/jump_host.git},
+  name = {jump-host},
+}
+
+@Role{ansible:dev:kvmhost,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/kvm_host},
+  name = {kvm-host},
+}
+
+@Repo{ansible:dev:library,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/library.git},
+  name = {library},
+}
+
+@Role{ansible:dev:woodpecker,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/woodpecker},
+  name = {woodpecker},
+}
+
+@Role{ansible:dev:updatenotifications,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/update_notifications},
+  name = {update-notifications},
+}
+
+@Role{ansible:dev:tsmclient,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/tsm_client},
+  name = {tsm-client},
+}
+
+@Role{ansible:dev:traefiksimpleproxy,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/traefik_simple_proxy},
+  name = {traefik-simple-proxy},
+}
+
+@Role{ansible:dev:traefik,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/traefik},
+  name = {traefik},
+}
+
+@Role{ansible:dev:template,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/template},
+  name = {template},
+}
+
+@Role{ansible:dev:supervisordservice,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/supervisord_service},
+  name = {supervisord-service},
+}
+
+@Role{ansible:dev:supervisordhost,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/supervisord_host},
+  name = {supervisord-host},
+}
+
+@Role{ansible:dev:sles-vm,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/sles-vm},
+  name = {sles-vm},
+}
+
+@Role{ansible:dev:router,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/router},
+  name = {router},
+}
+
+@Role{ansible:dev:rocketchathost,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/rocket_chat_host},
+  name = {rocket-chat-host},
+}
+
+@Role{ansible:dev:reverseproxygit,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/reverse_proxy.git},
+  name = {reverse-proxy},
+}
+
+@Role{ansible:dev:prometheusnodeexporter,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/prometheus_node_exporter},
+  name = {prometheus-node-exporter},
+}
+
+@Role{ansible:dev:prometheusnode,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/prometheus_node},
+  name = {prometheus-node},
+}
+
+@Role{ansible:dev:prometheusblackboxexporter,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/prometheus_blackbox_exporter},
+  name = {prometheus-blackbox-exporter},
+}
+
+@Role{ansible:dev:prometheusapacheexporter,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/prometheus_apache_exporter},
+  name = {prometheus-apache-exporter},
+}
+
+@Role{ansible:dev:podmanregistry,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/podman_registry},
+  name = {podman-registry},
+}
+
+@Role{ansible:dev:phpfpmnginx,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/php_fpm_nginx},
+  name = {php-fpm-nginx},
+}
+
+@Role{ansible:dev:orcd-pilot-ansible-role,
+  url  = {https://dev.git.ub.uni-frankfurt.de/orcd-pilot/orcd-pilot-ansible-role},
+  name = {ocrd-pilot},
+}
+
+@Role{ansible:dev:ntp-client,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/ntp-client},
+  name = {ntp-client},
+}
+
+@Role{ansible:dev:nginx,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/nginx},
+  name = {nginx},
+}
+
+@Role{ansible:dev:monitorhost,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/monitor_host},
+  name = {monitor-host},
+}
+
+@Role{ansible:dev:mongodbgit,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/mongodb.git},
+  name = {mongodb},
+}
+
+@Role{ansible:dev:matomogit,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/matomo.git},
+  name = {matomo},
+}
+
+@Role{ansible:dev:managmenthost,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/managment_host},
+  name = {managment-host},
+}
+
+@Role{ansible:dev:managedhost,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/managed_host},
+  name = {managed-host},
+}
+
+@Role{ansible:dev:logrotate,
+  url  = {https://dev.git.ub.uni-frankfurt.de/ansible-dev/logrotate},
+  name = {logrotate},
+}
+
+@Software{testinfra,
+	url = {https://testinfra.readthedocs.io/en/latest/index.html},
+	name = {Testinfra},
+	description-de = {Anwendung zum Schreiben von Unittests für den Zustand von Systemen nach dem Provisionieren mit \glspl{managmenttool}},
+}
+
+@software{vagrant,
+	name = {Vagrant},
+	url = {https://www.vagrantup.com/},
+	description-de = {eine Anwendung zum automatisierten Verwalten von \gls{vm}},
+}
+
+@Comment{jabref-meta: databaseType:biblatex;}
+

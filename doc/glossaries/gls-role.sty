@@ -1,0 +1,26 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{gls-role}[2021/08/12 1.0.0 Glossary Style for (ansible) roles]
+
+\RequirePackage[
+]{glossaries-extra}
+
+\glssetcategoryattribute{role}{textformat}{texttt}
+
+\glsdefpostlink{role}{%
+   \glsxtrifwasfirstuse{% true
+      \glsxtrifhasfield{useri}{\glslabel}{\footnote{%
+            \url{\glscurrentfieldvalue}%
+            \vspace{2cm}%
+            \marginnote{%
+               \qrcode[%
+               height=1.5cm,%
+               ]{\glscurrentfieldvalue}%
+            }%
+         }%
+         }{% false
+      }
+   }{% false
+   }%
+}%
+
+\endinput

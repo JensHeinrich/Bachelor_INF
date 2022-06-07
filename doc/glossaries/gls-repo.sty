@@ -1,0 +1,26 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{gls-repo}[2021/08/12 1.0.0 Glossary Style for (git) Repositories]
+
+\RequirePackage[
+]{glossaries-extra}
+
+\glssetcategoryattribute{repo}{textformat}{texttt}
+
+\glsdefpostlink{repo}{%
+   \glsxtrifwasfirstuse{% true
+      \glsxtrifhasfield{useri}{\glslabel}{\footnote{%
+            \url{\glscurrentfieldvalue}%
+            \vspace{2cm}%
+            \marginnote{%
+               \qrcode[%
+               height=1.5cm,%
+               ]{\glscurrentfieldvalue}
+            }
+         }%
+         }{% false
+      }
+   }{% false
+   }%
+}
+
+\endinput
