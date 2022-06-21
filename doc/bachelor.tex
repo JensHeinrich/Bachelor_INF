@@ -62,6 +62,36 @@ Diese \texttt{BIO}-Klassifikation geht auf \citeauthor{10.1145/2396761.2398506} 
 
 \section{Methodik}
 
+\subsection{Vorbereitung der Beispieldokumente}
+Da die Beispieldokumente als \gls{pdf} vorliegen,
+müssen die eigentlichen Texte extrahiert werden.
+Hierfür gibt es verschiedenen Werkzeuge und Bibliotheken,
+wie z.B.\, \gls{pypdf2} oder \gls{pdftotext}.
+
+Der erste Versuch der Extraktion wird mit \gls{pypdf2} durchgeführt.
+Dieses analysiert die \gls{pdf} seitenweise.
+Der kommentierte Code findet sich in \texttt{src/extract\_fulltexts.ipynb}.
+
+\subsection{\glspt{naturallanguageprocessing} mit \glspt{BERT}}
+Der Prozess des \gls{naturallanguageprocessing} mit \gls{BERT} besteht aus verschiedenen Schritten.
+Zuerst wird der Text in Tokens aufgeteilt,
+welche in numerische Werte übersetzt werden können.
+Diese numerischen Werte können durch das neuronale Netzwerk verarbeitet werden,
+da dieses aber eine Eingabe fixer Länge erwartet,
+müssen zu lange Sequenzen abgeschnitten (\enquote{truncate})
+und zu kurze Sequenzen ergänzt (\enquote{pad}) werden.
+Die so bearbeiteten Werte werden dann in einen \gls{tensor} umgewandelt
+mit dem die weiteren Berechnungen durchgeführt werden können.
+Diese Schritte wird von einem \enquote{preprocessor}
+bzw.\, \enquote{tokenizer} ausgeführt.
+\autocite{huggingface:docs:Transformers:preprocessing}
+Eine beliebte Bibliothek hierfür ist \gls{huggingface:tokenizers}.
+
+
+
+Der darauf folgende Schritt ist die Auswertung durch
+
+
 \section{Diskussion}
 
 \section{Fazit}
