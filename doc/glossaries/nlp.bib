@@ -13,3 +13,61 @@
 	short = {NLP},
 	long = {Natural Language Processing},
 }
+
+@entry{tensor,
+	name = {Tensor},
+	description-de = {Erweiterung des Konzeptes eines Vektors ins mehrdimensionale},
+}
+
+@entry{nlp:token,
+	name = {Token},
+	symbol = {\ensuremath{x}},
+}
+
+@entry{nlp:sentence,
+	name-de = {Satz},
+	symbol = {\ensuremath{\mathbf{X}}},
+	description-de = {Liste aus \(N\) Tokens \glsentryformula{nlp:sentence}},
+	formula = {
+	    \ensuremath{
+	    \glssymbol{nlp:sentence}
+	    = \left\lbrack
+		   \glssymbol{nlp:token}_1,
+		   \hdots,
+		   \glssymbol{nlp:token}_N
+	    \right\rbrack
+	    }
+},
+}
+
+@entry{nlp:entity,
+	name-de = {Entität},
+	description-de = {Für einen \gls{nlp:sentence} \glsentryformula{nlp:sentence} ist eine Entität ein Bereich (\enquote{span}) von Tokens \glsentryformula{nlp:entity}},
+	formula = {\ensuremath{s=\left\lbrack x_i, \hdots, x_j \right\rbrack \left(0\leq i \leq j \leq N \right) }},
+}
+
+@entry{nlp:ner,
+	description-de = {Zuweisen von einer Liste von \glspl{nlp:label} \glsentryformula{nlp:label_sequence} zu einem Satz \glssymbol{nlp:sentence}},
+}
+
+@entry{nlp:label,
+	name = {Label},
+	symbol = {\ensuremath{y}},
+}
+
+@entry{nlp:label_sequence,
+	name = {Beschriftung},
+	symbol = {\ensuremath{\mathbf{Y}}},
+	formula = {\ensuremath{\glssymbol{nlp:label_sequence} = \left\lbrack \glssymbol{nlp:label}_1, \hdots, \glssymbol{nlp:label}_N \right\rbrack}},
+}
+
+@entry{nlp:label:beginning,
+	symbol = {\ensuremath{\texttt{B}}},
+}
+
+@entry{nlp:label:inside,
+	symbol = {\ensuremath{\texttt{I}}},
+}
+@entry{nlp:label:outside,
+	symbol = {\ensuremath{\texttt{O}}},
+}
