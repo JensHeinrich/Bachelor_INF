@@ -22,6 +22,44 @@ mit Semantik aus der BLL Onthologie%
 
 \section{Literaturrecherche}
 
+\section{Grundlagen und Definitionen}
+\begin{prob}{\glspt{namedentityrecognition}}
+Der Prozess der \gls{namedentityrecognition}
+lässt sich nach \autocite{Liang_2020} als folgendes mathematisches Problem beschreiben:
+
+Für ein \gls{nlp:sentence} \glsentryformula{nlp:sentence}
+wird eine \gls{nlp:label_sequence} \glsentryformula{nlp:label_sequence} gesucht,
+sodass \(
+\glssymbol{nlp:label}_i \in
+\left\lbrace
+	\glssymbol{nlp:token:beginning}\texttt{-X},
+	\glssymbol{nlp:token:inside}\texttt{-X},
+	\glssymbol{nlp:token:outside}
+	:
+	\text{\texttt{X} ist Entitätstyp}
+\right\rbrace
+\)
+und gilt:
+\[
+	\glssymbol{nlp:label}_i =
+	\begin{cases}
+		\texttt{\glssymbol{nlp:label:beginning}-X},
+		\text{wenn \(\glssymbol{nlp:token}_i\)
+		der Beginn einer Entität vom Typ \(\texttt{X}\) ist
+	}\\
+	\texttt{\glssymbol{nlp:label:inside}-X},
+		\text{wenn \(\glssymbol{nlp:token}_i\)
+		ein Token einer Entität vom Typ \(\texttt{X}\)
+		und nicht deren Beginn ist
+	}\\
+	\glssymbol{nlp:label:outside}, \text{sonst}.
+\end{cases}
+\]
+Diese \texttt{BIO}-Klassifikation geht auf \citeauthor{10.1145/2396761.2398506} zurück \autocite{10.1145/2396761.2398506}.
+\end{prob}
+
+
+
 \section{Methodik}
 
 \section{Diskussion}
