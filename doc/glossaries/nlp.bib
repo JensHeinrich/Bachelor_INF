@@ -26,6 +26,7 @@
 
 @entry{nlp:sentence,
 	name-de = {Satz},
+	plural-de = {Sätze},
 	symbol = {\ensuremath{\mathbf{X}}},
 	description-de = {Liste aus \(N\) Tokens \glsentryformula{nlp:sentence}},
 	formula = {
@@ -70,4 +71,59 @@
 }
 @entry{nlp:label:outside,
 	symbol = {\ensuremath{\texttt{O}}},
+}
+
+@entry{nlp:labelled_sentences,
+	name-de = {Beschrifte \glspp{nlp:sentence}},
+	formula = {
+	    \ensuremath{
+		{
+			\left\lbrace
+				\glssymbol{nlp:sentence}_m,
+				\glssymbol{nlp:label_sequence}_m
+			\right\rbrace
+		}_{m=1}^M
+		}
+	},
+}
+
+@entry{nlp:model:parameters,
+	name-de = {Parameter},
+	description-de = { Parameter des Models},
+	symbol = {\ensuremath{\Theta}},
+	parent = {nlp:model},
+}
+
+@entry{nlp:model,
+	symbol = { \ensuremath{f}},
+	formula = {
+	    \ensuremath{
+	    \glssymbol{nlp:model}
+	    \left(
+	    \glssymbol{nlp:sentence};
+	    \glssymbol{nlp:model:parameters}
+	    \right)
+	    }
+	},
+	name= {\glspt{nlp}-Modell},
+}
+
+@entry{crossentropy,
+	name-de = {Kreuzentropie},
+	name-en = {Crossentropy},
+	description-de = {},
+}
+
+@entry{crossentropyloss,
+	name-de = {\glspt{crossentropy}-Kosten},
+	description-de = {Differenz zwischen der erwarteten Verteilung \(\hat{y}\) und der echten Verteilung \(y\) },
+	symbol = {\ensuremath{l}},
+	formula = {\ensuremath{
+	    \glssymbol{crossentropyloss}\left(y,\hat{y}\right)
+	    =
+	    - \left\lbrack
+	    y \log \hat{y}
+	    + \left(1-y\right) \log \left( 1-\hat{y} \right)
+	    \right\rbrack
+	    }},
 }
