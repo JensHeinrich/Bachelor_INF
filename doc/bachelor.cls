@@ -178,3 +178,6 @@ nnnn
 
 % Require packages after all options have been passed to them
 \RequirePackage{biblatex}
+
+\RequirePackage{bachelor_format}
+
