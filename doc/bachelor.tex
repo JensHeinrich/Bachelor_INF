@@ -33,9 +33,9 @@ mit Semantik aus der BLL Onthologie%
 
 \section{Grundlagen und Definitionen}
 Der Prozess der \gls{namedentityrecognition}
-lässt sich nach \autocite{Liang_2020} als Lösung des folgenden mathematischen Problems beschreiben:
+lässt sich nach \autocite{2006.15509} als Lösung des folgenden mathematischen Problems beschreiben:
 
-\begin{prob}{\glspt{namedentityrecognition}}
+\begin{prob}{\glspt{namedentityrecognition}}\label{prob:nlp:ner}
 Für ein \gls{nlp:sentence} \glsentryformula{nlp:sentence}
 wird eine \gls{nlp:label_sequence} \glsentryformula{nlp:label_sequence} gesucht,
 sodass \(
@@ -67,7 +67,38 @@ und gilt:
 Diese \texttt{BIO}-Klassifikation geht auf \citeauthor{10.1145/2396761.2398506} zurück \autocite{10.1145/2396761.2398506}.
 \end{prob}
 
-
+Seien \(M\) bereits annotierte \glslink{nlp:sentence}{Sätze}
+\glsentryformula{nlp:labelled_sentences} gegeben
+und beschreibe \glsentryformula{nlp:model} ein \gls{namedentityrecognition}[-Modell],
+wobei \glssymbol{nlp:sentence} ein Satz
+und \glssymbol{nlp:model:parameters} die Parameter des Modells sind.
+Dann lässt sich anhand der Problemstellung~\cref{prob:nlp:ner}
+die Güte des Modells über eine Metrik bestimmen.
+Eine beliebte Metrik im Rahmen des \gls{machine-learning} ist die \gls{crossentropyloss}[-Funktion],
+wie sie in \autocite[5.5]{juraksky2000speech} definiert wird:
+\glsentryformula{crossentropyloss}.
+Hierbei wäre der ideale Fall,
+dass jeder Satz
+\gls{nlp:label} entsprechend der vorgegeben (idealen) Annotation
+zugewiesen bekommt.
+Dementsprechend werden die \gls{nlp:model:parameters} so gesucht,
+dass sie diese Distanz über alle Trainingsdaten minimieren.
+Somit sind die idealen Parameter durch die Formel
+\autocite[1]{2006.15509}
+gegeben:
+\begin{equation}
+	\hat{\glssymbol{nlp:model:parameters}} : =
+	\argmin_{\glssymbol{nlp:model:parameters}}
+	\frac{1}{M}
+	\sum_{m=1}^{M}
+	\glssymbol{crossentropyloss}\left(
+		\glssymbol{nlp:label_sequence}_m,
+		\glssymbol{nlp:model}\left(
+				\glssymbol{nlp:sentence}_m;
+				\glssymbol{nlp:model:parameters}
+			\right)
+		\right)
+\end{equation}
 
 \section{Methodik}
 
