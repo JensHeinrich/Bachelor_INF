@@ -2,3 +2,6 @@ build
 *.pdf
 *.bak
 *.sav
+
+# ignore extracted texts
+data/**/files/**/*.txt
