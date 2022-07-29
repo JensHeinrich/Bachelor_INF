@@ -5,3 +5,10 @@ build
 
 # ignore extracted texts
 data/**/files/**/*.txt
+
+# ignore archives
+**/*.zip
+**/*.bz2
+
+# ignore extracted data
+data/*/*/**/*.json
