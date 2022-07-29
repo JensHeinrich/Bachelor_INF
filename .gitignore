@@ -12,3 +12,7 @@ data/**/files/**/*.txt
 
 # ignore extracted data
 data/*/*/**/*.json
+
+# ignore virtual environment
+venv/
+.venv
