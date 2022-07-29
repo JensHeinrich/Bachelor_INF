@@ -32,40 +32,69 @@ mit Semantik aus der BLL Onthologie%
 
 \section{Literaturrecherche}
 
-\section{Grundlagen und Definitionen}
+\section{Grundlagen und Definitionen/Theorie}
+\subsection{\glspt{bllonthology}}
+Was ist eine \gls{ontology}?
+% TODO
+Was ist die \gls{bll}?
+% TODO
+
+\subsection{Datenquellen}
+% TODO Überlegen ob bllonthology hier hin passt
+Was ist \gls{openaccess}?
+Verwendung des \gls{oai-pmh} zum Sammeln von Informationen
+mithilfe des \gls{oaipmharvest}
+% TODO
+
+
+
+\subsection{Datapreparation}
+\subsubsection{Datacollection}
+Eine Liste der potent
+\subsubsection{Metadataextraction}
+\subsubsection{Textextraction} (Optional)
+\subsubsection{Stringmatching}
+
+
+
+\subsection{Named Entity Recognition}
+\subsubsection{Tokenization}
+\subsubsection{Tokenclassification}
+
+\subsection{Named Entity Linking}
 Der Prozess der \gls{namedentityrecognition}
 lässt sich nach \autocite{2006.15509} als Lösung des folgenden mathematischen Problems beschreiben:
 
 \begin{prob}{\glspt{namedentityrecognition}}\label{prob:nlp:ner}
-Für ein \gls{nlp:sentence} \glsentryformula{nlp:sentence}
-wird eine \gls{nlp:label_sequence} \glsentryformula{nlp:label_sequence} gesucht,
-sodass \(
-\glssymbol{nlp:label}_i \in
-\left\lbrace
+	Für ein \gls{nlp:sentence} \glsentryformula{nlp:sentence}
+	wird eine \gls{nlp:label_sequence} \glsentryformula{nlp:label_sequence} gesucht,
+	sodass \(
+	\glssymbol{nlp:label}_i \in
+	\left\lbrace
 	\glssymbol{nlp:label:beginning}\texttt{-X},
 	\glssymbol{nlp:label:inside}\texttt{-X},
 	\glssymbol{nlp:label:outside}
 	:
 	\text{\texttt{X} ist Entitätstyp}
-\right\rbrace
-\)
-und gilt:
-\[
-	\glssymbol{nlp:label}_i =
-	\begin{cases}
-		\texttt{\glssymbol{nlp:label:beginning}-X},
-		\text{wenn \(\glssymbol{nlp:token}_i\)
-		der Beginn einer Entität vom Typ \(\texttt{X}\) ist
-	}\\
-	\texttt{\glssymbol{nlp:label:inside}-X},
-		\text{wenn \(\glssymbol{nlp:token}_i\)
-		ein Token einer Entität vom Typ \(\texttt{X}\)
-		und nicht deren Beginn ist
-	}\\
-	\glssymbol{nlp:label:outside}, \text{sonst}.
-\end{cases}
-\]
-Diese \texttt{BIO}-Klassifikation geht auf \citeauthor{10.1145/2396761.2398506} zurück \autocite{10.1145/2396761.2398506}.
+	\right\rbrace
+	\)
+	und gilt:
+	\[
+		\glssymbol{nlp:label}_i =
+		\begin{cases}
+			\texttt{\glssymbol{nlp:label:beginning}-X},
+			\text{wenn \(\glssymbol{nlp:token}_i\)
+				der Beginn einer Entität vom Typ \(\texttt{X}\) ist
+			} \\
+			\texttt{\glssymbol{nlp:label:inside}-X},
+			\text{wenn \(\glssymbol{nlp:token}_i\)
+				ein Token einer Entität vom Typ \(\texttt{X}\)
+				und nicht deren Beginn ist
+			} \\
+			\glssymbol{nlp:label:outside}, \text{sonst}.
+		\end{cases}
+	\]
+	Diese \texttt{BIO}-Klassifikation geht auf \citeauthor{10.1145/2396761.2398506} zurück \autocite{10.1145/2396761.2398506}.
 \end{prob}
 
 Seien \(M\) bereits annotierte \glslink{nlp:sentence}{Sätze}
@@ -93,19 +122,19 @@ gegeben:
 	\frac{1}{M}
 	\sum_{m=1}^{M}
 	\glssymbol{crossentropyloss}\left(
-		\glssymbol{nlp:label_sequence}_m,
-		\glssymbol{nlp:model}\left(
-				\glssymbol{nlp:sentence}_m;
-				\glssymbol{nlp:model:parameters}
-			\right)
+	\glssymbol{nlp:label_sequence}_m,
+	\glssymbol{nlp:model}\left(
+		\glssymbol{nlp:sentence}_m;
+		\glssymbol{nlp:model:parameters}
 		\right)
+	\right)
 \end{equation}
 
 \subsection{fernüberwachte \glspt{namedentityrecognition}}
 Hierbei sind im Gegensatz zur \enquote{klassischen} \gls{namedentityrecognition}
 % TODO das klingt unrund
 nicht die \gls{nlp:token} selber beschriftet,
-sondern der gesamte Text wird automatisch mit \glspl{label} versehen.
+sondern der gesamte Text wird automatisch mit \glspl{nlp:label} versehen.
 \citeauthor{2006.15509} listet als Möglichkeiten hierfür
 \enquote{string matching}, \enquote{regexp} und heuristische Verfahren
 \autocite{2006.15509}.
@@ -113,7 +142,7 @@ sondern der gesamte Text wird automatisch mit \glspl{label} versehen.
 \section{Vorherige Arbeiten}
 
 
-\section{Methodik}
+\section{Methodik/Umsetzung}
 
 \subsection{Vorbereitung der Beispieldokumente}
 Da die Beispieldokumente als \gls{pdf} vorliegen,
