@@ -33,6 +33,105 @@ mit Semantik aus der BLL Onthologie%
 \section{Literaturrecherche}
 
 \section{Grundlagen und Definitionen/Theorie}
+
+\gls{maschine-learning} ist eine Unterkategorie von artificial intelligence % TODO gls
+Das Ziel ist dem Computer die Möglichkeit zu geben zu lernen, ohne explizit dafür programmiert zu sein \autocite{levity:howdomachineslearn} % TODO mark citation
+
+\citeauthor{levity:howdomachineslearn} unterteilt es in drei grosse Kategorien: 
+\begin{itemize}
+	\item Supervised learning % TODO gls
+	\item Unsupervised learning % TODO gls
+	\item Reinforcement learning % TODO gls
+\end{itemize}
+
+Beim Supervised learning % TODO gls
+sind die Hauptaufgaben nach \autocite{levity:howdomachineslearn} Regression % TODO
+und Klassifizierung % TODO gls
+
+Beim Unsupervised Training ist das Ziel
+
+Klassifizierung % TODO gls
+ist der Prozess ein System mit bekannten annotierten Daten zu \enquote{trainieren} 
+und so eine Reproduktion der Annotation auf nicht annotierten Daten zu erreichen.
+
+Eine mögliche Annotation ist es den Wörtern eines Satzes ihre grammatikalische Funktion
+oder andere semantische (?) Informationen % TODO 
+zuzuordnen.
+Wenn die semantische Information ist,
+dass die annotierte Entität eine \enquote{spezielle} Entität ist, 
+welche einen Namen hat,
+dann spricht man von \gls{namedentityrecognition}.
+
+Eine Art eine Liste solcher Entitäten zu erstellen,
+ist es sie aus Wissensdatenbanken % TODO knowledge base glossary as knowledgebase
+zu extrahieren.
+In \autocite[A.1]{2006.15509} von \citetitle{2006.15509}
+wird von \citeauthor{2006.15509} eine ganze Reihe von solchen knowledgebase % TODO gls
+genannt.
+
+Eine solche Liste von Entitäten wird oft als Gazzetteer bezeichnet % TODO gls
+(siehe z.B. \autocite[Introduction]{Carlson2009}).
+
+
+
+Der offensichtliche Weg eine Liste bekannter Entitäten über \enquote{string matching} zuzuordnen
+hat die folgenden Probleme:
+\begin{itemize}
+	\item nur vorher bekannte Entitäten werden erkannt, 
+	z.\,B. wird \enquote{Müller und Sohn} erkannt, 
+	wenn es vorher aufgelistet wurde,
+	aber der Transfer,
+	dass auch \enquote{Meier und Sohn} eine Entität ist,
+	kann nicht stattfinden
+	\item Insbesondere in Grammatiken, 
+	in denen Flexion % TODO glossary or wikipedia
+	wichtig ist,
+	kann die gleiche Entität mit verschiedenen Strings repräsentert werden.
+	% TODO ref  ?
+	\item die Laufzeit
+	% TODO Laufzeit in Abhängigkeit von Dict und String ausdrücken
+\end{itemize}
+
+Eine Erweiterung dieses Ansatzes,
+ist es die Liste zu erweitern,
+wie es prinzipiell in \autocite[Abschnitt 3.4]{OASIcs-LDK-2019-11} 
+für eine bessere Version der Worterkennung durchgeführt wird.
+Hierbei wird die Erkennungsaufgabe von FST % TODO Glossary Finite State Transducern
+erledigt,
+welche eine Erkennung zuerst auf der Wortebene durchführen.
+In unserem Beispiel von oben würden so die Worte 
+\enquote{Müller}, \enquote{und} und \enquote{Sohn} auf der Zeichenebene erkannt werden,
+und danach die Entität \enquote{Müller und Sohn} auf der Wortebene.
+
+Wortebene ist hier tatsächlich schon nicht die vollständige Wahrheit,
+denn in Sprachen,
+die wie das Deutsche von zusammengesetzen Wörtern leben,
+ist eine Einteilung in Wortbestandteile
+(diese werden in \autocite{OASIcs-LDK-2019-11} als \foreignquote{english}{lemma} bezeichnet)
+zielführender.
+
+% TODO andere Möglichkeiten Darstellen
+
+Der Ansatz mit der Wortebene zeigt auch schon auf einen konzeptuell-anderen Ansatz:
+Es gibt bestimmte Formulierungen oder eher \enquote{Muster},
+die oftmals eine Entität markieren.
+So ist ein \enquote{\$NAME und \{Sohn,Söhne\}} insbesondere, 
+wenn es in Anführungszeichen steht,
+meistens eine Firma, also Kategorie ORG. % TODO NER Kategorien in gls
+
+Auch Ketten von Grossbuchstaben sind oftmals Entitäten (Acronyme) % TODO gls
+
+
+
+
+\subsection{Training}
+Der Prozess des Trainings
+% TODO
+Es gibt verschiedene Möglichkeiten das Training durchzuführen
+
+
+
+
 \subsection{\glspt{bllonthology}}
 Was ist eine \gls{ontology}?
 % TODO
@@ -59,6 +158,9 @@ Eine Liste der potent
 
 \subsection{Named Entity Recognition}
 \subsubsection{Tokenization}
+Die Eingabe für BERT % TODO gls
+% TODO oder ein anderes Netzwerk (?)
+
 \subsubsection{Tokenclassification}
 
 \subsection{Named Entity Linking}
@@ -80,7 +182,7 @@ lässt sich nach \autocite{2006.15509} als Lösung des folgenden mathematischen 
 	\)
 	und gilt:
 	\[
-		\glssymbol{nlp:label}_i =
+		\glssymbol{nlp:label}_i =	
 		\begin{cases}
 			\texttt{\glssymbol{nlp:label:beginning}-X},
 			\text{wenn \(\glssymbol{nlp:token}_i\)
@@ -144,6 +246,11 @@ sondern der gesamte Text wird automatisch mit \glspl{nlp:label} versehen.
 
 \section{Methodik/Umsetzung}
 
+\subsection{Erstellung eines Gazetteers aus der \glspt{bllonthology}} % TODO gls
+Um eine initiale Annotation der Texte durchzuführen,
+wurde aus der \gls{bllonthology} ein Gazetteer % TODO gls
+der Anzeigenamen der Objekte erstellt.
+
 \subsection{Vorbereitung der Beispieldokumente}
 Da die Beispieldokumente als \gls{pdf} vorliegen,
 müssen die eigentlichen Texte extrahiert werden.
@@ -172,6 +279,8 @@ Eine beliebte Bibliothek hierfür ist \gls{huggingface:tokenizers}.
 
 
 Der darauf folgende Schritt ist die Auswertung durch
+% TODO
+
 
 
 \section{Diskussion}
