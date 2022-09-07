@@ -1,0 +1,61 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{gls-hardwarestyle}[2022/08/18 1.1.0 Glossaries-extra style to show hardware]
+
+\RequirePackage{glossaries-extra}
+\RequirePackage{qrcode}
+\RequirePackage{marginnote}
+\RequirePackage{tabularx}
+
+\glsxtrprovidestoragekey{model}{}{\glsentrymodel}
+\glsxtrprovidestoragekey{cpu}{}{\glsentrycpu}
+\glsxtrprovidestoragekey{gpu}{}{\glsentrygpu}
+\glsxtrprovidestoragekey{mem}{}{\glsentrymem}
+
+% % define custom glossary style
+\newglossarystyle{hardwarestyle}% style name
+{%
+	\setglossarystyle{list}% use list as base
+	% % main entries :
+	\renewcommand*{\glossentry}[2]{%
+		\item[\glsentryitem{##1}%
+		            \glstarget{##1}{\glossentryname{##1}}%
+		      ]
+		%\glossentryname{##1}%
+		%\\
+		% \begin{tabular}{\textwidth}{lr}
+		% 	\glsxtrifhasfield{model}{##1}{%
+		% 	Model & \glscurrentfieldvalue\\
+		% 	}{% false
+		% 	}
+		% 	\glsxtrifhasfield{cpu}{##1}{%
+		% 	CPU & \glscurrentfieldvalue\\
+		% 	}{% false
+		% 	}
+		% 	\glsxtrifhasfield{gpu}{##1}{%
+		% 	GPU & \glscurrentfieldvalue\\
+		% 	}{% false
+		% 	}
+		% 	\glsxtrifhasfield{mem}{##1}{%
+		% 	MEM & \glscurrentfieldvalue\\
+		% 	}{% false
+		% 	}%
+		% \end{tabular}
+		%\glsentrydesc{##1}\\
+		\glsxtrifhasfield{model}{##1}{%
+			Model: \glscurrentfieldvalue\\
+		}{% false
+		}%
+		\glsxtrifhasfield{cpu}{##1}{%
+			CPU: \glscurrentfieldvalue\\
+		}{% false
+		}%
+		\glsxtrifhasfield{gpu}{##1}{%
+			GPU: \glscurrentfieldvalue\\
+		}{% false
+		}%
+		\glsxtrifhasfield{mem}{##1}{%
+			MEM: \glscurrentfieldvalue\\
+		}{% false
+		}%
+	}%
+}

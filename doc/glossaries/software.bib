@@ -138,7 +138,7 @@
 
 @module{community:docker:docker_container,
 	name = {community.docker.docker\_container},
-	description-de = {\gls{ansible:module} zum Verwalten von Docker Containern}},
+	description-de = {\gls{ansible:module} zum Verwalten von Docker Containern},
 	parent = {collection:community:docker},
 	url = {https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_module.html},
 	see = {ansible:module},
@@ -246,11 +246,11 @@
 }
 
 @jinja2var{j2:default:base:path,
-	name = {APPLICATION\\\_base\\\_path},
+	name = {APPLICATION\_base\_path},
 }
 
 @jinja2var{j2:default:conf:path,
-	name = {APPLICATION\\\_conf\\\_path},
+	name = {APPLICATION\_conf\_path},
 }
 
 @jinja2var{j2:default:version,
@@ -564,7 +564,7 @@
 @Software{pypdf2,
 	name = {PyPDF2},
 	url = {https://pypdf2.readthedocs.io/en/latest/},
-	description-de = {\gls{pdf}[-Bibliothek in reinem \gls{python}},
+	description-de = {\gls{pdf}[-Bibliothek in reinem \gls{python}]},
 }
 
 @Software{pdftotext,
@@ -581,6 +581,12 @@
 	name = {tokenizers},
 	url = {https://github.com/huggingface/tokenizers},
 }
+
+@software{pytorch,
+	name = {PyTorch},
+	url = {https://pytorch.org/},
+	description-de = {Python Paket, das Tensorberechnungen mit GPU-Unterstützung und Deep \glspl{neuralnetwork} auf Basis von einem Speicherband bietet \autocite{NEURIPS2019_9015}},
+	license = {BSD-style license},
+}
+
 @Comment{jabref-meta: databaseType:biblatex;}
-
-

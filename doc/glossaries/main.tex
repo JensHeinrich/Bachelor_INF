@@ -1,14 +1,19 @@
 % Glossary support
 \RequirePackage{hyperref}
-\usepackage[
-   record={nameref},
-   nomain,
-   style=tree,
-]{glossaries-extra}
+\PassOptionsToPackage{
+	record={nameref},
+	nomain,
+	style=tree,
+	autoseeindex=true,
+	indexcrossrefs=true,
+}{glossaries-extra}
+\RequirePackage{glossaries-extra}
 
 \usepackage{gls-repo}
 \usepackage{gls-role}
 \usepackage{gls-linklist}
+
+\usepackage{gls-hardwarestyle}
 
 % glossary formatting
 \setabbreviationstyle[abbreviation]{long-short}
@@ -30,71 +35,109 @@
 \glsaddstoragekey{command}{}{\glsentrycommand}
 \glsaddstoragekey{formula}{}{\glsentryformula}
 
-\newglossary*{bachelor_inf}{Glossar}
+\newglossary*{hardware}{Hardware}
 \GlsXtrLoadResources[
-src={%
-glossaries/nlp.bib
-},
-sort={de-DE},
-  sort-field={category},
-  not-match = {%
-  category=software%
-  },
-  entry-type-aliases={%
-	  module = entry,%
-    software = entry,%
-    collection = entry,%
-    repo = entry,%
-    role = index,%
-    jinja2var = index,%
-    filename=index,%
-  },
-  replicate-fields={%
-    description-de=description,%
-    text-de=text,%
-    name-de=name,%
-    plural-de=plural,%
-    url=user1,%
-    short=name,%
-  }, % optionally copy the values
-  type={bachelor_inf},
-  selection={recorded and deps},
+	src={%
+			glossaries/hardware.bib
+		},
+	sort={de-DE},
+	entry-type-aliases={%
+			module = entry,%
+			software = entry,%
+			collection = entry,%
+			repo = entry,%
+			role = index,%
+			jinja2var = index,%
+			filename=index,%
+			hardware = entry,%
+		},
+	replicate-fields={%
+			description-de=description,%
+			text-de=text,%
+			name-de=name,%
+			plural-de=plural,%
+			url=user1,%
+			short=name,%
+		}, % optionally copy the values
+	type={hardware},
+	selection={recorded and deps},
+	category={same as original entry},
+]
+
+\newglossary*{glossary}{Glossar}
+
+\GlsXtrLoadResources[
+	src={%
+			glossaries/nlp.bib,
+			glossaries/projecthocco.bib,
+			glossaries/ansible_testing.bib,%
+			glossaries/shibboleth.bib,%
+			glossaries/institutes.bib},
+	sort={de-DE},
+	not-match = {%
+			category=software%
+		},
+	entry-type-aliases={%
+			module = entry,%
+			software = entry,%
+			collection = entry,%
+			repo = entry,%
+			role = index,%
+			jinja2var = index,%
+			filename=index,%
+		},
+	replicate-fields={%
+			description-de=description,%
+			text-de=text,%
+			name-de=name,%
+			plural-de=plural,%
+			url=user1,%
+			short=name,%
+		}, % optionally copy the values
+	type={glossary},
+	selection={recorded and deps},
 ]
 
 \newglossary*{testing}{Glossar}
 
 \GlsXtrLoadResources[
-  src={%
-	 glossaries/ansible_testing.bib,%
-    glossaries/projecthocco.bib,%
-    glossaries/shibboleth.bib,%
-    glossaries/institutes.bib,%
-    glossaries/software.bib%
-  },
-  sort={de-DE},
-  sort-field={category},
-  not-match = {%
-  category=software%
-  },
-  entry-type-aliases={%
-	  module = entry,%
-    software = entry,%
-    collection = entry,%
-    repo = entry,%
-    role = index,%
-    jinja2var = index,%
-    filename=index,%
-  },
-  replicate-fields={%
-    description-de=description,%
-    text-de=text,%
-    name-de=name,%
-    plural-de=plural,%
-    url=user1,%
-    short=name,%
-  }, % optionally copy the values
-  type={testing},
-  selection={recorded and deps},
+	src={%
+			glossaries/ansible_testing.bib,%
+			glossaries/projecthocco.bib,%
+			glossaries/shibboleth.bib,%
+			glossaries/institutes.bib,%
+			glossaries/software.bib,%
+			glossaries/ocr-d.bib%
+		},
+	sort={de-DE},
+	not-match = {%
+			category=event,
+			category=software,%
+			entrytype=repo,%
+			entrytype=filename,%
+			entrytype=role,%
+			entrytype=module,%
+			entrytype=collection,%
+		},%
+	entry-type-aliases={%
+			module = entry,%
+			software = entry,%
+			collection = entry,%
+			repo = entry,%
+			role = index,%
+			jinja2var = index,%
+			filename=index,%
+		},
+	replicate-fields={%
+			description-de=description,%
+			text-de=text,%
+			name-de=name,%
+			plural-de=plural,%
+			url=user1,%
+			short=name,%
+		}, % optionally copy the values
+	type={glossary},
+	selection={recorded and deps},
 ]
 
 
@@ -103,110 +146,136 @@ sort={de-DE},
 \newglossary*{editors}{Editoren}
 
 \GlsXtrLoadResources[
-   src={%
-      glossaries/editors%
-   },%
-   sort={de-DE},%
-   field-aliases={%
-      %description-de=description%
-   },% load german description
-   entry-type-aliases={%
-      editor=entry,%
-   },% use software entries
-   flatten-lonely=presort,
-   flatten-lonely-rule={discard unrecorded},
-   description-case-change={firstuc},
-   replicate-fields={%
-      description-de=description,%
-      %long=name,%
-      url=user1,%
-      last-commit=user2,%
-      preview=user3,%
-      offline=user4,%
-      multiuser=user5,%
-      foss=user6,%
-   }, % optionally copy the values
-   type={editors},
-   selection={recorded and deps},
-   %label-prefix={ocrd.},
-   secondary={de-DE:lable:ocrd-index},
+	src={%
+			glossaries/editors%
+		},%
+	sort={de-DE},%
+	field-aliases={%
+			%description-de=description%
+		},% load german description
+	entry-type-aliases={%
+			editor=entry,%
+		},% use software entries
+	flatten-lonely=presort,
+	flatten-lonely-rule={discard unrecorded},
+	description-case-change={firstuc},
+	replicate-fields={%
+			description-de=description,%
+			%long=name,%
+			url=user1,%
+			last-commit=user2,%
+			preview=user3,%
+			offline=user4,%
+			multiuser=user5,%
+			foss=user6,%
+		}, % optionally copy the values
+	type={editors},
+	selection={recorded and deps},
+	%label-prefix={ocrd.},
+	secondary={de-DE:lable:ocrd-index},
 ]
 
 \newglossary*{software}{Software-Versionen}
 
 \GlsXtrLoadResources[
-   src={%
-      %glossaries/blackaluminuiumfox,%
-      glossaries/software%
-   },%
-   sort={en-GB},% sort according to 'en-GB' locale
-   field-aliases={%
-      %description-de=description%
-   },% load german description
-   entry-type-aliases={%
-      software=index,%
-   },% needed for bib2gls to recognize entries
-   replicate-fields={%
-      description-de=description,%
-      %url=long,
-      url=description,
-      name=short,
-      url=user1,%
-   }, % optionally copy the values
-   category={same as original entry},
-   type={software},
-   selection={recorded and deps and see},
-   match={%
-      entrytype=software,%
-   },%
+	src={%
+			%glossaries/blackaluminuiumfox,%
+			glossaries/software%
+		},%
+	sort={en-GB},% sort according to 'en-GB' locale
+	field-aliases={%
+			%description-de=description%
+		},% load german description
+	entry-type-aliases={%
+			software=index,%
+			repo=index,%
+			role=index,%
+			module=index,%
+			collection=index,%
+			jinja2var=index,%
+			filename=index,%
+		},% needed for bib2gls to recognize entries
+	replicate-fields={%
+			description-de=description,%
+			%url=long,
+			url=description,
+			name=short,
+			url=user1,%
+		}, % optionally copy the values
+	category={same as original entry},
+	type={software},
+	selection={recorded and deps and see},
+	match={%
+			entrytype=software,%
+		},%
+	not-match={%
+			entrytype=repo,%
+			entrytype=filename,%
+			entrytype=role,%
+			entrytype=module,%
+			entrytype=collection,%
+		},%
 ]
 
 \newignoredglossary*{licenses}%{Lizenzen}
 
 \GlsXtrLoadResources[
-   src={%
-      glossaries/software,%
-      glossaries/licenses%
-   },% data in entries.bib
-   sort={de-DE},% sort according to 'en-GB' locale
-   field-aliases={%
-   },% load german description
-    %flatten-lonely=presort,%
-    %flatten-lonely-rule={discard unrecorded},%
-    entry-type-aliases={%
-       license=index,%
-    },% needed for bib2gls to recognize entries
-    replicate-fields={%
-       %name=short,% use short style for abbreviations
-         url=user1,%
-    }, % optionally copy the values
-    category={same as original entry},
-    type={licenses},
-    selection={recorded and deps},
+	src={%
+			glossaries/software.bib,%
+			glossaries/licenses.bib%
+		},% data in entries.bib
+	sort={de-DE},% sort according to 'en-GB' locale
+	field-aliases={%
+		},% load german description
+	%flatten-lonely=presort,%
+	%flatten-lonely-rule={discard unrecorded},%
+	entry-type-aliases={%
+			license=index,%
+			module = entry,%
+			software = entry,%
+			collection = entry,%
+			repo = entry,%
+			role = index,%
+			jinja2var = index,%
+			filename=index,%
+		},% needed for bib2gls to recognize entries
+	replicate-fields={%
+			%name=short,% use short style for abbreviations
+			url=user1,%
+		}, % optionally copy the values
+	category={same as original entry},
+	type={licenses},
+	selection={recorded and deps},
+	not-match={%
+			entrytype=repo,%
+			entrytype=filename,%
+			entrytype=role,%
+			entrytype=module,%
+			entrytype=collection,%
+		},%
 ]
 
 \newglossary*{blackaluminuiumfox}{Glossar --- BlackAlumniumFox}
 
 \GlsXtrLoadResources[
-  src={%
-    glossaries/blackaluminuiumfox%
-  },
-  sort={de-DE},
-  sort-field={category},
-  entry-type-aliases={%
-    software = entry,%
-    repo = index,%
-  },
-  replicate-fields={%
-    description-de=description,%
-    text-de=text,%
-    name-de=name,%
-    plural-de=plural,%
-    url=user1,%
-    short=name,%
-  }, % optionally copy the values
-  type={blackaluminuiumfox},
-  selection={recorded and deps},
+	src={%
+			glossaries/blackaluminuiumfox%
+		},
+	sort={de-DE},
+	entry-type-aliases={%
+			software = entry,%
+			repo = index,%
+		},
+	replicate-fields={%
+			description-de=description,%
+			text-de=text,%
+			name-de=name,%
+			plural-de=plural,%
+			url=user1,%
+			short=name,%
+		}, % optionally copy the values
+	type={glossary},
+	selection={recorded and deps},
 ]
 
 
@@ -214,130 +283,127 @@ sort={de-DE},
 \newglossary*{clusters}{Glossar --- QuestioningClusters}
 
 \GlsXtrLoadResources[
-   src={%
-      glossaries/QuestioningClustersPresentation.bib,%
-      glossaries/QuestioningClusters.bib%
-   },%
-   sort={en-GB},% sort according to 'en-GB' locale
-   field-aliases={%
-      description-de=description%
-   },% load german description
-   entry-type-aliases={%
-      collection=entry,%
-      software=entry,%
-      k8sstate=index,%
-      filename=entry,%
-   },% needed for bib2gls to recognize entries
-   replicate-fields={%
-      description-de=description,%
-      name-de=name,%
-      long=name,%
-      %url=long,
-      %url=description,
-      %name=short,
-      url=user1,%
-   }, % optionally copy the values
-   category={same as original entry},
-   type={clusters},
-   selection={recorded and deps},
-   %selection={recorded and deps and see},
-   match={%
-      %entrytype=software,%
-      %%entrytype=entry,%
-   },%
+	src={%
+			glossaries/QuestioningClustersPresentation.bib,%
+			glossaries/QuestioningClusters.bib%
+		},%
+	sort={en-GB},% sort according to 'en-GB' locale
+	field-aliases={%
+			description-de=description%
+		},% load german description
+	entry-type-aliases={%
+			collection=entry,%
+			software=entry,%
+			k8sstate=index,%
+			filename=entry,%
+		},% needed for bib2gls to recognize entries
+	replicate-fields={%
+			description-de=description,%
+			name-de=name,%
+			long=name,%
+			%url=long,
+			%url=description,
+			%name=short,
+			url=user1,%
+		}, % optionally copy the values
+	category={same as original entry},
+	type={glossary},
+	selection={recorded and deps},
+	%selection={recorded and deps and see},
+	match={%
+			%entrytype=software,%
+			%%entrytype=entry,%
+		},%
 ]
 
 \GlsXtrLoadResources[
-   src={%
-      glossaries/institutes.bib,%
-      glossaries/shortcuts.bib%
-   },%
-   entry-type-aliases={%
-     abbreviation=index,%
-   },%
-   replicate-fields={%
-     short-de=name,%
-   },%
-   field-aliases={%
-      description-de=description,%
-      short-de=short,%
-      long-de=long,%
-   },% load german description
-   type={ignored},
-   selection={recorded and deps},
+	src={%
+			glossaries/institutes.bib,%
+			glossaries/shortcuts.bib%
+		},%
+	entry-type-aliases={%
+			abbreviation=index,%
+		},%
+	replicate-fields={%
+			short-de=name,%
+		},%
+	field-aliases={%
+			description-de=description,%
+			short-de=short,%
+			long-de=long,%
+		},% load german description
+	type={ignored},
+	selection={recorded and deps},
 ]
 
 \newglossary*{blackaluminuiumfoxpresentation}{Glossar --- BlackAlumniumFox --- Presentation}
 
 \GlsXtrLoadResources[
-  src={%
-    glossaries/blackaluminuiumfoxpresentation%
-  },
-  sort={de-DE},
-  sort-field={category},
-  entry-type-aliases={%
-    software = entry,%
-    repo = entry,%
-  },
-  replicate-fields={%
-    description-de=description,%
-    text-de=text,%
-    name-de=name,%
-    plural-de=plural,%
-    url=user1,%
-    short=name,%
-  }, % optionally copy the values
-  type={blackaluminuiumfoxpresentation},
-  selection={recorded and deps},
+	src={%
+			glossaries/blackaluminuiumfoxpresentation%
+		},
+	sort={de-DE},
+	entry-type-aliases={%
+			software = entry,%
+			repo = entry,%
+		},
+	replicate-fields={%
+			description-de=description,%
+			text-de=text,%
+			name-de=name,%
+			plural-de=plural,%
+			url=user1,%
+			short=name,%
+		}, % optionally copy the values
+	type={glossary},
+	selection={recorded and deps},
 ]
 \newglossary*{ocrd}{Glossar --- OCR-D}
 
 \GlsXtrLoadResources[
-  src={%
-    glossaries/ocr-d%
-  },
-  sort={de-DE},
-  sort-field={category},
-  entry-type-aliases={%
-    software = entry,%
-    repo = entry,%
-  },
-  replicate-fields={%
-    description-de=description,%
-    text-de=text,%
-    name-de=name,%
-    plural-de=plural,%
-    url=user1,%
-    short=name,%
-  }, % optionally copy the values
-  type={ocrd},
-  selection={recorded and deps},
+	src={%
+			glossaries/ocr-d%
+		},
+	sort={de-DE},
+	entry-type-aliases={%
+			software = entry,%
+			repo = entry,%
+		},
+	replicate-fields={%
+			description-de=description,%
+			text-de=text,%
+			name-de=name,%
+			plural-de=plural,%
+			url=user1,%
+			short=name,%
+		}, % optionally copy the values
+	type={glossary},
+	selection={recorded and deps},
 ]
 
 \newglossary*{hocco}{Glossar --- Project Hocco}
 
 \GlsXtrLoadResources[
-  src={%
-    glossaries/projecthocco.bib%
-  },
-  sort={de-DE},
-  sort-field={category},
-  not-match = {%
-	 category= role,%
-  },
-  entry-type-aliases={%
-    %software = entry,%
-    repo = entry,%
-  },
-  replicate-fields={%
-    description-de=description,%
-    text-de=text,%
-    name-de=name,%
-    plural-de=plural,%
-    url=user1,%
-    short=name,%
-  }, % optionally copy the values
-  type={hocco},
-  selection={recorded and deps},
+	src={%
+			glossaries/projecthocco.bib%
+		},
+	sort={de-DE},
+	not-match = {%
+			category= role,%
+		},
+	entry-type-aliases={%
+			%software = entry,%
+			repo = entry,%
+		},
+	replicate-fields={%
+			description-de=description,%
+			text-de=text,%
+			name-de=name,%
+			plural-de=plural,%
+			url=user1,%
+			short=name,%
+		}, % optionally copy the values
+	type={glossary},
+	selection={recorded and deps},
 ]
 

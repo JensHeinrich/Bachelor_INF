@@ -1,35 +1,41 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{gls-editorstyle}[2021/08/23 1.0.0 Glossaries-extra editorstyle]
+\ProvidesPackage{gls-editorstyle}[2022/08/18 1.1.0 Glossaries-extra editorstyle]
 
 \RequirePackage{glossaries-extra}
 \RequirePackage{qrcode}
 \RequirePackage{marginnote}
 
+\glsxtrprovidestoragekey{last-commit}{}{\glsentrylastcommit}
+\glsxtrprovidestoragekey{preview}{}{\glsentrypreview}
+\glsxtrprovidestoragekey{offline}{}{\glsentryoffline}
+\glsxtrprovidestoragekey{multiuser}{}{\glsentrymultiuser}
+\glsxtrprovidestoragekey{foss}{}{\glsentryfoss}
+
 % % define custom glossary style
 \newglossarystyle{editorstyle}% style name
 {%
-   \setglossarystyle{list}% use list as base
-   % % main entries :
-   \renewcommand*{\glossentry}[2]{%
-   \item[\glsentryitem{##1}%
-     %\glstarget{##1}{\glossentryname{##1}}%
+\setglossarystyle{list}% use list as base
+% % main entries :
+\renewcommand*{\glossentry}[2]{%
+\item[\glsentryitem{##1}%
+            %\glstarget{##1}{\glossentryname{##1}}%
       ]
-     \glossentryname{##1}%
-      \\
-      \glsentrydesc{##1}\\
-      \glsxtrifhasfield{useri}{##1}{%
-         Homepage: \url{\glscurrentfieldvalue}\\%
-         \marginnote{%
-            \qrcode[%
-               height=1.5cm,%
-            ]{\glscurrentfieldvalue}%
-         }%
-         }{% false
-      }%
-			letzte Aktualisierung: {\glsentryuserii{##1}}\\
-			Vorschau: {\glsentryuseriii{##1}}\\
-			Offline-Nutzbarkeit: {\glsentryuseriv{##1}} \\
-			Mehrbenutzerfähigkeit: {\glsentryuserv{##1}} \\
-			\gls{foss}: {\glsentryuservi{##1}}
-   }%
+\glossentryname{##1}%
+\\
+\glsentrydesc{##1}\\
+\glsxtrifhasfield{useri}{##1}{%
+	Homepage: \url{\glscurrentfieldvalue}\\%
+	\marginnote{%
+		\qrcode[%
+			height=1.5cm,%
+		]{\glscurrentfieldvalue}%
+	}%
+}{% false
+}%
+letzte Aktualisierung: {\glsentryuserii{##1}}\\
+Vorschau: {\glsentryuseriii{##1}}\\
+Offline-Nutzbarkeit: {\glsentryuseriv{##1}} \\
+Mehrbenutzerfähigkeit: {\glsentryuserv{##1}} \\
+\gls{foss}: {\glsentryuservi{##1}}
+}%
 }

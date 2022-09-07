@@ -1,22 +1,37 @@
-@Acronym{BERT,
+@acronym{BERT,
 	short = {BERT},
 	long = {Bidirectional Encoder Representations from Transformers},
 }
 
-@Acronym{namedentityrecognition,
+@acronym{namedentityrecognition,
 	short = {NER},
 	long = {Named Entity Recognition},
+	first = {Named Entity Recogniton (kurz: NER, deutsch: \enquote{
+	         Eigennamenerkennung} vgl. \autocite{Leitner2019})},
 	parent = {naturallanguageprocessing},
 }
 
-@Acronym{naturallanguageprocessing,
+@acronym{namedentitylinking,
+	short = {NEL},
+	long = {Named Entity Linking},
+	parent = {naturallanguageprocessing},
+}
+
+@acronym{namedentitydisambiguation,
+	short = {NED},
+	long = {Named Entity Disambiguation},
+	parent = {naturallanguageprocessing},
+}
+
+@acronym{naturallanguageprocessing,
 	short = {NLP},
 	long = {Natural Language Processing},
 }
 
 @entry{tensor,
 	name = {Tensor},
-	description-de = {Erweiterung des Konzeptes eines Vektors ins mehrdimensionale},
+	description-de = {Erweiterung des Konzeptes eines Vektors ins
+	                  mehrdimensionale},
 }
 
 @entry{nlp:token,
@@ -29,26 +44,22 @@
 	plural-de = {Sätze},
 	symbol = {\ensuremath{\mathbf{X}}},
 	description-de = {Liste aus \(N\) Tokens \glsentryformula{nlp:sentence}},
-	formula = {
-	    \ensuremath{
-	    \glssymbol{nlp:sentence}
-	    = \left\lbrack
-		   \glssymbol{nlp:token}_1,
-		   \hdots,
-		   \glssymbol{nlp:token}_N
-	    \right\rbrack
-	    }
-},
+	formula = { \ensuremath{ \glssymbol{nlp:sentence} = \left\lbrack \glssymbol{nlp:token}_1, \hdots, \glssymbol{nlp:token}_N \right\rbrack } },
 }
 
 @entry{nlp:entity,
 	name-de = {Entität},
-	description-de = {Für einen \gls{nlp:sentence} \glsentryformula{nlp:sentence} ist eine Entität ein Bereich (\enquote{span}) von Tokens \glsentryformula{nlp:entity}},
-	formula = {\ensuremath{s=\left\lbrack x_i, \hdots, x_j \right\rbrack \left(0\leq i \leq j \leq N \right) }},
+	description-de = {Für einen \gls{nlp:sentence} \glsentryformula{nlp:sentence
+	                  } ist eine Entität ein Bereich (\enquote{span}) von Tokens
+	                  \glsentryformula{nlp:entity}},
+	formula = {\ensuremath{s=\left\lbrack x_i, \hdots, x_j \right\rbrack \left(0
+	           \leq i \leq j \leq N \right) }},
 }
 
 @entry{nlp:ner,
-	description-de = {Zuweisen von einer Liste von \glspl{nlp:label} \glsentryformula{nlp:label_sequence} zu einem Satz \glssymbol{nlp:sentence}},
+	description-de = {Zuweisen von einer Liste von \glspl{nlp:label}
+	                  \glsentryformula{nlp:label_sequence} zu einem Satz
+	                  \glssymbol{nlp:sentence}},
 }
 
 @entry{nlp:label,
@@ -59,32 +70,29 @@
 @entry{nlp:label_sequence,
 	name = {Beschriftung},
 	symbol = {\ensuremath{\mathbf{Y}}},
-	formula = {\ensuremath{\glssymbol{nlp:label_sequence} = \left\lbrack \glssymbol{nlp:label}_1, \hdots, \glssymbol{nlp:label}_N \right\rbrack}},
+	formula = {\ensuremath{\glssymbol{nlp:label_sequence} = \left\lbrack
+	           \glssymbol{nlp:label}_1, \hdots, \glssymbol{nlp:label}_N \right
+	           \rbrack}},
 }
 
-@entry{nlp:label:beginning,
+@symbol{nlp:label:beginning,
 	symbol = {\ensuremath{\texttt{B}}},
+	description-de = {Label für Token am Anfang einer Entität},
 }
 
-@entry{nlp:label:inside,
+@symbol{nlp:label:inside,
 	symbol = {\ensuremath{\texttt{I}}},
+	description-de = {Label für Token innerhalb einer Entität},
 }
-@entry{nlp:label:outside,
+@symbol{nlp:label:outside,
 	symbol = {\ensuremath{\texttt{O}}},
+	description-de = {Label für Token ausserhalb einer Entität}
 }
 
 @entry{nlp:labelled_sentences,
-	name-de = {Beschrifte \glspp{nlp:sentence}},
-	formula = {
-	    \ensuremath{
-		{
-			\left\lbrace
-				\glssymbol{nlp:sentence}_m,
-				\glssymbol{nlp:label_sequence}_m
-			\right\rbrace
-		}_{m=1}^M
-		}
-	},
+	name-de = {Beschriftete \glspp{nlp:sentence}},
+	formula = { \ensuremath{ { \left\lbrace \glssymbol{nlp:sentence}_m,
+	           \glssymbol{nlp:label_sequence}_m \right\rbrace }_{m=1}^M } },
 }
 
 @entry{nlp:model:parameters,
@@ -96,15 +104,7 @@
 
 @entry{nlp:model,
 	symbol = { \ensuremath{f}},
-	formula = {
-	    \ensuremath{
-	    \glssymbol{nlp:model}
-	    \left(
-	    \glssymbol{nlp:sentence};
-	    \glssymbol{nlp:model:parameters}
-	    \right)
-	    }
-	},
+	formula = { \ensuremath{ \glssymbol{nlp:model} \left( \glssymbol{nlp:sentence}; \glssymbol{nlp:model:parameters} \right) } },
 	name-de = {\glspt{naturallanguageprocessing}-Modell},
 }
 
@@ -116,14 +116,225 @@
 
 @entry{crossentropyloss,
 	name-de = {\glspt{crossentropy}-Kosten},
-	description-de = {Differenz zwischen der erwarteten Verteilung \(\hat{y}\) und der echten Verteilung \(y\) },
+	description-de = {Differenz zwischen der erwarteten Verteilung \(\hat{y}\)
+	                  und der echten Verteilung \(y\) },
 	symbol = {\ensuremath{l}},
-	formula = {\ensuremath{
-	    \glssymbol{crossentropyloss}\left(y,\hat{y}\right)
-	    =
-	    - \left\lbrack
-	    y \log \hat{y}
-	    + \left(1-y\right) \log \left( 1-\hat{y} \right)
-	    \right\rbrack
-	    }},
+	formula = {\ensuremath{ \glssymbol{crossentropyloss}\left(y,\hat{y}\right) =
+	           - \left\lbrack y \log \hat{y} + \left(1-y\right) \log \left( 1-
+	           \hat{y} \right) \right\rbrack }},
+}
+
+@entry{machine-learning,
+	name-de = {maschinelles Lernen},
+	description-de = {Trainieren von Maschinen auf Datensätzen},
+}
+
+@entry{bllontology,
+	name-de = {\glsps{bll}-\glspt{ontology}},
+}
+
+@acronym{bll,
+	short = {BLL},
+	long = {Bibliography of Linguistic Literature},
+}
+
+@entry{ontology,
+	name-de = {Ontologie},
+}
+
+@acronym{openarchivesinitiative,
+	short = {OAI},
+	long = {Open Archives Initiative},
+	sortkey = {oai},
+	url = {https://www.openarchives.org},
+}
+
+@acronym{oai-pmh,
+	long = {\glspt{openarchivesinitiative} -- Protocol for Metadata Harvesting},
+	short = {OAI--PMH},
+	url = {https://www.openarchives.org/pmh/},
+}
+@entry{oaipmharvest,
+	name = {oaipmharvest},
+	url = {https://github.com/ubffm/oaipmharvest},
+}
+
+
+@acronym{fachinformationsdienst,
+	short = {FID},
+	long = {Fachinformationsdienst},
+	plural = {Fachinformationsdienste},
+}
+
+@entry{cuda,
+	short = {CUDA},
+	long = {Compute Unified Device Architecture},
+	description-de = {von Nvidia entwickelte \gls{api} zum Ausführen von
+	                  Berechnungen auf der GPU},
+}
+
+
+@acronym{mime,
+	short = {MIME},
+	long = {Multipurpose Internet Mail Extensions},
+}
+
+@acronym{Dewey:Decimal:Classification,
+	short = {DDC},
+	long = {Dewey Decimal Classification},
+}
+
+@entry{gazetteer,
+	name-de = {Gazetteer},
+	description-de = {Wörterbuch, welches Entitäten enthält\autocite{P08-1047}},
+}
+
+@entry{nlp:stats:loss,
+	name = {Loss},
+}
+
+@entry{nlp:stats:recall,
+	name = {Recall},
+}
+
+@entry{nlp:stats:precision,
+	name = {Precision},
+}
+
+@entry{nlp:stats:f1,
+	name = {F1},
+}
+
+@acronym{artificialintelligence,
+	short = {AI},
+	long = {Artficial Intelligence},
+}
+
+@entry{fid:linguistik,
+	name = {Lin|gu|is|tik},
+}
+
+@acronym{knowledgebase,
+	long = {Knowledge Base},
+	first = {Wissensdatenbank (engl. Knowledge Base)},
+	short = {KB},
+}
+
+@entry{thesaurus,
+	name = {Thesaurus},
+}
+
+@entry{deeplearning,
+	name = {Deep Learning},
+}
+
+@entry{lstm,
+	long = {Long Short-Term Memory},
+	short = {LSTM},
+}
+
+@entry{neuralnetwork,
+	name = {neural network},
+	name-de = {neuronales Netz},
+	description-de = {an die Funktionsweise biologischer neuronaler Netzwerke
+	                  angelehntes System zur Funktionsapproximation},
+}
+
+@entry{recurrentneuralnetwork,
+	short = {RNN},
+	long = {Recurrent Neural Network},
+}
+
+@entry{convolutionneuralnetwork,
+	long = {convolution neural network},
+	short = {CNN},
+	description-de = {Neuronales Netzwerk bei dem die Ebenen als Matritzen
+	                  betrachtet werden und der Übergang zwischen Ebenen durch
+	                  eine Faltung mit einer Gewichtsmatrix (die Summierung von
+	                  Einträgen der Untermatritzen nach Multiplikation mit
+	                  geteilten Gewichten aus der Gewichtsmatrix)},
+}
+
+@entry{transformer,
+	name = {Transformer},
+	description-de = {Architektur eines \glslink{neuralnetwork}{neuronalen Netzwerks}, welches statt Faltung oder Rückkopplung nur Aufmerksamkeitsmechanismen verwendet\autocite{1706.03762}}
+	}
+
+
+
+@ignored{stateoftheart,
+	name = {state-of-the-art},
+}
+
+
+
+@acronym{nlp:task:mlm,
+	long = {Masked Language Model},
+	short = {MLM},
+	description-de = {Aufgabe 15\% der Tokens vorherzusagen; diese werden dafür
+	                  in der Eingabe durch ein Token ersetzt(80\% MASK-Token, 10
+	                  \% zufälliges Token, 10\% gleiches Token)\autocite[3.1 Task
+	                  \# 1]{1810.04805}},
+}
+
+@acronym{nlp:task:nsp,
+	short = {NSP},
+	long = {Next Sentence Prediction},
+	description-de = {Hierbei werden zwei Sätze A und B aus dem Corpus gewählt,
+	                  sodass in 50\% der Fälle Satz B auf Satz A folgt und in 50
+	                  \% der Fälle B ein zufälliger Satz aus dem Corpus ist.
+	                  \autocite[3.1 Task \# 2]{1810.04805}},
+}
+
+@acronym{finitestatetransducer,
+	short = {FST},
+	long = {Finite-State Transducer},
+	first = {Endlicher Transduktor (engl. Finite-State Transducer) (FST)},
+}
+
+@acronym{i18n,
+	long={Internationalization},
+	short={I18N},
+	}
+
+@acronym{dublincore,
+	short = {DC},
+	long = {Dublin Core},
+}
+
+@entry{GloVe,
+	short = {GloVe},
+	long = {Global Vectors for Word Representation},
+	description-de = {\gls{unsupervised-learning} Algorithmus zum Finden von Vektorrepräsentationen von Wörtern},
+}
+
+@entry{supervised-learning,
+	name = {Supervised Learning},
+}
+
+@entry{unsupervised-learning,
+	name = {Unsupervised Learning},
+}
+
+@entry{reinforcement-learning,
+	name = {Reinforcement Learning},
+}
+
+@entry{distant-supervision,
+	name = {Distant Supervision},
+}
+
+@acronym{mentiondetection,
+	short = {MD},
+	long = {Mention detection},
+}
+
+@acronym{opac,
+short= {OPAC},
+long = {Online Public Access Catalogue},
+}
+
+@acronym{isbn,
+short = {ISBN},
+long = {Internationale Standardbuchnummer},
 }
