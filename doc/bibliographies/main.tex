@@ -8,6 +8,14 @@
 	\nocite{stack:tex:cite-qrcode}
 }% end AtEndDocument
 
+% Allow linebreak after lower case characters in bibliography urls 
+\setcounter{biburllcpenalty}{8000}
+
+% Allow linebreak after uppercase case characters in bibliography urls 
+\setcounter{biburlucpenalty}{9000}
+
+% Allow linebreak after numeric characters in bibliography urls 
+\setcounter{biburlnumpenalty}{9000}
 
 \addbibresource{bibliographies/projecthocco.bib}
 \addbibresource{bibliographies/ocr-d.bib}
