@@ -1,97 +1,777 @@
 % Encoding: UTF-8
 
-@Misc{https://doi.org/10.48415/2021/fhw5-x128,
-  author    = {Risch, Julian and Stoll, Anke and Wilms, Lena and Wiegand, Michael},
-  title     = {Proceedings of the GermEval 2021 Workshop on the Identification of Toxic, Engaging, and Fact-Claiming Comments},
-  year      = {2021},
-  doi       = {10.48415/2021/FHW5-X128},
-  file      = {:https___doi.org_10.48415_2021_fhw5-x128 - Proceedings of the GermEval 2021 Workshop on the Identification of Toxic, Engaging, and Fact-Claiming Comments.pdf:PDF},
-  language  = {en},
-  publisher = {Universität Klagenfurt},
-  url       = {https://resolver.obvsg.at/urn:nbn:at:at-ubk:3-798},
+@Preamble{"\RequirePackage{babel}"}
+
+@InProceedings{SundermeyerSN12,
+  author    = {Martin Sundermeyer and Ralf Schl{\"{u}}ter and Hermann Ney},
+  title     = {{LSTM} Neural Networks for Language Modeling},
+  booktitle = {{INTERSPEECH} 2012, 13th Annual Conference of the International Speech Communication Association, Portland, Oregon, USA, September 9-13, 2012},
+  year      = {2012},
+  pages     = {194--197},
+  url       = {http://www.isca-speech.org/archive/interspeech\_2012/i12\_0194.html},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+  biburl    = {https://dblp.org/rec/conf/interspeech/SundermeyerSN12.bib},
+  crossref  = {DBLP:conf/interspeech/2012},
+  file      = {20130516_johnhao1206_879_Paper.pdf:http\://smil.csie.ntnu.edu.tw/ppt/20130516_johnhao1206_879_Paper.pdf:PDF},
+  timestamp = {Tue, 16 Nov 2021 11:40:32 +0100},
 }
 
-@InProceedings{inproceedings,
-  author = {Labusch, Kai and Zu, Staatsbibliothek and Kulturbesitz, Berlin and Neudecker, Clemens and Zellhöfer, David},
-  title  = {BERT for Named Entity Recognition in Contemporary and Historical German},
-  year   = {2019},
-  month  = {10},
+@misc{https://doi.org/10.48415/2021/fhw5-x128,
+  author = {Risch, Julian and Stoll, Anke and Wilms, Lena and Wiegand, Michael},
+  title = {Proceedings of the GermEval 2021 Workshop on the Identification of
+           Toxic, Engaging, and Fact-Claiming Comments},
+  year = {2021},
+  doi = {10.48415/2021/FHW5-X128},
+  file = {:https___doi.org_10.48415_2021_fhw5-x128 - Proceedings of the GermEval
+          2021 Workshop on the Identification of Toxic, Engaging, and
+          Fact-Claiming Comments.pdf:PDF},
+  language = {en},
+  publisher = {Universität Klagenfurt},
+  url = {https://resolver.obvsg.at/urn:nbn:at:at-ubk:3-798},
+}
+
+@InProceedings{labusch2019bert,
+  author    = {Labusch, Kai and Neudecker, Clemens and Zellhöfer, David},
+  title     = {BERT for Named Entity Recognition in Contemporary and Historical German},
+  booktitle = {Proceedings of the 15th conference on natural language processing},
+  year      = {2019},
+  month     = {10},
+  pages     = {9--11},
+  url       = {https://konvens.org/proceedings/2019/papers/KONVENS2019_paper_4.pdf},
 }
 
 @online{huggingface:docs:Transformers:preprocessing,
-	url = {https://huggingface.co/docs/transformers/preprocessing},
-	title = { Preprocess},
-	urldate = {2022-06-20},
+  url = {https://huggingface.co/docs/transformers/preprocessing},
+  title = { Preprocess},
+  urldate = {2022-06-20},
 }
 @inproceedings{brandsen-etal-2020-creating,
-    title = "Creating a Dataset for Named Entity Recognition in the Archaeology Domain",
-    author = "Brandsen, Alex  and
-      Verberne, Suzan  and
-      Wansleeben, Milco  and
-      Lambers, Karsten",
-    booktitle = "Proceedings of the 12th Language Resources and Evaluation Conference",
-    month = may,
-    year = "2020",
-    address = "Marseille, France",
-    publisher = "European Language Resources Association",
-    url = "https://aclanthology.org/2020.lrec-1.562",
-    pages = "4573--4577",
-    abstract = "In this paper, we present the development of a training dataset for Dutch Named Entity Recognition (NER) in the archaeology domain. This dataset was created as there is a dire need for semantic search within archaeology, in order to allow archaeologists to find structured information in collections of Dutch excavation reports, currently totalling around 60,000 (658 million words) and growing rapidly. To guide this search task, NER is needed. We created rigorous annotation guidelines in an iterative process, then instructed five archaeology students to annotate a number of documents. The resulting dataset contains {\textasciitilde}31k annotations between six entity types (artefact, time period, place, context, species {\&} material). The inter-annotator agreement is 0.95, and when we used this data for machine learning, we observed an increase in F1 score from 0.51 to 0.70 in comparison to a machine learning model trained on a dataset created in prior work. This indicates that the data is of high quality, and can confidently be used to train NER classifiers.",
-    language = "English",
-    ISBN = "979-10-95546-34-4",
+  title = "Creating a Dataset for Named Entity Recognition in the Archaeology
+           Domain",
+  author = "Brandsen, Alex and Verberne, Suzan and Wansleeben, Milco and Lambers
+            , Karsten",
+  booktitle = "Proceedings of the 12th Language Resources and Evaluation
+               Conference",
+  month = may,
+  year = "2020",
+  address = "Marseille, France",
+  publisher = "European Language Resources Association",
+  url = "https://aclanthology.org/2020.lrec-1.562",
+  pages = "4573--4577",
+  abstract = "In this paper, we present the development of a training dataset
+              for Dutch Named Entity Recognition (NER) in the archaeology domain.
+              This dataset was created as there is a dire need for semantic
+              search within archaeology, in order to allow archaeologists to find
+              structured information in collections of Dutch excavation reports,
+              currently totalling around 60,000 (658 million words) and growing
+              rapidly. To guide this search task, NER is needed. We created
+              rigorous annotation guidelines in an iterative process, then
+              instructed five archaeology students to annotate a number of
+              documents. The resulting dataset contains {\textasciitilde}31k
+              annotations between six entity types (artefact, time period, place,
+              context, species {\&} material). The inter-annotator agreement is
+              0.95, and when we used this data for machine learning, we observed
+              an increase in F1 score from 0.51 to 0.70 in comparison to a
+              machine learning model trained on a dataset created in prior work.
+              This indicates that the data is of high quality, and can
+              confidently be used to train NER classifiers.",
+  language = "English",
+  ISBN = "979-10-95546-34-4",
 }
 
 @inproceedings{2006.15509,
-	doi = {10.1145/3394486.3403149},
-
-	url = {https://doi.org/10.1145\%2F3394486.3403149},
-
-	year = 2020,
-	month = {aug},
-
-	publisher = {{ACM}
-},
-
-	author = {Chen Liang and Yue Yu and Haoming Jiang and Siawpeng Er and Ruijia Wang and Tuo Zhao and Chao Zhang},
-
-	title = {{BOND}: {BERT}-Assisted Open-Domain Named Entity Recognition with Distant Supervision},
-
-	booktitle = {Proceedings of the 26th {ACM} {SIGKDD} International Conference on Knowledge Discovery {\&}amp$\mathsemicolon$ Data Mining}
+  doi = {10.1145/3394486.3403149},
+  url = {https://doi.org/10.1145\%2F3394486.3403149},
+  year = 2020,
+  month = {08},
+  publisher = {{ACM}},
+  author = {Chen Liang and Yue Yu and Haoming Jiang and Siawpeng Er and Ruijia
+            Wang and Tuo Zhao and Chao Zhang},
+  title = {{BOND}: {BERT}-Assisted Open-Domain Named Entity Recognition with
+           Distant Supervision},
+  booktitle = {Proceedings of the 26th {ACM} {SIGKDD} International Conference
+               on Knowledge Discovery {\&} Data Mining},
 }
 
 @inproceedings{10.1145/2396761.2398506,
-author = {Li, Qi and Li, Haibo and Ji, Heng and Wang, Wen and Zheng, Jing and Huang, Fei},
-title = {Joint Bilingual Name Tagging for Parallel Corpora},
-year = {2012},
-isbn = {9781450311564},
-publisher = {Association for Computing Machinery},
-address = {New York, NY, USA},
-url = {https://doi.org/10.1145/2396761.2398506},
-doi = {10.1145/2396761.2398506},
-abstract = {Traditional isolated monolingual name taggers tend to yield inconsistent results across two languages. In this paper, we propose two novel approaches to jointly and consistently extract names from parallel corpora. The first approach uses standard linear-chain Conditional Random Fields (CRFs) as the learning framework, incorporating cross-lingual features propagated between two languages. The second approach is based on a joint CRFs model to jointly decode sentence pairs, incorporating bilingual factors based on word alignment. Experiments on Chinese-English parallel corpora demonstrated that the proposed methods significantly outperformed monolingual name taggers, were robust to automatic alignment noise and achieved state-of-the-art performance. With only 20\%of the training data, our proposed methods can already achieve better performance compared to the baseline learned from the whole training set.1},
-booktitle = {Proceedings of the 21st ACM International Conference on Information and Knowledge Management},
-pages = {1727–1731},
-numpages = {5},
-keywords = {name tagging, joint crfs, bilingual},
-location = {Maui, Hawaii, USA},
-series = {CIKM '12}
+  author = {Li, Qi and Li, Haibo and Ji, Heng and Wang, Wen and Zheng, Jing and
+            Huang, Fei},
+  title = {Joint Bilingual Name Tagging for Parallel Corpora},
+  year = {2012},
+  isbn = {9781450311564},
+  publisher = {Association for Computing Machinery},
+  address = {New York, NY, USA},
+  url = {https://doi.org/10.1145/2396761.2398506},
+  doi = {10.1145/2396761.2398506},
+  abstract = {Traditional isolated monolingual name taggers tend to yield
+              inconsistent results across two languages. In this paper, we
+              propose two novel approaches to jointly and consistently extract
+              names from parallel corpora. The first approach uses standard
+              linear-chain Conditional Random Fields (CRFs) as the learning
+              framework, incorporating cross-lingual features propagated between
+              two languages. The second approach is based on a joint CRFs model
+              to jointly decode sentence pairs, incorporating bilingual factors
+              based on word alignment. Experiments on Chinese-English parallel
+              corpora demonstrated that the proposed methods significantly
+              outperformed monolingual name taggers, were robust to automatic
+              alignment noise and achieved state-of-the-art performance. With
+              only 20\%of the training data, our proposed methods can already
+              achieve better performance compared to the baseline learned from
+              the whole training set.1},
+  booktitle = {Proceedings of the 21st ACM International Conference on
+               Information and Knowledge Management},
+  pages = {1727–1731},
+  numpages = {5},
+  keywords = {name tagging, joint crfs, bilingual},
+  location = {Maui, Hawaii, USA},
+  series = {CIKM '12},
 }
 
-@article{juraksky2000speech,
-  title={Speech and language processing: an introduction to natural language processing, computational linguistics, and speech recognition},
-  author={Juraksky, D and Martin, James H},
-  journal={Pearson education, Asia},
+@article{jurafsky2000speech,
+  title = {Speech and language processing: an introduction to natural language
+           processing, computational linguistics, and speech recognition},
+  author = {Jurafsky, D and Martin, James H},
+  journal = {Pearson education, Asia},
   version = {Third Edition draft},
   date = {2022-01-12},
   url = {https://web.stanford.edu/~jurafsky/slp3/ed3book_jan122022.pdf},
 }
 
 @inproceedings{Carlson2009,
-author = {Carlson, Andrew and Gaffney, Scott and Vasile, Flavian},
-year = {2009},
-month = {01},
-pages = {7-13},
-title = {Learning a Named Entity Tagger from Gazetteers with the Partial Perceptron},
-journal = {AAAI Spring Symposium - Technical Report}
+  author = {Carlson, Andrew and Gaffney, Scott and Vasile, Flavian},
+  year = {2009},
+  month = {01},
+  pages = {7-13},
+  title = {Learning a Named Entity Tagger from Gazetteers with the Partial
+           Perceptron},
+  journal = {AAAI Spring Symposium - Technical Report},
 }
-@Comment{jabref-meta: databaseType:bibtex;}
+
+@online{levity:howdomachineslearn,
+  url = {https://levity.ai/blog/how-do-machines-learn},
+  title = {How Do Machines Learn? A Beginners Guide},
+  author = {Arne Wolfewicz},
+}
+
+@online{levity:deeplearningvsmachinelearning,
+  url = {https://levity.ai/blog/difference-machine-learning-deep-learning},
+  title = {Deep Learning vs. Machine Learning},
+  subtitle = {What's The Difference?},
+  author = {Arne Wolfewicz},
+}
+
+@article{olshausen1996emergence,
+  title = {Emergence of simple-cell receptive field properties by learning a
+           sparse code for natural images},
+  author = {Olshausen, Bruno A and Field, David J},
+  journal = {Nature},
+  volume = {381},
+  number = {6583},
+  pages = {607--609},
+  year = {1996},
+  publisher = {Nature Publishing Group},
+  url = {http://www.cns.nyu.edu/~tony/vns/readings/olshausen-field-1996.pdf},
+}
+
+@article{1810.04805,
+  author = {Jacob Devlin and Ming{-}Wei Chang and Kenton Lee and Kristina
+            Toutanova},
+  title = {{BERT:} Pre-training of Deep Bidirectional Transformers for Language
+           Understanding},
+  journal = {CoRR},
+  volume = {abs/1810.04805},
+  year = {2018},
+  url = {http://arxiv.org/abs/1810.04805},
+  archivePrefix = {arXiv},
+  eprint = {1810.04805},
+  timestamp = {Tue, 30 Oct 2018 20:39:56 +0100},
+  biburl = {https://dblp.org/rec/journals/corr/abs-1810-04805.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+}
+
+@article{turc2019,
+  title = {Well-Read Students Learn Better: On the Importance of Pre-training
+           Compact Models},
+  author = {Turc, Iulia and Chang, Ming-Wei and Lee, Kenton and Toutanova,
+            Kristina},
+  journal = {arXiv preprint arXiv:1908.08962v2 },
+  year = {2019},
+}
+
+@masterthesis{Leitner2019,
+  author = {Elena Leitner},
+  title = {Eigennamen- und Zitaterkennung in Rechtstexten},
+  school = {Universität Potsdam},
+  year = 2019,
+  address = {Potsdam},
+  month = 2,
+  date = {2019-02},
+  author = {Leitner, Elena},
+  url = {
+         https://raw.githubusercontent.com/elenanereiss/Legal-Entity-Recognition/master/docs/Leitner_LER_BA.pdf
+         },
+}
+
+@online{Arano:ThesaurusAndOntologies,
+  url = {http://eprints.rclis.org/8972/2/12.pdf},
+  author = {Silvia Arano},
+  title = { Thesauruses and ontologies [en linea]},
+  urldate = {2022-08-05},
+  year = {2005},
+}
+
+
+
+@article{1906.01378,
+  author = {Minlong Peng and Xiaoyu Xing and Qi Zhang and Jinlan Fu and Xuanjing
+            Huang},
+  title = {Distantly Supervised Named Entity Recognition using
+           Positive-Unlabeled Learning},
+  journal = {CoRR},
+  volume = {abs/1906.01378},
+  year = {2019},
+  url = {http://arxiv.org/abs/1906.01378},
+  eprinttype = {arXiv},
+  eprint = {1906.01378},
+  timestamp = {Sun, 21 Jul 2019 12:49:11 +0200},
+  biburl = {https://dblp.org/rec/journals/corr/abs-1906-01378.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+  doi = {10.48550/ARXIV.1906.01378},
+  url = {https://arxiv.org/abs/1906.01378},
+  keywords = {Computation and Language (cs.CL), FOS: Computer and information
+              sciences, FOS: Computer and information sciences},
+  publisher = {arXiv},
+  copyright = {arXiv.org perpetual, non-exclusive license},
+}
+
+@InProceedings{leitner2019fine,
+  author    = {Elena Leitner and Georg Rehm and Julian Moreno-Schneider},
+  title     = {{Fine-grained Named Entity Recognition in Legal Documents}},
+  booktitle = {Semantic Systems. The Power of AI and Knowledge Graphs. Proceedings of the 15th International Conference (SEMANTiCS 2019)},
+  year      = {2019},
+  editor    = {Maribel Acosta and Philippe Cudré-Mauroux and Maria Maleshkova and Tassilo Pellegrini and Harald Sack and York Sure-Vetter},
+  series    = {Lecture Notes in Computer Science},
+  number    = {11702},
+  note      = {10/11 September 2019},
+  publisher = {Springer},
+  month     = {9},
+  pages     = {272--287},
+  address   = {Karlsruhe, Germany},
+  file      = {10.1007%2F978-3-030-33220-4_20.pdf
+         :
+         https\://link.springer.com/content/pdf/10.1007%2F978-3-030-33220-4_20.pdf
+         :PDF},
+  keywords  = {aip},
+}
+
+@online{SBB:OCRStudie,
+  url = {
+         https://staatsbibliothek-berlin.de/fileadmin/user_upload/zentrale_Seiten/historische_drucke/pdf/SBB_OCR_STUDIE_WEBVERSION_Final.pdf
+         },
+  title = {Volltext via OCR},
+  subtitle = {Möglichkeiten und Grenzen},
+  author = {Maria Federbusch and Christian Polzin},
+  isbn = {ISBN 978-3-88053-185-7},
+  year = {2013},
+}
+
+@online{pytorch:docs:1.12:notes:cuda,
+  title = {CUDA semantics},
+  url = {https://pytorch.org/docs/1.12/notes/cuda.html},
+  urldate = {2022-08-02},
+}
+
+@incollection{fortext-2018-id-36,
+  Author = {Mareike Schumacher},
+  Date = {2018},
+  Title = {Named Entity Recognition (NER)},
+  BookTitle = {forTEXT},
+  BookSubtitle = {Literatur digital erforschen},
+  URL = {https://fortext.net/routinen/methoden/named-entity-recognition-ner},
+  URLDate = {2022-08-05},
+}
+
+@inproceedings{OASIcs-LDK-2019-11,
+  author = {Christian Jilek and Markus Schr{\"o}der and Rudolf Novik and Sven
+            Schwarz and Heiko Maus and Andreas Dengel},
+  title = {{Inflection-Tolerant Ontology-Based Named Entity Recognition for
+           Real-Time Applications}},
+  booktitle = {2nd Conference on Language, Data and Knowledge (LDK 2019)},
+  pages = {11:1--11:14},
+  series = {OpenAccess Series in Informatics (OASIcs)},
+  ISBN = {978-3-95977-105-4},
+  ISSN = {2190-6807},
+  year = {2019},
+  volume = {70},
+  editor = {Maria Eskevich and Gerard de Melo and Christian F{\"a}th and John P.
+            McCrae and Paul Buitelaar and Christian Chiarcos and Bettina Klimek
+            and Milan Dojchinovski},
+  publisher = {Schloss Dagstuhl--Leibniz-Zentrum fuer Informatik},
+  address = {Dagstuhl, Germany},
+  URL = {http://drops.dagstuhl.de/opus/volltexte/2019/10375},
+  URN = {urn:nbn:de:0030-drops-103759},
+  doi = {10.4230/OASIcs.LDK.2019.11},
+  annote = {Keywords: Ontology-based information extraction, Named entity
+            recognition, Inflectional languages, Real-time systems},
+}
+
+@online{ng:deeplearning,
+  title = {Deep Learning, Self-Taught Learning and Unsupervised Feature Learning
+           },
+  date = {2014-10-27},
+  url = {
+         https://www.datascienceassn.org/content/deep-learning-self-taught-learning-and-unsupervised-feature-learning
+         },
+  author = {Ng, Andrew},
+}
+
+@article{10.1016/S0169-023X:97:00056-6,
+  title = {Knowledge engineering: Principles and methods},
+  journal = {Data \& Knowledge Engineering},
+  volume = {25},
+  number = {1},
+  pages = {161-197},
+  year = {1998},
+  issn = {0169-023X},
+  doi = {https://doi.org/10.1016/S0169-023X(97)00056-6},
+  url = {https://www.sciencedirect.com/science/article/pii/S0169023X97000566},
+  author = {Rudi Studer and V.Richard Benjamins and Dieter Fensel},
+  keywords = {Knowledge Engineering, Knowledge acquisition, Problem-solving
+              method, Ontology, Information integration},
+  abstract = {This paper gives an overview of the development of the field of
+              Knowledge Engineering over the last 15 years. We discuss the
+              paradigm shift from a transfer view to a modeling view and describe
+              two approaches which considerably shaped research in Knowledge
+              Engineering: Role-limiting Methods and Generic Tasks. To illustrate
+              various concepts and methods which evolved in recent years we
+              describe three modeling frameworks: CommonKADS, MIKE and
+              PROTÉGÉ-II. This description is supplemented by discussing some
+              important methodological developments in more detail: specification
+              languages for knowledge-based systems, problem-solving methods and
+              ontologies. We conclude by outlining the relationship of Knowledge
+              Engineering to Software Engineering, Information Integration and
+              Knowledge Management.},
+}
+
+@Article{10.1006/knac.1993.1008,
+  author   = {Thomas R. Gruber},
+  title    = {A translation approach to portable ontology specifications},
+  journal  = {Knowledge Acquisition},
+  year     = {1993},
+  volume   = {5},
+  number   = {2},
+  pages    = {199-220},
+  issn     = {1042-8143},
+  doi      = {https://doi.org/11.1006/knac.1993.1008},
+  url      = {https://www.sciencedirect.com/science/article/pii/S1042814383710083},
+  abstract = {To support the sharing and reuse of formally represented knowledge
+              among AI systems, it is useful to define the common vocabulary in
+              which shared knowledge is represented. A specification of a
+              representational vocabulary for a shared domain of
+              discourse—definitions of classes, relations, functions, and other
+              objects—is called an ontology. This paper describes a mechanism for
+              defining ontologies that are portable over representation systems.
+              Definitions written in a standard format for predicate calculus are
+              translated by a system called Ontolingua into specialized
+              representations, including frame-based systems as well as
+              relational languages. This allows researchers to share and reuse
+              ontologies, while retaining the computational benefits of
+              specialized implementations. We discuss how the translation
+              approach to portability addresses several technical problems. One
+              problem is how to accommodate the stylistic and organizational
+              differences among representations while preserving declarative
+              content. Another is how to translate from a very expressive
+              language into restricted languages, remaining system-independent
+              while preserving the computational efficiency of implemented
+              systems. We describe how these problems are addressed by basing
+              Ontolingua itself on an ontology of domain-independent,
+              representational idioms.},
+  file     = {ontolingua-kaj-1993.pdf:https\://tomgruber.org/writing/ontolingua-kaj-1993.pdf:PDF},
+}
+
+@phdthesis{Borst1997,
+  title = "Construction of Engineering Ontologies for Knowledge Sharing and
+           Reuse",
+  abstract = "This thesis describes an investigation into the practical use of
+              ontologies for the development of information systems. Ontologies
+              are formal descriptions of shared knowledge in a domain. An
+              ontology can be used as a specification of an information system
+              because it specifies the knowledge that is required for the tasks
+              the information system has to perform. Sharing and reuse of
+              ontologies across different domains and applications can therefore
+              improve information systems design. Ontologies have been a subject
+              for a lot of research carried out in the artificial intelligence
+              community. Although many ontologies have been developed, they fail
+              to demonstrate that ontologies for large and complex domains can be
+              developed that can be used and reused across different
+              applications. There are three reasons for this: (i) many ontologies
+              have not been used to develop a real-life application, (ii) many
+              ontologies have not been reused for different applications in
+              different domains and (iii)many ontologies are merely taxonomies of
+              domain concepts and fail to capture meta-level and tacit background
+              knowledge. As a result, the question whether ontologies can be used
+              and reused for different real-life applications remains open. The
+              aim of our research has therefore been to find the answer to this
+              question.",
+  keywords = "IR-17864, EWI-17377, METIS-118383",
+  author = "Borst, {Willem Nico}",
+  year = "1997",
+  month = sep,
+  day = "5",
+  url = {
+         https://research.utwente.nl/en/publications/construction-of-engineering-ontologies-for-knowledge-sharing-and-
+         },
+  language = "Undefined",
+  isbn = "90-365-0988-2",
+  publisher = "Centre for Telematics and Information Technology (CTIT)",
+  address = "Netherlands",
+  school = "University of Twente",
+}
+
+@article{2011.06993v1,
+  author = {Stefan Schweter and Alan Akbik},
+  title = {{FLERT:} Document-Level Features for Named Entity Recognition},
+  journal = {CoRR},
+  volume = {abs/2011.06993},
+  year = {2020},
+  url = {https://arxiv.org/abs/2011.06993},
+  eprinttype = {arXiv},
+  eprint = {2011.06993},
+  timestamp = {Wed, 18 Nov 2020 16:48:35 +0100},
+  biburl = {https://dblp.org/rec/journals/corr/abs-2011-06993.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+}
+
+@article{1910.11470,
+  author = {Vikas Yadav and Steven Bethard},
+  title = {A Survey on Recent Advances in Named Entity Recognition from Deep
+           Learning models},
+  journal = {CoRR},
+  volume = {abs/1910.11470},
+  year = {2019},
+  url = {http://arxiv.org/abs/1910.11470},
+  eprinttype = {arXiv},
+  eprint = {1910.11470},
+  timestamp = {Thu, 31 Oct 2019 14:02:26 +0100},
+  biburl = {https://dblp.org/rec/journals/corr/abs-1910-11470.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+}
+
+@online{ub:projekte:fid-linguistik,
+  url = {https://www.ub.uni-frankfurt.de/projekte/fid-linguistik.html},
+  title = {Fachinformationsdienst Linguistik},
+  urldate = {2022-08-18},
+}
+
+
+@online{oclc:ddc23-summaries,
+  title = {DDC 23 Summaries},
+  url = {https://www.oclc.org/content/dam/oclc/dewey/ddc23-summaries.pdf},
+  urldate = {2022-08-19},
+  publisher = {OCLC},
+}
+
+@online{linguistik:de:kataloge:info,
+  url = {https://www.linguistik.de/kataloge/info/},
+  urldate = {2022-08-19},
+  title = {Kataloge},
+  publisher = {Lin\|gu\|is\|tik},
+}
+
+@InProceedings{C18-1183,
+  author    = {Yang, Yaosheng and Chen, Wenliang and Li, Zhenghua and He, Zhengqiu and Zhang, Min},
+  title     = {Distantly Supervised {NER} with Partial Annotation Learning and Reinforcement Learning},
+  booktitle = {Proceedings of the 27th International Conference on Computational Linguistics},
+  year      = {2018},
+  publisher = {Association for Computational Linguistics},
+  month     = aug,
+  pages     = {2159--2169},
+  url       = {https://aclanthology.org/C18-1183},
+  abstract  = {A bottleneck problem with Chinese named entity recognition (NER)
+              in new domains is the lack of annotated data. One solution is to
+              utilize the method of distant supervision, which has been widely
+              used in relation extraction, to automatically populate annotated
+              training data without humancost. The distant supervision assumption
+              here is that if a string in text is included in a predefined
+              dictionary of entities, the string might be an entity. However,
+              this kind of auto-generated data suffers from two main problems:
+              incomplete and noisy annotations, which affect the performance of
+              NER models. In this paper, we propose a novel approach which can
+              partially solve the above problems of distant supervision for NER.
+              In our approach, to handle the incomplete problem, we apply partial
+              annotation learning to reduce the effect of unknown labels of
+              characters. As for noisy annotation, we design an instance selector
+              based on reinforcement learning to distinguish positive sentences
+              from auto-generated annotations. In experiments, we create two
+              datasets for Chinese named entity recognition in two domains with
+              the help of distant supervision. The experimental results show that
+              the proposed approach obtains better performance than the
+              comparison systems on both two datasets.},
+  address   = {Santa Fe, New Mexico, USA},
+  file      = {C18-1183.pdf:https\://aclanthology.org/C18-1183.pdf:PDF},
+}
+
+@Online{towardsdatascience:stats,
+  author  = {Koo Ping Shung},
+  title   = {Accuracy, Precision, Recall or F1?},
+  date    = {2018-03-15},
+  url     = {https://towardsdatascience.com/accuracy-precision-recall-or-f1-331fb37c5cb9},
+  urldate = {2022-09-03},
+}
+@proceedings{DBLP:conf/interspeech/2012,
+  title = {{INTERSPEECH} 2012, 13th Annual Conference of the International
+           Speech Communication Association, Portland, Oregon, USA, September
+           9-13, 2012},
+  publisher = {{ISCA}},
+  year = {2012},
+  url = {http://www.isca-speech.org/archive/interspeech\_2012},
+  timestamp = {Fri, 02 Sep 2022 08:20:03 +0200},
+  biburl = {https://dblp.org/rec/conf/interspeech/2012.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org},
+}
+
+@online{google:trainingandloss,
+  url = {
+         https://developers.google.com/machine-learning/crash-course/descending-into-ml/training-and-loss
+         },
+  title = {Descending into ML: Training and Loss},
+  urldate = {2022-09-03},
+}
+
+@Misc{oxfordbibliographies:Synonymy,
+  title = {Synonymy},
+  url   = {https://www.oxfordbibliographies.com/view/document/obo-9780199772810/obo-9780199772810-0220.xml},
+}
+
+@misc{oxfordbibliographies:Polysemy,
+  title = "Polysemy",
+  url = {
+         https://www.oxfordbibliographies.com/view/document/obo-9780199772810/obo-9780199772810-0259.xml
+         },
+}
+
+@online{notebook:annotated-transformer,
+  title={The Annotated Transformer},
+  subtitle = {Attention is All You Need},
+  author = {Austin Huang and Suraj Subramanian and Jonathan Sum and Khalid Almubarak and Stella Biderman},
+  year = {2022},
+  url = {http://nlp.seas.harvard.edu/annotated-transformer/},
+}
+
+@article{1706.03762,
+  author    = {Ashish Vaswani and
+               Noam Shazeer and
+               Niki Parmar and
+               Jakob Uszkoreit and
+               Llion Jones and
+               Aidan N. Gomez and
+               Lukasz Kaiser and
+               Illia Polosukhin},
+  title     = {Attention Is All You Need},
+  journal   = {CoRR},
+url = {https://arxiv.org/pdf/1706.03762.pdf},
+  volume    = {abs/1706.03762},
+  year      = {2017}
+}
+
+@inproceedings{pennington2014glove,
+  author = {Jeffrey Pennington and Richard Socher and Christopher D. Manning},
+  booktitle = {Empirical Methods in Natural Language Processing (EMNLP)},
+  title = {GloVe: Global Vectors for Word Representation},
+  year = {2014},
+  pages = {1532--1543},
+  url = {http://www.aclweb.org/anthology/D14-1162},
+}
+
+@incollection{NEURIPS2019_9015,
+title = {PyTorch: An Imperative Style, High-Performance Deep Learning Library},
+author = {Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam and Bradbury, James and Chanan, Gregory and Killeen, Trevor and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and Desmaison, Alban and Kopf, Andreas and Yang, Edward and DeVito, Zachary and Raison, Martin and Tejani, Alykhan and Chilamkurthy, Sasank and Steiner, Benoit and Fang, Lu and Bai, Junjie and Chintala, Soumith},
+booktitle = {Advances in Neural Information Processing Systems 32},
+editor = {H. Wallach and H. Larochelle and A. Beygelzimer and F. d\textquotesingle Alch\'{e}-Buc and E. Fox and R. Garnett},
+pages = {8024--8035},
+year = {2019},
+publisher = {Curran Associates, Inc.},
+url = {http://papers.neurips.cc/paper/9015-pytorch-an-imperative-style-high-performance-deep-learning-library.pdf}
+}
+
+@online{pytorch:text:issues:1765,
+  title = {Multi30K dataset link is broken \#1756 },
+  author = {xuzhao9},
+  date = {2022-06-01},
+  urldate = {2022-09-06},
+  url = {https://github.com/pytorch/text/issues/1756},
+  }
+
+  @online{shangjingbo1226:AutoNER:issues:44,
+  url = {https://github.com/shangjingbo1226/AutoNER/issues/44},
+  author = {victorconan},
+  date = {2022-03-10},
+  title = {bio_embedding.txt link not working \#44},
+  }
+
+  @online{overleaf:HowToThesisPart3,
+    title = {How to Write a Thesis in LaTeX (Part 3): Figures, Subfigures and Tables},
+    author = {Josh Cassidy },
+    date = {2013-08},
+    url = {https://www.overleaf.com/learn/latex/How_to_Write_a_Thesis_in_LaTeX_(Part_3)%3A_Figures%2C_Subfigures_and_Tables},
+    urldate = {2022-09-06},
+  }
+
+  @pnline{overleaf:algorithms,
+  url = {https://de.overleaf.com/learn/latex/Algorithms},
+  title = {Algorithms},
+  }
+
+  @online{deepdive:stanford:distant-supervision,
+    url = {http://deepdive.stanford.edu/distant_supervision},
+    institute = {Hazy Research Group},
+    title={Distant supervision},
+    urldate = {2022-09-06},
+  }
+
+  @inproceedings{P08-1047,
+    title = "Inducing Gazetteers for Named Entity Recognition by Large-Scale Clustering of Dependency Relations",
+    author = "Kazama, Jun{'}ichi  and
+      Torisawa, Kentaro",
+    booktitle = "Proceedings of ACL-08: HLT",
+    month = jun,
+    year = "2008",
+    address = "Columbus, Ohio",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/P08-1047",
+    pages = "407--415",
+}
+
+
+
+@article{1910.03771,
+  author    = {Thomas Wolf and
+               Lysandre Debut and
+               Victor Sanh and
+               Julien Chaumond and
+               Clement Delangue and
+               Anthony Moi and
+               Pierric Cistac and
+               Tim Rault and
+               R{\'{e}}mi Louf and
+               Morgan Funtowicz and
+               Jamie Brew},
+  title     = {HuggingFace's Transformers: State-of-the-art Natural Language Processing},
+  journal   = {CoRR},
+  volume    = {abs/1910.03771},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1910.03771},
+  eprinttype = {arXiv},
+  eprint    = {1910.03771},
+  timestamp = {Tue, 02 Jun 2020 12:49:01 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1910-03771.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+
+
+@article{1905.05950,
+  author    = {Ian Tenney and
+               Dipanjan Das and
+               Ellie Pavlick},
+  title     = {{BERT} Rediscovers the Classical {NLP} Pipeline},
+  journal   = {CoRR},
+  volume    = {abs/1905.05950},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1905.05950},
+  eprinttype = {arXiv},
+  eprint    = {1905.05950},
+  timestamp = {Tue, 28 May 2019 12:48:08 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1905-05950.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@Online{ledu:regression-versus-classification,
+  author  = {{Education Ecosystem (LEDU)}},
+  title   = {Regression Versus Classification Machine Learning: What's the Difference?},
+  date    = {2018-08-11},
+  url     = {https://medium.com/quick-code/regression-versus-classification-machine-learning-whats-the-difference-345c56dd15f7},
+  urldate = {2022-09-07},
+}
+
+@article{1909.00426,
+  author    = {Ikuya Yamada and
+               Hiroyuki Shindo},
+  title     = {Pre-training of Deep Contextualized Embeddings of Words and Entities
+               for Named Entity Disambiguation},
+  journal   = {CoRR},
+  volume    = {abs/1909.00426},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1909.00426},
+  eprinttype = {arXiv},
+  eprint    = {1909.00426},
+  timestamp = {Mon, 16 Sep 2019 17:27:14 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1909-00426.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+
+@article{1907.08243,
+  author    = {Pedro Henrique Martins and
+               Zita Marinho and
+               Andr{\'{e}} F. T. Martins},
+  title     = {Joint Learning of Named Entity Recognition and Entity Linking},
+  journal   = {CoRR},
+  volume    = {abs/1907.08243},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1907.08243},
+  eprinttype = {arXiv},
+  eprint    = {1907.08243},
+  timestamp = {Tue, 23 Jul 2019 10:54:22 +0200},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1907-08243.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@MastersThesis{Raheim2022,
+  author  = {Amund Faller Råheim},
+  title   = {Joint Entity Linking with BERT},
+  date    = {2022-05-10},
+  url     = {https://ad-publications.cs.uni-freiburg.de/theses/Master_Amund_Faller_Raheim_2022.pdf},
+  urldate = {2022-09-07},
+  school  = {Albert-Ludwigs-University Freiburg},
+}
+
+@article{1911.03834,
+  author    = {Haotian Chen and
+               Sahil Wadhwa and
+               Xi David Li and
+               Andrej Zukov Gregoric},
+  title     = {{YELM:} End-to-End Contextualized Entity Linking},
+  journal   = {CoRR},
+  volume    = {abs/1911.03834},
+  year      = {2019},
+  url       = {http://arxiv.org/abs/1911.03834},
+  eprinttype = {arXiv},
+  eprint    = {1911.03834},
+  timestamp = {Sun, 01 Dec 2019 20:31:34 +0100},
+  biburl    = {https://dblp.org/rec/journals/corr/abs-1911-03834.bib},
+  bibsource = {dblp computer science bibliography, https://dblp.org}
+}
+
+@inproceedings{K19-1063,
+    title = "Investigating Entity Knowledge in {BERT} with Simple Neural End-To-End Entity Linking",
+    author = "Broscheit, Samuel",
+    booktitle = "Proceedings of the 23rd Conference on Computational Natural Language Learning (CoNLL)",
+    month = nov,
+    year = "2019",
+    address = "Hong Kong, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/K19-1063",
+    doi = "10.18653/v1/K19-1063",
+    pages = "677--685",
+    abstract = "A typical architecture for end-to-end entity linking systems consists of three steps: mention detection, candidate generation and entity disambiguation. In this study we investigate the following questions: (a) Can all those steps be learned jointly with a model for contextualized text-representations, i.e. BERT? (b) How much entity knowledge is already contained in pretrained BERT? (c) Does additional entity knowledge improve BERT{'}s performance in downstream tasks? To this end we propose an extreme simplification of the entity linking setup that works surprisingly well: simply cast it as a per token classification over the entire entity vocabulary (over $700K$ classes in our case). We show on an entity linking benchmark that (i) this model improves the entity representations over plain BERT, (ii) that it outperforms entity linking architectures that optimize the tasks separately and (iii) that it only comes second to the current state-of-the-art that does mention detection and entity disambiguation jointly. Additionally, we investigate the usefulness of entity-aware token-representations in the text-understanding benchmark GLUE, as well as the question answering benchmarks SQUAD{\textasciitilde}V2 and SWAG and also the EN-DE WMT14 machine translation benchmark. To our surprise, we find that most of those benchmarks do not benefit from additional entity knowledge, except for a task with very small training data, the RTE task in GLUE, which improves by 2{\%}.",
+}
+
+@online{ub:sammlungen:fid,
+  url={https://www.ub.uni-frankfurt.de/sammlungen/fid.html},
+  title = {Fachinformationsdienste (FID)},
+  urldate = {2022-09-07},
+}
+
+@Comment{jabref-meta: databaseType:biblatex;}
