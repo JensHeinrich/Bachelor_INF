@@ -16,3 +16,6 @@ data/*/*/**/*.json
 # ignore virtual environment
 venv/
 .venv
+
+# ignore python cache
+__pycache__
