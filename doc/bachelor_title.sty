@@ -1,0 +1,74 @@
+\RequirePackage{expl3}
+\ProvidesExplClass{bachelor_title}{2022/04/25}{1.0.1}{Package to create a the title matching the requirements of the bachelor for DHBW mannheim's informatics courses}
+
+
+% the fontsizes are declared from the table here
+% https://latex-tutorial.com/changing-font-size/
+\DeclareDocumentCommand{\maketitle}{%
+% no arguments
+}{%
+        \thispagestyle{empty}
+    {
+	% set the title
+	\center
+	{%
+		\bf
+		\Large
+		\__jensheinrich_bachelor_check_before_use_tl:n {%
+			\l__jensheinrich_bachelor_title_tl
+		}
+	}
+	\par
+	\vspace{.5cm}
+	\par
+	{
+		\bf
+		\__jensheinrich_bachelor_check_before_use_tl:n {%
+			\l__jensheinrich_bachelor_author_tl
+		}
+	}
+		\par
+	{%
+		\small
+		\__jensheinrich_bachelor_check_before_use_tl:n {%
+			\l__jensheinrich_bachelor_matrikelnr_tl
+		},
+		\__jensheinrich_bachelor_check_before_use_tl:n {%
+			\l__jensheinrich_bachelor_company_tl
+		}
+	}
+		\par
+	{
+		\small
+		\__jensheinrich_bachelor_check_before_use_tl:n {%
+			\l__jensheinrich_bachelor_email_tl
+		}
+	}
+    \vfill
+    \par
+    {
+
+        \small
+        Erstgutachter:
+        \hfill
+		{
+			\bf
+			\__jensheinrich_bachelor_check_before_use_tl:n {%
+            \l__jensheinrich_bachelor_primary_supervisor_tl
+		}}
+    }
+    \par
+    {
+        \small
+        Zweitgutachter:
+        \hfill
+		{
+			\bf
+        \__jensheinrich_bachelor_check_before_use_tl:n {%
+            \l__jensheinrich_bachelor_secondary_supervisor_tl
+		}}
+    }
+    }
+	\clearpage
+}
+
