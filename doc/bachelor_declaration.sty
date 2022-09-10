@@ -1,0 +1,104 @@
+\RequirePackage{expl3}
+\ProvidesExplClass{bachelor_declaration}{2022/09/07}{1.0.0}{Package to create a the statutory declaration matching the requirements of the bachelor thesis for DHBW mannheim's informatics courses}
+
+
+\RequirePackage{longtable}
+\RequirePackage{csquotes}
+\RequirePackage{babel}
+\RequirePackage{tabularx}
+
+% use tl as suggested here
+\tl_const:Nn \c__jensheinrich_bachelor_declaration_title_tl {
+	Ehrenwörtliche~Erklärung
+}
+\tl_const:Nn \c__jensheinrich_bachelor_declaration_sentence_first_tl {
+	Ich~versichere~hiermit,~dass~ich~diese~Arbeit~mit~dem~Thema
+}
+\tl_const:Nn \c__jensheinrich_bachelor_declaration_sentence_second_tl {
+	selbstständig~verfasst~ und~keine~anderen~als~die~angegebenen~Quellen~und~Hilfsmittel~benutzt~habe.
+}
+\tl_const:Nn \c__jensheinrich_bachelor_declaration_identity_tl {
+Ich~versichere~zudem,~dass~die~eingereichte~elektronische~Version~mit~der~gedruckten~Fassung~übereinstimmt.
+}
+\dim_new:N \l__jensheinrich_bachelor_declaration_title_spacing_dim
+\dim_set:Nn \l__jensheinrich_bachelor_declaration_title_spacing_dim {.5cm}
+
+\dim_new:N \l__jensheinrich_bachelor_declaration_signage_widht_dim
+\dim_set:Nn \l__jensheinrich_bachelor_declaration_signage_widht_dim {0.33\textwidth}
+
+\DeclareDocumentCommand{\makedeclaration}{%
+% no arguments
+}{%
+	%\onecolumn
+	\cleardoublepage% make sure to start new page on the right side
+	\thispagestyle{empty}
+	%\pagenumbering{gobble}% suppress pagenumbering
+    {
+	\center
+	\section*{\tl_use:N \c__jensheinrich_bachelor_declaration_title_tl}
+    }
+	\vspace{3cm}
+	{
+        \center
+	    \tl_use:N \c__jensheinrich_bachelor_declaration_sentence_first_tl
+    }
+	\par
+	\vspace{
+		\dim_use:N
+		\l__jensheinrich_bachelor_declaration_title_spacing_dim
+	}
+	{
+	\center
+		\textbf{
+			\enquote{
+				\__jensheinrich_bachelor_check_before_use_tl:n {%
+					\l__jensheinrich_bachelor_title_tl
+				}
+			}
+		}
+		\par
+	}
+	\vspace{
+		\dim_use:N
+		\l__jensheinrich_bachelor_declaration_title_spacing_dim
+	}
+	\noindent
+	\tl_use:N \c__jensheinrich_bachelor_declaration_sentence_second_tl
+	\par
+	\vspace{
+		\dim_use:N
+		\l__jensheinrich_bachelor_declaration_title_spacing_dim
+	}
+	\noindent
+	\tl_use:N \c__jensheinrich_bachelor_declaration_identity_tl
+	\par
+	\vspace{5cm}
+	\vfill
+
+	\begin{tabular}{
+			p{\dim_use:N \l__jensheinrich_bachelor_declaration_signage_widht_dim }
+			p{0.13\textwidth}
+			p{\dim_use:N \l__jensheinrich_bachelor_declaration_signage_widht_dim }
+		}
+		%
+		\hrulefill% Platz für Ort, Datum
+	&
+	% Spacing
+	&
+	\hrulefill% Platz für Unterschrift
+	\\
+	{\footnotesize Ort \hfill Datum}
+	&
+	\hfill
+	&
+	{\footnotesize Unterschrift
+		\hfill
+		\emph{
+		\__jensheinrich_bachelor_check_before_use_tl:n {%
+			\l__jensheinrich_bachelor_author_tl
+		}
+	}
+	}
+\end{tabular}
+\cleardoublepage
+}
