@@ -1,0 +1,94 @@
+%! TeX root=../*.tex
+%! vim: filetype=tex:
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{math_theorems}[2022/09/13 1.0.1 Beautiful Math Theorems]
+
+\RequirePackage{cleveref}
+\RequirePackage{amsmath}
+\RequirePackage{amsthm}
+
+\RequirePackage{autonocite}
+
+\addbibresource{math_theorems.bib}
+
+%\swapnumbers% number before environment % TODO make this a package option
+
+% https://tex.stackexchange.com/questions/37797/theorem-environment-line-break-after-label
+\newtheoremstyle{break}% name
+{}%         Space above, empty = `usual value'
+{}%         Space below
+{\itshape}% Body font
+{}%         Indent amount (empty = no indent, \parindent = para indent)
+{\bfseries}% Thm head font
+{}%        Punctuation after thm head
+{\newline}% Space after thm head: \newline = linebreak
+{}%         Thm head spec
+
+
+
+\autonocite{stack:tex:amsthm-break}
+%ams doc
+
+% TODO add package option to set up the highest counter level
+\theoremstyle{break}
+\newtheorem{defn}{Definition}
+\newtheorem{prob}{Problemstellung}
+
+\theoremstyle{break}
+\newtheorem{thm}{Theorem}% counter thm text reset at section
+\newtheorem{lem}[thm]{Lemma}% reuse thm counter
+\newtheorem{satz}[thm]{Satz}
+\newtheorem{propdef}[thm]{Proposition-Definition}
+
+%\newtheorem{defi}[thm]{Definition}
+\newtheorem{kor}[thm]{Korollar}
+\newtheorem{beh}[thm]{Behauptung}
+\newtheorem{bem}[thm]{Bemerkung}
+\newtheorem{bsp}[thm]{Beispiel}
+
+\theoremstyle{definition}
+%\newtheorem{defn}{Definition}
+\newtheorem{propt}{Properties}
+\newtheorem{nota}{Notation}
+\newtheorem{algo}{Algorithmus}
+
+% https://tex.stackexchange.com/questions/346392/default-frame-around-theorems-in-amsart
+\PassOptionsToPackage{most}{tcolorbox}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{breakable}
+
+% http://latexcolor.com/
+\definecolor{whitesmoke}{rgb}{0.96, 0.96, 0.96}
+\definecolor{mintcream}{rgb}{0.96, 1.0, 0.98}
+
+\tcbset{tthmstyle/.style={
+			colback={white!40!whitesmoke},%
+			colframe=black,%
+			boxrule=2pt,%
+			sharp corners,%
+		}}
+
+\tcolorboxenvironment{defn}{%
+	%enhanced jigsaw,%
+	breakable,%
+	tthmstyle
+}
+
+\tcolorboxenvironment{thm}{%
+	%enhanced jigsaw,%
+	breakable,%
+	tthmstyle
+}
+
+\tcolorboxenvironment{prob}{%
+	%enhanced jigsaw,%
+	breakable,%
+	tthmstyle,
+	colback={white!40!mintcream}
+}
+
+%\tcbset{shield externalize}
+
+
+\autonocite{stack:tex:color-thm}
+

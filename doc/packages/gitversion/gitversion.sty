@@ -1,5 +1,4 @@
 % gitversion.sty
-% !TEX root = projektbericht.tex
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{gitversion}[2021/08/13 1.0.0 gitversion]
 
@@ -19,24 +18,36 @@
 % Check if write18 is supported
 \RequirePackage{pdftexcmds}
 
-\ifcase\pdf@shellescape
-  \message{No shell escape}\or
-  \message{Unrestricted shell escape}\or
-  \message{Restricted shell escape}\fi
-
+\ltx@IfUndefined{pdf@shellescape}{%
+% \pdf@shellescape is undefined
+\message{Error checking for shell escape}
+\newcommand{\gitversion}{GIT VERSION}
+}{%
+% \pdf@shellescape is available
+\ifcase \pdf@shellescape
+  \message{No shell escape}
+  \newcommand{\gitversion}{GIT VERSION}
+  \or
+  \message{Unrestricted shell escape}
+%
 % Store the command output in a temporary file
-\immediate\write18{git rev-parse --short HEAD > gitrefhead}
-
+\pdf@system{git rev-parse --short HEAD > gitrefhead}
+%
 % Read the git version
 \newread\gitversionfile
 \openin\gitversionfile=gitrefhead
     \read\gitversionfile to\gitversion
 \closein\gitversionfile
-
+%
 % Use the output
 % \input{gitrefhead}
-
+%
 \AtEndDocument{%
    % Remove the temporary file
-   \immediate\write18{rm gitrefhead}%
+   \pdf@system{rm gitrefhead}%
+}
+  \or
+  \message{Restricted shell escape}
+  \newcommand{\gitversion}{GIT VERSION NOT SUPPORTED}
+  \fi
 }

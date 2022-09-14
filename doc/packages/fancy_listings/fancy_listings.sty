@@ -1,0 +1,89 @@
+%! TeX root=../*.tex
+%! vim: filetype=tex:
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fancy_listings}[2022/09/12 1.0.1 Beautiful Listings]
+
+\RequirePackage{minted}
+\RequirePackage{tcolorbox}
+\tcbuselibrary{minted}
+\tcbuselibrary{breakable}
+
+\RequirePackage{autonocite}
+\addbibresource{fancy_listings.bib}
+
+% http://latexcolor.com/
+\definecolor{lavendermist}{rgb}{0.9, 0.9, 0.98}
+\definecolor{mediumaquamarine}{rgb}{0.4, 0.8, 0.67}
+
+\tcbset{tlistingstyle/.style={
+	colback={white!40!lavendermist},%
+	colframe=black,%
+	boxrule=2pt,%
+	sharp corners,%
+}}
+
+\tcbset{talgostyle/.style={
+	colback={white!90!mediumaquamarine},%
+	colframe=black,%
+	boxrule=2pt,%
+	sharp corners,%
+}}
+
+
+\newtcbinputlisting{\fancyturtle}[2][]{%
+	%enhanced jigsaw,%
+	breakable,%
+	tlistingstyle,
+	listing file={#2},%
+	listing engine=minted,%
+	minted language=turtle,%
+	listing only,%
+	#1
+}
+
+
+\newtcbinputlisting{\fancyxml}[2][]{%
+	%enhanced jigsaw,%
+	breakable,%
+	colback={white!40!lavendermist},%
+	colframe=black,%
+	boxrule=2pt,%
+	sharp corners,%
+	listing file={#2},%
+	listing engine=minted,%
+	minted language=xml,%
+	listing only,%
+	#1
+}
+
+
+\newtcbinputlisting{\fancypython}[2][]{%
+	%enhanced jigsaw,%
+	breakable,%
+	colback={white!40!lavendermist},%
+	colframe=black,%
+	boxrule=2pt,%
+	sharp corners,%
+	listing file={#2},%
+	listing engine=minted,%
+	minted language=python,%
+	listing only,%
+	#1
+}
+
+
+% https://tex.stackexchange.com/questions/368864/pagebreak-for-minted-in-figure
+\autonocite{stack:tex:minted-pagebreak}
+\RequirePackage{cleveref}
+\RequirePackage{caption}
+\RequirePackage{placeins}
+\newenvironment{longlisting}{%before
+    %\begin{tcolorbox}[tlistingstyle]
+    \captionsetup{type=listing}%
+	\FloatBarrier
+    }{%after
+	\FloatBarrier
+    %\end{tcolorbox}
+}
+
+\renewcommand{\listoflistingscaption}{Verzeichnis der Listings}

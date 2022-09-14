@@ -1,0 +1,22 @@
+\RequirePackage{expl3}
+\ProvidesExplClass{fancy_algorithms}{2022/09/12}{1.0.0}{Package to create fancy algorithms}
+
+\RequirePackage{autonocite}
+
+\addbibresource{fancy_algorithms.bib}
+
+\autonocite{overleaf:algorithms}
+% https://de.overleaf.com/learn/latex/Algorithms
+%\usepackage{algorithm}
+\RequirePackage{algpseudocode}
+\RequirePackage{caption}
+\RequirePackage{cleveref}
+
+% https://tex.stackexchange.com/questions/192280/use-algorithm2e-inside-tcolorbox
+\autonocite{stack:tex:algorithm2e-in-tcolorbox}
+\DeclareCaptionType{myalgorithm}[Algorithmus][Liste der Algorithmen]
+\crefname{myalgorithm}{Algorithmus}{Algorithmen}
+\newenvironment{algorithm}{%before
+    \captionsetup{type=myalgorithm}%
+    }{%after
+}
