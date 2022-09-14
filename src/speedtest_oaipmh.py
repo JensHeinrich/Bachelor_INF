@@ -28,21 +28,25 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
     for (publisher, oaipmh_xml_files) in [
         (
             "ubffm",
-            Path(
-                "~/Documents/Bachelor_INF/data/oaipmharvest/ubffm/ubffm-publikationen-linguistik/"
-            )
-            .expanduser()
-            .absolute()
-            .glob("*.xml"),
+            list(
+                Path(
+                    "~/Documents/Bachelor_INF/data/oaipmharvest/ubffm/ubffm-publikationen-linguistik/"
+                )
+                .expanduser()
+                .absolute()
+                .glob("*.xml")
+            ),
         ),
         (
             "lang-sci-press",
-            Path(
-                "~/Documents/Bachelor_INF/data/oaipmharvest/lang-sci-press/UNSPECIFIED-SET/"
-            )
-            .expanduser()
-            .absolute()
-            .glob("*.xml"),
+            list(
+                Path(
+                    "~/Documents/Bachelor_INF/data/oaipmharvest/lang-sci-press/UNSPECIFIED-SET/"
+                )
+                .expanduser()
+                .absolute()
+                .glob("*.xml")
+            ),
         ),
     ]
     for extract_fulltexts in [True, False]
@@ -52,8 +56,9 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
 
     dataset = load_dataset(
         "oaipmh",
-        name="ubffm_ft",
+        name=publisher,
         cache_dir=f"~/.cache/huggingface/datasets/SPEEDTEST/{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}",
+        oaipmh_xml_files=oaipmh_xml_files,
         split="train",
         download_mode="force_redownload",
         data_dir="~/Documents/Bachelor_INF/data/tmp_dataset/",
@@ -67,24 +72,29 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
 
     duration = datetime.now() - start_time
 
-
     timing = {
-            "publisher": publisher,
-            "oaipmh_xml_files": oaipmh_xml_files,
-            "extract_fulltexts": extract_fulltexts,
-            "do_string_match": do_string_match,
-            "distribution_all_ner_tags": distribution.compute(
-                data = _flatten(dataset["all_ner_tags"])
-            ) if do_string_match else tuple(),
-            "distribution_all_ner_links": distribution.compute(
-                data =  _flatten(dataset["all_ner_links"])
-            ) if do_string_match else tuple(),
-        }
-
+        "publisher": publisher,
+        "oaipmh_xml_files": list(oaipmh_xml_files),
+        "extract_fulltexts": extract_fulltexts,
+        "do_string_match": do_string_match,
+        "distribution_all_ner_tags": distribution.compute(
+            data=_flatten(dataset["all_ner_tags"])
+        )
+        if do_string_match
+        else tuple(),
+        "distribution_all_ner_links": distribution.compute(
+            data=_flatten(dataset["all_ner_links"])
+        )
+        if do_string_match
+        else tuple(),
+    }
 
     print(timing)
 
-    with open(f"SPEEDTEST_{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}.json", "x") as f:
+    with open(
+        f"SPEEDTEST_{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}.json",
+        "x",
+    ) as f:
         json.dump(timing, f)
 
     timings += [timing]
