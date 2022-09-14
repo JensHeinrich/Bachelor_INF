@@ -3,9 +3,12 @@
 
 % loaded early to make sure to override the standard commands
 \LoadClass[
-twocolumn,
-10pt,
+12pt,
+titlepage
 ]{article}
+
+% load early to make csquotes happy
+\RequirePackage{fvextra}
 
 % create commands for the formalia
 
@@ -90,7 +93,7 @@ nnnn
 
 \__jensheinrich_bachelor_create_tl_with_defaults_and_description:nnnn
 	{company}
-	{company name}
+	{Company name}
 	{ACME Corp.}
 	{__jensheinrich_bachelor}
 
@@ -139,6 +142,8 @@ nnnn
 	\tl_set:Nn \l__jensheinrich_bachelor_author_tl {#1}
 	% legacy option
 	\gdef\@author{#1}
+	% pagestyle
+	\writer{#1}
 }
 
 \DeclareDocumentCommand{\title}{%
@@ -163,21 +168,53 @@ nnnn
 	\tl_set:Nn \l__jensheinrich_bachelor_matrikelnr_tl {#1}
 }
 
-\DeclareDocumentCommand{\matrikelnr}{%
+\DeclareDocumentCommand{\primarysupervisor}{%
 	m% student matrikelno
 }{%
 	\tl_set:Nn \l__jensheinrich_bachelor_primary_supervisor_tl {#1}
 }
 
-\DeclareDocumentCommand{\matrikelnr}{%
+\DeclareDocumentCommand{\secondarysupervisor}{%
 	m% student matrikelno
 }{%
 	\tl_set:Nn \l__jensheinrich_bachelor_secondary_supervisor_tl {#1}
 }
 
 
+% helper
+
+\cs_new:Npn \__jensheinrich_bachelor_check_before_use_tl:n
+#1% tling command to check
+{%
+
+\tl_set:Nn \l_tmpa_tl {\cs_to_tl:N #1 _default }
+
+	\tl_replace_once:Nnn
+		\l_tmpa_tl
+		{l}
+		{c}
+
+	\tl_if_eq:cNT {#1} \l_tmpa_tl
+	{% True
+		\msg_warning:nnxx
+			{t3_3000}
+			{undefined}
+			{\use:c { \cs_to_tl:N #1 _description}}
+			{\use:c { \cs_to_tl:N #1 _cmd}}
+	}
+
+	\tl_use:N #1
+}
+
 % Require packages after all options have been passed to them
+\RequirePackage{hyperref}
+\RequirePackage{amsthm}
+\RequirePackage{amsmath}
+\RequirePackage{cleveref}
 \RequirePackage{biblatex}
 
 \RequirePackage{bachelor_format}
+\RequirePackage{bachelor_title}
+\RequirePackage{bachelor_declaration}
+
 
