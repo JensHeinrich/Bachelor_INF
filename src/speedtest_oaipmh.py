@@ -84,10 +84,10 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
 
     print(timing)
 
-    with open(f"SPEEDTEST_{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}.json", "wx") as f:
+    with open(f"SPEEDTEST_{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}.json", "x") as f:
         json.dump(timing, f)
 
     timings += [timing]
 
-with open("SPEEDTEST_timings.json", "wx") as f:
+with open("SPEEDTEST_timings.json", "w") as f:
     json.dump(timings, f)
