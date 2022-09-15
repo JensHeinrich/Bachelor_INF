@@ -1,19 +1,14 @@
+import json
 from datetime import datetime
-from datasets import load_dataset
 from pathlib import Path
 
-import json
+import evaluate
 
 import datasets
+from datasets import load_dataset
 from oaipmh.gazetteer import read_gazetteers
-from oaipmh.helpers import (
-    get_link_label_classes_from_gazetteers,
-    get_token_label_classes_from_gazetteers,
-    _flatten,
-)
-
-
-import evaluate
+from oaipmh.helpers import (_flatten, get_link_label_classes_from_gazetteers,
+                            get_token_label_classes_from_gazetteers)
 
 datasets.utils.logging.disable_progress_bar()
 
@@ -61,32 +56,36 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
         oaipmh_xml_files=oaipmh_xml_files,
         split="train",
         download_mode="force_redownload",
-        data_dir="~/Documents/Bachelor_INF/data/tmp_dataset/",
+        data_dir=f"~/Documents/Bachelor_INF/data/tmp_dataset_{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}/",
         publisher="ubffm",
         extract_fulltexts=extract_fulltexts,
         do_string_match=do_string_match,
         gazetteers=gazetteers,
         token_label_classes=get_token_label_classes_from_gazetteers(gazetteers),
         link_label_classes=get_link_label_classes_from_gazetteers(gazetteers),
+        time_log=f"~/Documents/Bachelor_INF/data/SPEEDTEST_oaipmh/{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}.json",
     )
 
     duration = datetime.now() - start_time
 
     timing = {
         "publisher": publisher,
-        "oaipmh_xml_files": list(oaipmh_xml_files),
+        "oaipmh_xml_files": [str(f) for f in oaipmh_xml_files],
         "extract_fulltexts": extract_fulltexts,
         "do_string_match": do_string_match,
         "distribution_all_ner_tags": distribution.compute(
-            data=_flatten(dataset["all_ner_tags"])
+            data=(_flatten(dataset["all_ner_tags"]))
         )
         if do_string_match
         else tuple(),
+        "tag_list": dataset["all_ner_tags"].names,
         "distribution_all_ner_links": distribution.compute(
             data=_flatten(dataset["all_ner_links"])
         )
         if do_string_match
         else tuple(),
+        "link_list": dataset["all_ner_links"].names,
+        "duration": duration,
     }
 
     print(timing)
