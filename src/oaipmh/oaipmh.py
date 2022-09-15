@@ -290,6 +290,7 @@ class OAIPMH(
                         }
                     )
                 )
+                f.write("\n")
                 f.write(
                     json.dumps(
                         {
@@ -302,6 +303,7 @@ class OAIPMH(
                         }
                     )
                 )
+                f.write("\n")
 
         logger.info(f"""Peak: {mapped[0][0]}""")
 
