@@ -308,8 +308,23 @@ class OAIPMH(
         if self.config.extract_fulltexts:
             # download pdf
 
-            data_dir.joinpath("pdf").mkdir(exist_ok=True)
+            pdf_cache = (
+                Path(
+                    self.dl_manager.manual_dir
+                    if (
+                        self.dl_manager is not None
+                        and self.dl_manager.manual_dir is not None
+                    )
+                    else self.cache_dir
+                )
+                .expanduser()
+                .absolute()
+                .joinpath("pdf")
+            )
 
+            pdf_cache.mkdir(parents=True, exist_ok=True)
+
+            self.pdf_cache = pdf_cache
             start_time = datetime.now()
             downloaded_pdfs = datasets.utils.py_utils.map_nested(
                 self.get_pdf,
@@ -365,24 +380,6 @@ class OAIPMH(
         ]
 
     def get_pdf(self, record_dict):
-        if self.pdf_cache is None:
-
-            pdf_cache = (
-                Path(
-                    self.dl_manager.manual_dir
-                    if (
-                        self.dl_manager is not None
-                        and self.dl_manager.manual_dir is not None
-                    )
-                    else self.cache_dir
-                )
-                .expanduser()
-                .absolute()
-                .joinpath("pdf")
-            )
-            pdf_cache.mkdir(parents=True, exist_ok=True)
-            self.pdf_cache = pdf_cache
-
         filename = self.pdf_cache.joinpath(f"{record_dict['id']}.pdf")
         try:
             link = _get_largest_pdf_url(
