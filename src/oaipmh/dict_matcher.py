@@ -10,10 +10,7 @@ from logging import Logger
 
 import datasets
 
-# FIXME import not working
 from .gazetteer import Gazetteer
-
-# Gazetteer = dict[str,str]
 
 T = typing.TypeVar("T")  # Declare type variable
 
