@@ -173,15 +173,6 @@ class OAIPMH(
 
     BUILDER_CONFIG_CLASS = OAIPMHConfig
 
-    @property
-    def manual_download_instructions(self):
-        return (
-            "To use this dataset you need to provide at least a set of OAI-PMH XML-Files in a `xml` directory."
-            "You can get those by using [oaipmharvest](https://github.com/ubffm/oaipmharvest)."
-            "To use the string matching functionality you additionally need one or more gazetteers in a `gazetteers` directory"
-            "The gazetteers are expected to be formatted as 'entry\tURI'"
-        )
-
     def _info(self):
 
         features = dict()
@@ -245,26 +236,30 @@ class OAIPMH(
         # TODO use API directly, e.g. with sickle
         # TODO use streaming generator to load files only if needed
 
-        # inspired by https://huggingface.co/datasets/matinf/blob/main/matinf.py#L134
-        if not (
-            dl_manager.manual_dir is not None
-            and (
-                data_dir := Path(dl_manager.manual_dir).expanduser().absolute()
-            ).exists()
-        ):
-            raise FileNotFoundError(
-                f"""{data_dir if data_dir else 'data_dir'} does not exist. Make sure you insert a manual dir via `datasets.load_dataset('oaipmh', data_dir=...)` that includes an `xml` directory containing the OAI-PMH XML-Files. 
-                A `gazetteers` directory containing the gazetteers is also required for the string matching functionality to work. Manual download instructions: {self.manual_download_instructions}"""
-            )
-
         self.config: OAIPMHConfig  # Type hint
 
-        oaipmh_xml_files = data_dir.joinpath("xml").glob("*.xml")
+        if self.config.oaipmh_xml_files is None:
+            # inspired by https://huggingface.co/datasets/matinf/blob/main/matinf.py#L134
+            if not (
+                dl_manager.manual_dir is not None
+                and (
+                    data_dir := Path(dl_manager.manual_dir).expanduser().absolute()
+                ).exists()
+            ):
+                raise FileNotFoundError(
+                    f"""{data_dir if data_dir else 'data_dir'} does not exist. 
+                    Make sure you either provide oaipmh_xml_files or insert a manual dir via `datasets.load_dataset('oaipmh', data_dir=...)` that includes an `xml` directory containing the OAI-PMH XML-Files. 
+                    You can get those by using [oaipmharvest](https://github.com/ubffm/oaipmharvest).
+                    A `gazetteers` directory containing the gazetteers is also required for the string matching functionality to work. Manual download instructions: {self.manual_download_instructions}"""
+                )
+
+            self.config.oaipmh_xml_files = list(data_dir.joinpath("xml").glob("*.xml"))
+
         start_time = datetime.now()
         mapped = list(
             datasets.utils.py_utils.map_nested(
                 load_xml_file,
-                list(oaipmh_xml_files),
+                self.config.oaipmh_xml_files,
                 num_proc=16,
                 desc="Parsing XML files",
                 disable_tqdm=not datasets.utils.logging.is_progress_bar_enabled(),
@@ -370,20 +365,25 @@ class OAIPMH(
         ]
 
     def get_pdf(self, record_dict):
+        if self.pdf_cache is None:
 
-        if self.dl_manager is None:
-            raise UserWarning(f"No download manager set!")
+            pdf_cache = (
+                Path(
+                    self.dl_manager.manual_dir
+                    if (
+                        self.dl_manager is not None
+                        and self.dl_manager.manual_dir is not None
+                    )
+                    else self.cache_dir
+                )
+                .expanduser()
+                .absolute()
+                .joinpath("pdf")
+            )
+            pdf_cache.mkdir(parents=True, exist_ok=True)
+            self.pdf_cache = pdf_cache
 
-        if self.dl_manager.manual_dir is None:
-            raise UserWarning(f"Usage error. {self.manual_download_instructions}")
-
-        filename = (
-            Path(self.dl_manager.manual_dir)
-            .expanduser()
-            .absolute()
-            .joinpath("pdf")
-            .joinpath(f"{record_dict['id']}.pdf")
-        )
+        filename = self.pdf_cache.joinpath(f"{record_dict['id']}.pdf")
         try:
             link = _get_largest_pdf_url(
                 get_pdf_links(
