@@ -10,7 +10,7 @@ from oaipmh.gazetteer import read_gazetteers
 from oaipmh.helpers import (_flatten, get_link_label_classes_from_gazetteers,
                             get_token_label_classes_from_gazetteers)
 
-datasets.utils.logging.disable_progress_bar()
+#datasets.utils.logging.disable_progress_bar()
 
 gazetteers = read_gazetteers("~/Documents/Bachelor_INF/data/tmp_dataset/gazetteers")
 distribution = evaluate.load("label_distribution")
@@ -52,7 +52,7 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
     dataset = load_dataset(
         "oaipmh",
         name=publisher,
-        cache_dir=f"~/.cache/huggingface/datasets/SPEEDTEST/{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}",
+        cache_dir=f"~/.cache/huggingface/datasets/SPEEDTEST/{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}_debug",
         oaipmh_xml_files=oaipmh_xml_files,
         split="train",
         download_mode="force_redownload",
@@ -63,7 +63,7 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
         gazetteers=gazetteers,
         token_label_classes=get_token_label_classes_from_gazetteers(gazetteers),
         link_label_classes=get_link_label_classes_from_gazetteers(gazetteers),
-        time_log=f"~/Documents/Bachelor_INF/data/SPEEDTEST_oaipmh/{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}.json",
+        time_log=f"~/Documents/Bachelor_INF/data/SPEEDTEST_oaipmh/{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}_debug.json",
     )
 
     duration = datetime.now() - start_time
@@ -78,21 +78,21 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
         )
         if do_string_match
         else tuple(),
-        "tag_list": dataset["all_ner_tags"].names,
+        "tag_list": dataset.info.features["all_ner_tags"].feature.names,
         "distribution_all_ner_links": distribution.compute(
             data=_flatten(dataset["all_ner_links"])
         )
         if do_string_match
         else tuple(),
-        "link_list": dataset["all_ner_links"].names,
+        "link_list": dataset.info.features["all_ner_links"].feature.names,
         "duration": duration,
     }
 
     print(timing)
 
     with open(
-        f"SPEEDTEST_{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}.json",
-        "x",
+        f"SPEEDTEST_{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}_debug.json",
+        "w",
     ) as f:
         json.dump(timing, f)
 
