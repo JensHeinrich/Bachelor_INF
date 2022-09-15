@@ -274,7 +274,7 @@ class OAIPMH(
             raise Exception(f"Error handling the records")
 
         logger.warning(
-            f"""Parsed {len(list(oaipmh_xml_files))} files to  {len(mapped)} lists containing {len(_records)} records in {duration.total_seconds()} s."""
+            f"""Parsed {len(list(self.config.oaipmh_xml_files))} files to  {len(mapped)} lists containing {len(_records)} records in {duration.total_seconds()} s."""
         )
         if self.config.time_log is not None:
             with open(self.config.time_log, "a") as f:
@@ -284,7 +284,7 @@ class OAIPMH(
                             "from_type": "xml",
                             "from": "files",
                             "to": "lists",
-                            "from_count": len(list(oaipmh_xml_files)),
+                            "from_count": len(list(self.config.oaipmh_xml_files)),
                             "to_count": len(mapped),
                             "duration": duration.total_seconds(),
                         }
@@ -296,7 +296,7 @@ class OAIPMH(
                             "from_type": "xml",
                             "from": "files",
                             "to": "records",
-                            "from_count": len(list(oaipmh_xml_files)),
+                            "from_count": len(list(self.config.oaipmh_xml_files)),
                             "to_count": len(_records),
                             "duration": duration.total_seconds(),
                         }
