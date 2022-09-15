@@ -1,28 +1,26 @@
-import re
-import datasets
-import typing
-from typing import Union, List, Any
+import json
 import os
+import re
+import typing
+from collections.abc import Sequence
+from datetime import datetime
+from pathlib import Path
+from typing import Any, List, Union
+
+import datasets
+import requests
 from datasets.tasks.base import T
 
-import requests
-
-from collections.abc import Sequence
-from pathlib import Path
-
+from .extract_pdf import get_text_from_pdf
+from .gazetteer import Gazetteer, read_gazetteers
 from .helpers import (
-    _get_largest_pdf_url,
     _flatten,
+    _get_largest_pdf_url,
     get_link_label_classes_from_gazetteers,
     get_token_label_classes_from_gazetteers,
 )
-from .extract_pdf import get_text_from_pdf
-from .xml_loader import load_xml_file, OAIXMLRecordDict
-from .gazetteer import Gazetteer, read_gazetteers
 from .publishers import get_pdf_links
-
-from datetime import datetime
-
+from .xml_loader import OAIXMLRecordDict, load_xml_file
 
 if __name__ == "__main__" and __package__ is None:
     __package__ = "expected.package.name"
@@ -42,9 +40,9 @@ _DESCRIPTION = """\
 Dataset using OAI PMH entries
 """
 
-from .dict_matcher import matching_and_linking_BIO
-
 from pathlib import Path
+
+from .dict_matcher import matching_and_linking_BIO
 
 
 class OAIPMHConfig(
@@ -64,6 +62,7 @@ class OAIPMHConfig(
         gazetteers: Union[dict[str, Gazetteer], None] = None,
         oaipmh_xml_files: Union[list[Union[Path, str]], None] = None,
         gazetteer_files: Union[list[Union[Path, str]], None] = None,
+        time_log: Union[Path, str, None] = None,
         **config_kwargs,
     ):
         """BuilderConfig for OAI PMH datasets class
@@ -79,6 +78,7 @@ class OAIPMHConfig(
             gazetteers (Union[dict[str, Gazetteer], None], optional): gazetteers used for string matching. Defaults to None.
             oaipmh_xml_files (Union[list[Union[Path,str]],None]), optional): OAI PMH XML Files containing the records. Defaults to None.
             gazetteer_files (Union[list[Union[Path,str]],None]), optional): Files containing the gazetteers. Defaults to None.
+            time_log (Union[Path,str,None]): Path to log timings to. Defaults to None.
 
             **kwargs: Arguments passed to the parent class
 
@@ -137,6 +137,21 @@ class OAIPMHConfig(
 
         self.publisher = publisher
 
+        if time_log is not None:
+            # ensure the file be created
+            time_log = Path(time_log).expanduser().absolute()
+            time_log.parent.mkdir(parents=True, exist_ok=True)
+            # create file and header
+            with open(time_log, "w") as f:
+                f.write(
+                    """
+                # Timings are logged as JSON objects
+                # One object per line
+                """
+                )
+        self.time_log = time_log
+
+        # TODO Check if pickle helper still needed
         def __getstate__(self):
             state = self.__dict__.copy()
 
@@ -224,7 +239,9 @@ class OAIPMH(
 
     def _split_generators(
         self, dl_manager: datasets.DownloadManager
-    ) -> Sequence[datasets.SplitGenerator]:
+    ) -> Sequence[
+        datasets.SplitGenerator  # pyright: ignore [reportPrivateImportUsage] # TODO wait for fix for https://github.com/huggingface/datasets/issues/3841
+    ]:
         # TODO use API directly, e.g. with sickle
         # TODO use streaming generator to load files only if needed
 
@@ -254,18 +271,44 @@ class OAIPMH(
             )
         )
 
-        duration = datetime.now() - start_time
-
         _records = _flatten(mapped)
+
+        duration = datetime.now() - start_time
 
         if _records is None:
             raise Exception(f"Error handling the records")
 
         logger.warning(
-            f"""Parsed {len(list(oaipmh_xml_files))} files to  {len(mapped)} lists containing {len(_records)} records in {duration.total_seconds()} s.
-        Peak: {mapped[0][0]}
-        """
+            f"""Parsed {len(list(oaipmh_xml_files))} files to  {len(mapped)} lists containing {len(_records)} records in {duration.total_seconds()} s."""
         )
+        if self.config.time_log is not None:
+            with open(self.config.time_log, "a") as f:
+                f.write(
+                    json.dumps(
+                        {
+                            "from_type": "xml",
+                            "from": "files",
+                            "to": "lists",
+                            "from_count": len(list(oaipmh_xml_files)),
+                            "to_count": len(mapped),
+                            "duration": duration.total_seconds(),
+                        }
+                    )
+                )
+                f.write(
+                    json.dumps(
+                        {
+                            "from_type": "xml",
+                            "from": "files",
+                            "to": "records",
+                            "from_count": len(list(oaipmh_xml_files)),
+                            "to_count": len(_records),
+                            "duration": duration.total_seconds(),
+                        }
+                    )
+                )
+
+        logger.info(f"""Peak: {mapped[0][0]}""")
 
         if self.config.extract_fulltexts:
             # download pdf
@@ -284,9 +327,23 @@ class OAIPMH(
             duration = datetime.now() - start_time
 
             logger.warning(
-                f"""Downloaded {len(downloaded_pdfs)} files in {duration.total_seconds()} s."""
+                f"""Downloaded {len(downloaded_pdfs)} files for {len(_records)} records in {duration.total_seconds()} s."""
             )
 
+            if self.config.time_log is not None:
+                with open(self.config.time_log, "a") as f:
+                    f.write(
+                        json.dumps(
+                            {
+                                "from_type": "records",
+                                "from": "records",
+                                "to": "pdfs",
+                                "from_count": len(list(_records)),
+                                "to_count": len(downloaded_pdfs),
+                                "duration": duration.total_seconds(),
+                            }
+                        )
+                    )
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
@@ -320,7 +377,6 @@ class OAIPMH(
         if self.dl_manager.manual_dir is None:
             raise UserWarning(f"Usage error. {self.manual_download_instructions}")
 
-
         filename = (
             Path(self.dl_manager.manual_dir)
             .expanduser()
@@ -330,7 +386,10 @@ class OAIPMH(
         )
         try:
             link = _get_largest_pdf_url(
-                get_pdf_links(record_dict, publisher=self.config.publisher)
+                get_pdf_links(
+                    record_dict,  # pyright: ignore [reportGeneralTypeIssues] # str can be assigned to Text...
+                    publisher=self.config.publisher,
+                )
             )
         except ValueError as N:
             # raise UserWarning(f"No link for {record_dict['id']}") from N
@@ -352,8 +411,12 @@ class OAIPMH(
         if input == []:
             return [], [], []
 
+        assert (
+            self.config.gazetteers is not None
+        ), "Labeling is not supported without gazetteers"
         if isinstance(input, list) and any(isinstance(elem, str) for elem in input):
             l = [(i, None, None) for i in input]
+            assert self.config.gazetteers is not None
             for key in self.config.gazetteers:
                 l: list[tuple[list[str], list[str], list[str]]] = [
                     matching_and_linking_BIO(
@@ -460,6 +523,20 @@ class OAIPMH(
             duration = datetime.now() - start_time
 
             logger.warning(f"Extracted {len(text)} chars in {duration} s")
+            if self.config.time_log is not None:
+                with open(self.config.time_log, "a") as f:
+                    f.write(
+                        json.dumps(
+                            {
+                                "from_type": "pdf",
+                                "from": record_dict["id"],
+                                "to": "characters",
+                                "from_count": 1,
+                                "to_count": len(text),
+                                "duration": duration.total_seconds(),
+                            }
+                        )
+                    )
 
             key = "text"
             _record_dict.update(
@@ -508,6 +585,20 @@ class OAIPMH(
         logger.warning(
             f"""Parsed {len(_records)} records in {duration.total_seconds()}s."""
         )
+        if self.config.time_log is not None:
+            with open(self.config.time_log, "a") as f:
+                f.write(
+                    json.dumps(
+                        {
+                            "from_type": "records",
+                            "from": "records",
+                            "to": "records",
+                            "from_count": len(records),
+                            "to_count": len(_records),
+                            "duration": duration.total_seconds(),
+                        }
+                    )
+                )
 
         for _record_dict in _records:
             yield _record_dict["id_"], _record_dict
