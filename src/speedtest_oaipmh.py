@@ -88,7 +88,7 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
         if do_string_match
         else tuple(),
         "link_list": dataset.info.features["all_ner_links"].feature.names,
-        "duration": duration,
+        "duration": duration.seconds,
     }
 
     print(timing)
