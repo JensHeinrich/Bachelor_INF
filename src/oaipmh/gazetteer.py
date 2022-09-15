@@ -1,12 +1,5 @@
-import typing
-from typing import Union, TypeAlias
-
-import os
 from pathlib import Path
-
-from numpy import isin
-
-# from .dict_matcher import Gazetteer
+from typing import TypeAlias, Union
 
 Gazetteer: TypeAlias = dict[str, str]
 
