@@ -356,6 +356,8 @@ class OAIPMH(
                             }
                         )
                     )
+                    f.write("\n")
+
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
@@ -536,6 +538,8 @@ class OAIPMH(
                             }
                         )
                     )
+                    f.write("\n")
+
 
             key = "text"
             _record_dict.update(
@@ -598,6 +602,8 @@ class OAIPMH(
                         }
                     )
                 )
+                f.write("\n")
+
 
         for _record_dict in _records:
             yield _record_dict["id_"], _record_dict
