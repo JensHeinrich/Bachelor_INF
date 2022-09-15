@@ -56,7 +56,7 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
         oaipmh_xml_files=oaipmh_xml_files,
         split="train",
         download_mode="force_redownload",
-        data_dir=f"~/Documents/Bachelor_INF/data/tmp_dataset_{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}/",
+        #data_dir=f"~/Documents/Bachelor_INF/data/tmp_dataset_{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}/",
         publisher="ubffm",
         extract_fulltexts=extract_fulltexts,
         do_string_match=do_string_match,
