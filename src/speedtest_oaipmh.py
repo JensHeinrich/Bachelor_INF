@@ -99,6 +99,10 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
     ) as f:
         json.dump(timing, f)
 
+    dataset.save_to_disk(
+        f"./{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}_debug_dataset"
+    )
+
     timings += [timing]
 
 with open("SPEEDTEST_timings.json", "w") as f:
