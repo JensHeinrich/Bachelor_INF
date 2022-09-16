@@ -403,7 +403,9 @@ class OAIPMH(
 
         # TODO enumerate on pdf_links after sorting them
         filename = self.pdf_cache.joinpath(
-            f"{record_dict['id']}.pdf"  # TODO use enumeration in filename
+            f"{record_dict['id']}.pdf".replace(
+                "/", ":"
+            )  # TODO use enumeration in filename
         )
         if link and not filename.exists():
             with open(filename, "wb") as f:
