@@ -5,29 +5,10 @@ import requests
 from bs4 import BeautifulSoup
 from requests.models import CaseInsensitiveDict
 
+from .helpers import _peak_at_link, _check_pdf_request
 from .xml_loader import OAIXMLRecordDict
 
 logger = datasets.utils.logging.get_logger(__name__)
-
-
-def _peak_at_link(
-    link: str,
-) -> Union[requests.Response, None]:  # TODO replace with _peak_at_links
-    """Peak at the provided link in an exception safe way
-
-    Args:
-        link (str): url to peak at
-
-    Returns:
-        Union[requests.Response,None]: Response of the request or None if it failed
-    """
-    req = None
-    try:
-        req = requests.head(link)
-    except Exception as N:
-        logger.warning(f"Exception occured handling {link}: {N}")
-
-    return req
 
 
 def get_pdf_links(record: OAIXMLRecordDict, publisher: str = "") -> list[str]:
@@ -55,8 +36,7 @@ def get_pdf_links(record: OAIXMLRecordDict, publisher: str = "") -> list[str]:
                         rel.replace("index.php/Language%20Science%20Press/", "")
                     )
                 )
-                and req.headers["Content-Type"]
-                == "application/pdf"  # only get links pointing to pdf
+                and _check_pdf_request(req=req)
             )
         ] or [
             # fall back to extracting the urls from the page
@@ -75,10 +55,9 @@ def get_pdf_links(record: OAIXMLRecordDict, publisher: str = "") -> list[str]:
                             ],  # pyright: ignore [reportGeneralTypeIssues]
                         )
                         else href[0]  # pyright: ignore [reportGeneralTypeIssues]
-                    )  # only do a HEAD not a GET; no need to download the pdf now
+                    )
                 )
-                and req.headers["Content-Type"]
-                == "application/pdf"  # only get links pointing to pdf
+                and _check_pdf_request(req=req)
             )
         ]
 

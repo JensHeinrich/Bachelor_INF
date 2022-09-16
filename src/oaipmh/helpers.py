@@ -1,8 +1,39 @@
 import typing
+from typing import Any, Text, Union
 
+import datasets
+import requests
 
-from typing import Union, Text, Any
 from .gazetteer import Gazetteer
+
+logger = datasets.utils.logging.get_logger(__name__)
+
+
+def _peak_at_link(
+    link: Union[Text, bytes],
+) -> Union[requests.Response, None]:  # TODO replace with _peak_at_links
+    """Peak at the provided link in an exception safe way
+
+    Args:
+        link (str): url to peak at
+
+    Returns:
+        Union[requests.Response,None]: Response of the request or None if it failed
+    """
+    req = None
+    try:
+        req = requests.head(link, allow_redirects=True)
+    except Exception as N:
+        logger.warning(f"Exception occured handling {link}: {N}")
+
+    return req
+
+
+def _check_pdf_request(req: requests.Response) -> bool:
+    return (
+        req.url.endswith(".pdf")  # dirty check for pdf
+        or req.headers["Content-Type"] == "application/pdf"
+    )
 
 
 def _flatten(input: Union[None, list[Union[Any, list[Any]]]]) -> Union[None, list[Any]]:
@@ -21,9 +52,6 @@ def _flatten(input: Union[None, list[Union[Any, list[Any]]]]) -> Union[None, lis
     return input
 
 
-import requests
-
-
 def _get_largest_pdf_url(urlList: list[Union[Text, bytes]]) -> str:
     pdfUrlList = [
         (
@@ -33,8 +61,8 @@ def _get_largest_pdf_url(urlList: list[Union[Text, bytes]]) -> str:
         for target in urlList
         if (
             # dirty check if target is a pdf file
-            (req := requests.head(target, allow_redirects=True)).url.endswith(".pdf")
-            or req.headers["Content-Type"] == "application/pdf"
+            (req := _peak_at_link(target))
+            and _check_pdf_request(req=req)
         )
     ]
     if pdfUrlList == []:
