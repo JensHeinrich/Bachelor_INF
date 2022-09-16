@@ -27,10 +27,10 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
     for do_string_match in [True, False]
     for (publisher, oaipmh_xml_files) in [
         (
-            "ubffm",
+            "lang-sci-press",
             list(
                 Path(
-                    "~/Documents/Bachelor_INF/data/oaipmharvest/ubffm/ubffm-publikationen-linguistik/"
+                    "~/Documents/Bachelor_INF/data/oaipmharvest/lang-sci-press/UNSPECIFIED-SET/"
                 )
                 .expanduser()
                 .absolute()
@@ -38,10 +38,10 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
             ),
         ),
         (
-            "lang-sci-press",
+            "ubffm",
             list(
                 Path(
-                    "~/Documents/Bachelor_INF/data/oaipmharvest/lang-sci-press/UNSPECIFIED-SET/"
+                    "~/Documents/Bachelor_INF/data/oaipmharvest/ubffm/ubffm-publikationen-linguistik/"
                 )
                 .expanduser()
                 .absolute()
@@ -60,7 +60,7 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
         split="train",
         download_mode="force_redownload",
         # data_dir=f"~/Documents/Bachelor_INF/data/tmp_dataset_{publisher}{'_ft' if extract_fulltexts else ''}{'' if do_string_match else'_raw'}/",
-        publisher="ubffm",
+        publisher=publisher,
         extract_fulltexts=extract_fulltexts,
         do_string_match=do_string_match,
         gazetteers=gazetteers,
