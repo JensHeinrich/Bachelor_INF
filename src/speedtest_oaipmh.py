@@ -23,6 +23,8 @@ timings = []
 
 for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
     (publisher, oaipmh_xml_files, extract_fulltexts, do_string_match)
+    for extract_fulltexts in [True, False]
+    for do_string_match in [True, False]
     for (publisher, oaipmh_xml_files) in [
         (
             "ubffm",
@@ -47,8 +49,6 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
             ),
         ),
     ]
-    for extract_fulltexts in [True, False]
-    for do_string_match in [True, False]
 ]:
     start_time = datetime.now()
 
@@ -81,13 +81,17 @@ for publisher, oaipmh_xml_files, extract_fulltexts, do_string_match in [
         )
         if do_string_match
         else tuple(),
-        "tag_list": dataset.info.features["all_ner_tags"].feature.names,
+        "tag_list": dataset.info.features["all_ner_tags"].feature.names
+        if do_string_match
+        else None,
         "distribution_all_ner_links": distribution.compute(
             data=_flatten(dataset["all_ner_links"])
         )
         if do_string_match
         else tuple(),
-        "link_list": dataset.info.features["all_ner_links"].feature.names,
+        "link_list": dataset.info.features["all_ner_links"].feature.names
+        if do_string_match
+        else None,
         "duration": duration.seconds,
     }
 
