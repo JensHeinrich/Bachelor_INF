@@ -66,7 +66,7 @@ def get_pdf_links(record: OAIXMLRecordDict, publisher: str = "") -> list[str]:
             )
             if (
                 (
-                    req := _peak_at_links(  # save the request in a temporary variable
+                    req := _peak_at_link(  # save the request in a temporary variable
                         href
                         if isinstance(
                             str,
