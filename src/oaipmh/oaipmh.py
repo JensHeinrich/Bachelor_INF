@@ -380,7 +380,7 @@ class OAIPMH(
             ),  # FIXME
         ]
 
-    def get_pdf(self, record_dict):
+    def get_pdf(self, record_dict) -> Union[str,None]:
         filename = self.pdf_cache.joinpath(f"{record_dict['id']}.pdf")
         try:
             link = _get_largest_pdf_url(
@@ -392,7 +392,7 @@ class OAIPMH(
         except ValueError as N:
             # raise UserWarning(f"No link for {record_dict['id']}") from N
             logger.error(f"No link for {record_dict['id']}: {N}")
-            link = False
+            return None
 
         if link and not filename.exists():
             with open(filename, "wb") as f:
