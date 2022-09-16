@@ -60,8 +60,8 @@ class OAIPMHConfig(
         token_label_classes: Union[List[str], None] = None,
         link_label_classes: Union[List[str], None] = None,
         gazetteers: Union[dict[str, Gazetteer], None] = None,
-        oaipmh_xml_files: Union[list[Union[Path, str]], None] = None,
-        gazetteer_files: Union[list[Union[Path, str]], None] = None,
+        oaipmh_xml_files: Union[list[Path], list[str], None] = None,
+        gazetteer_files: Union[list[Path], list[str], None] = None,
         time_log: Union[Path, str, None] = None,
         **config_kwargs,
     ):
@@ -76,8 +76,8 @@ class OAIPMHConfig(
             token_label_classes (Union[List[str], None], optional): list of labels used by the dataset for NER tags. Defaults to None.
             link_label_classes (Union[List[str], None], optional): list of labels used by the dataset for NER links. Defaults to None.
             gazetteers (Union[dict[str, Gazetteer], None], optional): gazetteers used for string matching. Defaults to None.
-            oaipmh_xml_files (Union[list[Union[Path,str]],None]), optional): OAI PMH XML Files containing the records. Defaults to None.
-            gazetteer_files (Union[list[Union[Path,str]],None]), optional): Files containing the gazetteers. Defaults to None.
+            oaipmh_xml_files (Union[list[Path],list[str],None]), optional): OAI PMH XML Files containing the records. Defaults to None.
+            gazetteer_files (Union[list[Path],list[str],None]), optional): Files containing the gazetteers. Defaults to None.
             time_log (Union[Path,str,None]): Path to log timings to. Defaults to None.
 
             **kwargs: Arguments passed to the parent class
@@ -99,33 +99,30 @@ class OAIPMHConfig(
 
         self.size = size
 
-        if gazetteers is None and (
-            do_string_match or link_label_classes is None or token_label_classes is None
-        ):
+        if gazetteers is None:
             if gazetteer_files is not None:
                 gazetteers = read_gazetteers(gazetteer_files)
 
-            if gazetteers is None or gazetteers == dict():
+        if gazetteers is None:
+            if do_string_match:
+                raise UserWarning(f"String matching cannot be done without a gazetteer")
 
-                if do_string_match:
-                    raise UserWarning(
-                        f"String matching cannot be done without a gazetteer"
-                    )
+            if token_label_classes is None or link_label_classes is None:
+                raise UserWarning(
+                    """No `token_label_classes` and / or `link_label_classes` are defined.
+                    Pass them as argument or provide either `gazetteers` or `gazetteer_files` to have them extracted.
+                    """
+                )
 
-            elif token_label_classes is None:
+        else:  # gazetteers is not None
+
+            if token_label_classes is None:
                 token_label_classes = get_token_label_classes_from_gazetteers(
                     gazetteers
                 )
 
-            elif link_label_classes is None:
+            if link_label_classes is None:
                 link_label_classes = get_link_label_classes_from_gazetteers(gazetteers)
-
-        if token_label_classes is None or link_label_classes is None:
-            raise UserWarning(
-                """No `token_label_classes` and / or `link_label_classes` are defined.
-                Pass them as argument or provide either `gazetteers` or `gazetteer_files` to have them extracted.
-                """
-            )
 
         self.gazetteers = gazetteers
         self.token_label_classes = token_label_classes
@@ -540,7 +537,6 @@ class OAIPMH(
                     )
                     f.write("\n")
 
-
             key = "text"
             _record_dict.update(
                 self._tokenize_and_tag_and_identify(key, text)
@@ -603,7 +599,6 @@ class OAIPMH(
                     )
                 )
                 f.write("\n")
-
 
         for _record_dict in _records:
             yield _record_dict["id_"], _record_dict
