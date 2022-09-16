@@ -326,7 +326,7 @@ class OAIPMH(
             self.pdf_cache = pdf_cache
             start_time = datetime.now()
             downloaded_pdfs = datasets.utils.py_utils.map_nested(
-                self.get_pdf,
+                self.get_pdfs,
                 _records,
                 num_proc=16,
                 desc=f"Download PDFs",
@@ -334,6 +334,14 @@ class OAIPMH(
             )
 
             duration = datetime.now() - start_time
+
+            # Remove unsuccessful downloads
+            downloaded_pdfs = [
+                pdf_name
+                for pdf_names in downloaded_pdfs
+                if pdf_names is not None
+                for pdf_name in pdf_names
+            ]
 
             logger.warning(
                 f"""Downloaded {len(downloaded_pdfs)} files for {len(_records)} records in {duration.total_seconds()} s."""
@@ -380,10 +388,9 @@ class OAIPMH(
             ),  # FIXME
         ]
 
-    def get_pdf(self, record_dict) -> Union[str,None]:
-        filename = self.pdf_cache.joinpath(f"{record_dict['id']}.pdf")
+    def get_pdfs(self, record_dict) -> Union[list[str], None]:
         try:
-            link = _get_largest_pdf_url(
+            link = _get_largest_pdf_url(  # TODO remove restriction to largest pdf
                 get_pdf_links(
                     record_dict,  # pyright: ignore [reportGeneralTypeIssues] # str can be assigned to Text...
                     publisher=self.config.publisher,
@@ -394,6 +401,10 @@ class OAIPMH(
             logger.error(f"No link for {record_dict['id']}: {N}")
             return None
 
+        # TODO enumerate on pdf_links after sorting them
+        filename = self.pdf_cache.joinpath(
+            f"{record_dict['id']}.pdf"  # TODO use enumeration in filename
+        )
         if link and not filename.exists():
             with open(filename, "wb") as f:
                 try:
@@ -403,7 +414,7 @@ class OAIPMH(
                         f"An exception occureed when saving {link} as {filename}"
                     ) from N
 
-        return str(filename)
+        return [str(filename)]
 
     def _autolabel_and_identify(self, input) -> tuple[list[str], list[str], list[str]]:
         if input == []:
@@ -509,7 +520,7 @@ class OAIPMH(
             start_time = datetime.now()
 
             try:
-                filename = self.get_pdf(record_dict)
+                filename = self.get_pdfs(record_dict)
                 if filename:
                     text = get_text_from_pdf(filename)
                 else:
