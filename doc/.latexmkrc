@@ -4,6 +4,12 @@
   bachelor.tex
 );
 
+
+# https://tex.stackexchange.com/questions/617226/latexmk-build-in-another-directory-and-move-back-file-once-its-compiled-avoid
+$emulate_aux = 1;
+$aux_dir = 'build';
+%out_dir = 'output';
+
 #$pdf_mode = 1;    # tex -> pdf
 # https://ftp.fau.de/ctan/support/latexmk/example_rcfiles/lualatex_latexmkrc
 # This shows how to use lualatex (http://en.wikipedia.org/wiki/LuaTeX)
@@ -18,6 +24,8 @@ $postscript_mode = $dvi_mode = 0;
 $out_dir = "./build";    # keep the temporary files away from the tree
 
 $cleanup_includes_cusdep_generated = 1;    # remove generated files
+$cleanup_includes_generated = 1;    # remove generated files
+
 
 $max_repeat = 10;                          # maximum number of runs
 
@@ -196,6 +204,11 @@ sub run_bib2gls {
         while (<LOG>) {
             if (/^Reading (.*\.bib)\s$/) {
                 rdb_ensure_file( $rule, $1 );
+            }
+            # https://tex.stackexchange.com/questions/420107/latexmk-clean-multiple-files-created-by-custom-dependency
+            if (/^Writing (.*\.glstex)\s$/) {
+                rdb_add_generated($rule, $1);
+                print( "Created " . $1);
             }
         }
         close LOG;
