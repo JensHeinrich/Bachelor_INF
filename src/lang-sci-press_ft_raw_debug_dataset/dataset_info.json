@@ -1,0 +1,125 @@
+{
+  "builder_name": "oaipmh",
+  "citation": "    @unpublished{\n        author = {Jens Heinrich},\n        title = {Analyse der M\u00f6glichkeit einer automatischen Anreicherung von sprachwissenschaftlichen Texten durch Named Entity Recognition unter Verwendung von BERT mit Semantik aus der BLL Ontologie},\n        type = {Bachelorthesis},\n    }\n",
+  "config_name": "lang-sci-press",
+  "dataset_size": 18058235,
+  "description": "Dataset using OAI PMH entries\n",
+  "download_checksums": {},
+  "download_size": 0,
+  "features": {
+    "id_": {
+      "dtype": "string",
+      "id": null,
+      "_type": "Value"
+    },
+    "id": {
+      "dtype": "string",
+      "id": null,
+      "_type": "Value"
+    },
+    "identifiers": {
+      "feature": {
+        "dtype": "string",
+        "id": null,
+        "_type": "Value"
+      },
+      "length": -1,
+      "id": null,
+      "_type": "Sequence"
+    },
+    "relations": {
+      "feature": {
+        "dtype": "string",
+        "id": null,
+        "_type": "Value"
+      },
+      "length": -1,
+      "id": null,
+      "_type": "Sequence"
+    },
+    "all": {
+      "feature": {
+        "dtype": "string",
+        "id": null,
+        "_type": "Value"
+      },
+      "length": -1,
+      "id": null,
+      "_type": "Sequence"
+    },
+    "title": {
+      "feature": {
+        "dtype": "string",
+        "id": null,
+        "_type": "Value"
+      },
+      "length": -1,
+      "id": null,
+      "_type": "Sequence"
+    },
+    "subject": {
+      "feature": {
+        "dtype": "string",
+        "id": null,
+        "_type": "Value"
+      },
+      "length": -1,
+      "id": null,
+      "_type": "Sequence"
+    },
+    "description": {
+      "feature": {
+        "dtype": "string",
+        "id": null,
+        "_type": "Value"
+      },
+      "length": -1,
+      "id": null,
+      "_type": "Sequence"
+    },
+    "text": {
+      "feature": {
+        "dtype": "string",
+        "id": null,
+        "_type": "Value"
+      },
+      "length": -1,
+      "id": null,
+      "_type": "Sequence"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "post_processed": null,
+  "post_processing_size": null,
+  "size_in_bytes": 18058235,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 9021732,
+      "num_examples": 16,
+      "dataset_name": "oaipmh"
+    },
+    "validation": {
+      "name": "validation",
+      "num_bytes": 14771,
+      "num_examples": 16,
+      "dataset_name": "oaipmh"
+    },
+    "test": {
+      "name": "test",
+      "num_bytes": 9021732,
+      "num_examples": 16,
+      "dataset_name": "oaipmh"
+    }
+  },
+  "supervised_keys": null,
+  "task_templates": null,
+  "version": {
+    "version_str": "0.4.0",
+    "description": null,
+    "major": 0,
+    "minor": 4,
+    "patch": 0
+  }
+}
