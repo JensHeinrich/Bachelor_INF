@@ -11,6 +11,10 @@
 \glsxtrprovidestoragekey{gpu}{}{\glsentrygpu}
 \glsxtrprovidestoragekey{mem}{}{\glsentrymem}
 
+\newcommand{\gpustyle}[1]{GPU: #1\\}
+\newcommand{\cpustyle}[1]{CPU: #1\\}
+\newcommand{\memstyle}[1]{MEM: #1\\}
+
 % % define custom glossary style
 \newglossarystyle{hardwarestyle}% style name
 {%
@@ -40,21 +44,24 @@
 		% 	}{% false
 		% 	}%
 		% \end{tabular}
-		%\glsentrydesc{##1}\\
+		\glsxtrifhasfield{description}{##1}{%
+			\glscurrentfieldvalue\\
+		}{% false
+		}
 		\glsxtrifhasfield{model}{##1}{%
 			Model: \glscurrentfieldvalue\\
 		}{% false
 		}%
 		\glsxtrifhasfield{cpu}{##1}{%
-			CPU: \glscurrentfieldvalue\\
+			\glsxtrforcsvfield{##1}{cpu}{\cpustyle}
 		}{% false
 		}%
 		\glsxtrifhasfield{gpu}{##1}{%
-			GPU: \glscurrentfieldvalue\\
+			\glsxtrforcsvfield{##1}{gpu}{\gpustyle}
 		}{% false
 		}%
 		\glsxtrifhasfield{mem}{##1}{%
-			MEM: \glscurrentfieldvalue\\
+			\glsxtrforcsvfield{##1}{mem}{\memstyle}
 		}{% false
 		}%
 	}%
