@@ -53,20 +53,23 @@ def _flatten(input: Union[None, list[Union[Any, list[Any]]]]) -> Union[None, lis
 
 
 def _get_largest_pdf_url(urlList: list[Union[Text, bytes]]) -> str:
-    pdfUrlList = [
-        (
-            req.headers["Content-Length"] if "Content-Length" in req.headers else 0,
-            req.url,
-        )
-        for target in urlList
-        if (
-            # dirty check if target is a pdf file
-            (req := _peak_at_link(target))
-            and _check_pdf_request(req=req)
-        )
-    ]
-    if pdfUrlList == []:
-        raise ValueError(f"No PDF Url in {urlList}")
+    try:
+        pdfUrlList = [
+            (
+                req.headers["Content-Length"] if "Content-Length" in req.headers else 0,
+                req.url,
+            )
+            for target in urlList
+            if (
+                # dirty check if target is a pdf file
+                (req := _peak_at_link(target))
+                and _check_pdf_request(req=req)
+            )
+        ]
+        if pdfUrlList == []:
+            raise ValueError(f"No PDF Url in {urlList}")
+    except Exception as N:
+        raise Exception(f"Exception occured getting largest from {urlList}: {N}") from N
 
     return max(
         pdfUrlList,
