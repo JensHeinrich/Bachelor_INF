@@ -1,0 +1,5 @@
+
+                # Timings are logged as JSON objects
+                # One object per line
+                {"from_type": "xml", "from": "files", "to": "lists", "from_count": 29, "to_count": 29, "duration": 0.322367}
+{"from_type": "xml", "from": "files", "to": "records", "from_count": 29, "to_count": 1027, "duration": 0.322367}
