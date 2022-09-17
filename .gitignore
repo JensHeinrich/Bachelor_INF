@@ -2,6 +2,7 @@ build
 *.pdf
 *.bak
 *.sav
+aux
 
 # ignore extracted texts
 data/**/files/**/*.txt
