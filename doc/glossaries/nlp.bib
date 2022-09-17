@@ -1,13 +1,13 @@
 @acronym{BERT,
 	short = {BERT},
 	long = {Bidirectional Encoder Representations from Transformers},
+	description-de = {\gls{transformer}[-basiertes] Modell für \gls{naturallanguageprocessing}[-Aufgaben] \autocite{1810.04805} },
 }
 
 @acronym{namedentityrecognition,
 	short = {NER},
 	long = {Named Entity Recognition},
-	first = {Named Entity Recogniton (kurz: NER, deutsch: \enquote{
-	         Eigennamenerkennung} vgl. \autocite{Leitner2019})},
+	first = {Named Entity Recogniton (kurz: NER, deutsch: \enquote{ Eigennamenerkennung} vgl. \autocite{Leitner2019})},
 	parent = {naturallanguageprocessing},
 }
 
@@ -25,13 +25,13 @@
 
 @acronym{naturallanguageprocessing,
 	short = {NLP},
-	long = {Natural Language Processing},
+	long-en = {Natural Language Processing},
+	long-de = {Verarbeitung natürlicher Sprache (Englisch: Natural Language Processing)},
 }
 
 @entry{tensor,
 	name = {Tensor},
-	description-de = {Erweiterung des Konzeptes eines Vektors ins
-	                  mehrdimensionale},
+	description-de = {Erweiterung des Konzeptes eines Vektors ins mehrdimensionale},
 }
 
 @entry{nlp:token,
@@ -49,17 +49,12 @@
 
 @entry{nlp:entity,
 	name-de = {Entität},
-	description-de = {Für einen \gls{nlp:sentence} \glsentryformula{nlp:sentence
-	                  } ist eine Entität ein Bereich (\enquote{span}) von Tokens
-	                  \glsentryformula{nlp:entity}},
-	formula = {\ensuremath{s=\left\lbrack x_i, \hdots, x_j \right\rbrack \left(0
-	           \leq i \leq j \leq N \right) }},
+	description-de = {Für einen \gls{nlp:sentence} \glsentryformula{nlp:sentence } ist eine Entität ein Bereich (\enquote{span}) von Tokens \glsentryformula{nlp:entity}},
+	formula = {\ensuremath{s=\left\lbrack x_i, \hdots, x_j \right\rbrack \left(0 \leq i \leq j \leq N \right) }},
 }
 
 @entry{nlp:ner,
-	description-de = {Zuweisen von einer Liste von \glspl{nlp:label}
-	                  \glsentryformula{nlp:label_sequence} zu einem Satz
-	                  \glssymbol{nlp:sentence}},
+	description-de = {Zuweisen von einer Liste von \glspl{nlp:label} \glsentryformula{nlp:label_sequence} zu einem Satz \glssymbol{nlp:sentence}},
 }
 
 @entry{nlp:label,
@@ -70,9 +65,7 @@
 @entry{nlp:label_sequence,
 	name = {Beschriftung},
 	symbol = {\ensuremath{\mathbf{Y}}},
-	formula = {\ensuremath{\glssymbol{nlp:label_sequence} = \left\lbrack
-	           \glssymbol{nlp:label}_1, \hdots, \glssymbol{nlp:label}_N \right
-	           \rbrack}},
+	formula = {\ensuremath{\glssymbol{nlp:label_sequence} = \left\lbrack \glssymbol{nlp:label}_1, \hdots, \glssymbol{nlp:label}_N \right \rbrack}},
 }
 
 @symbol{nlp:label:beginning,
@@ -86,13 +79,12 @@
 }
 @symbol{nlp:label:outside,
 	symbol = {\ensuremath{\texttt{O}}},
-	description-de = {Label für Token ausserhalb einer Entität}
+	description-de = {Label für Token ausserhalb einer Entität},
 }
 
 @entry{nlp:labelled_sentences,
 	name-de = {Beschriftete \glspp{nlp:sentence}},
-	formula = { \ensuremath{ { \left\lbrace \glssymbol{nlp:sentence}_m,
-	           \glssymbol{nlp:label_sequence}_m \right\rbrace }_{m=1}^M } },
+	formula = { \ensuremath{ { \left\lbrace \glssymbol{nlp:sentence}_m, \glssymbol{nlp:label_sequence}_m \right\rbrace }_{m=1}^M } },
 }
 
 @entry{nlp:model:parameters,
@@ -116,12 +108,9 @@
 
 @entry{crossentropyloss,
 	name-de = {\glspt{crossentropy}-Kosten},
-	description-de = {Differenz zwischen der erwarteten Verteilung \(\hat{y}\)
-	                  und der echten Verteilung \(y\) },
+	description-de = {Differenz zwischen der erwarteten Verteilung \(\hat{y}\) und der echten Verteilung \(y\) },
 	symbol = {\ensuremath{l}},
-	formula = {\ensuremath{ \glssymbol{crossentropyloss}\left(y,\hat{y}\right) =
-	           - \left\lbrack y \log \hat{y} + \left(1-y\right) \log \left( 1-
-	           \hat{y} \right) \right\rbrack }},
+	formula = {\ensuremath{ \glssymbol{crossentropyloss}\left(y,\hat{y}\right) = - \left\lbrack y \log \hat{y} + \left(1-y\right) \log \left( 1- \hat{y} \right) \right\rbrack }},
 }
 
 @entry{machine-learning,
@@ -163,14 +152,13 @@
 @acronym{fachinformationsdienst,
 	short = {FID},
 	long = {Fachinformationsdienst},
-	plural = {Fachinformationsdienste},
+	longplural = {Fachinformationsdienste},
 }
 
 @entry{cuda,
 	short = {CUDA},
 	long = {Compute Unified Device Architecture},
-	description-de = {von Nvidia entwickelte \gls{api} zum Ausführen von
-	                  Berechnungen auf der GPU},
+	description-de = {von Nvidia entwickelte \gls{api} zum Ausführen von Berechnungen auf der GPU},
 }
 
 
@@ -186,23 +174,40 @@
 
 @entry{gazetteer,
 	name-de = {Gazetteer},
+	first-de = {Gazetteer (auch als Entitätsliste bezeichnet)},
 	description-de = {Wörterbuch, welches Entitäten enthält\autocite{P08-1047}},
+}
+
+@entry{nlp:stats,
+	name-de = {Metriken},
 }
 
 @entry{nlp:stats:loss,
 	name = {Loss},
+	first-de = {Loss (auch Verlust- oder Kostenfunktion genannt)},
+	symbol = {\ensuremath{l}},
+	description-de = {Funktion, die jeder Entscheidung, die vom wahren Parameter abweicht, einen Schaden zuordnet},
+	parent = {nlp:stats},
 }
 
 @entry{nlp:stats:recall,
 	name = {Recall},
+	first-de = {Recall (auch Sensitivität oder Empfindlichkeit genannt)},
+	description-de = {Wahrscheinlichkeit, dass ein positives Objekt als solches identifiziert wird},
+	parent = {nlp:stats},
 }
 
 @entry{nlp:stats:precision,
 	name = {Precision},
+	first-de = {Precision (auch Genauigkeit oder positiver Vorhersagewert genannt)},
+	description-de = {Wahrscheinlichkeit, dass ein positiv identifiziertes Objekt positiv ist},
+	parent = {nlp:stats},
 }
 
 @entry{nlp:stats:f1,
-	name = {F1},
+	name = {F1-Maß},
+	description-de = {Harmonisches Mittel von \gls{nlp:stats:precision} und \gls{nlp:stats:recall}},
+	parent = {nlp:stats},
 }
 
 @acronym{artificialintelligence,
@@ -231,39 +236,41 @@
 @entry{lstm,
 	long = {Long Short-Term Memory},
 	short = {LSTM},
+	parent = {recurrentneuralnetwork},
+	description-de = {\gls{neuralnetwork}, welches die Aktivierungsregeln einmal pro Zeitschritt und die Verbindungsgewichte einmal pro Lernzyklus verändert},
 }
 
 @entry{neuralnetwork,
-	name = {neural network},
+	name-en = {neural network},
 	name-de = {neuronales Netz},
-	description-de = {an die Funktionsweise biologischer neuronaler Netzwerke
-	                  angelehntes System zur Funktionsapproximation},
+	plural-de = {neuronale Netze},
+	description-de = {an die Funktionsweise biologischer neuronaler Netzwerke angelehntes System zur Funktionsapproximation},
 }
 
 @entry{recurrentneuralnetwork,
 	short = {RNN},
 	long = {Recurrent Neural Network},
+	parent = {neuralnetwork},
 }
 
 @entry{convolutionneuralnetwork,
 	long = {convolution neural network},
 	short = {CNN},
-	description-de = {Neuronales Netzwerk bei dem die Ebenen als Matritzen
-	                  betrachtet werden und der Übergang zwischen Ebenen durch
-	                  eine Faltung mit einer Gewichtsmatrix (die Summierung von
-	                  Einträgen der Untermatritzen nach Multiplikation mit
-	                  geteilten Gewichten aus der Gewichtsmatrix)},
+	description-de = {Neuronales Netzwerk bei dem die Ebenen als Matritzen betrachtet werden und der Übergang zwischen Ebenen durch eine Faltung mit einer Gewichtsmatrix (die Summierung von Einträgen der Untermatritzen nach Multiplikation mit geteilten Gewichten aus der Gewichtsmatrix)},
+	parent = {neuralnetwork},
 }
 
 @entry{transformer,
 	name = {Transformer},
-	description-de = {Architektur eines \glslink{neuralnetwork}{neuronalen Netzwerks}, welches statt Faltung oder Rückkopplung nur Aufmerksamkeitsmechanismen verwendet\autocite{1706.03762}}
-	}
+	description-de = {Architektur eines \glslink{neuralnetwork}{neuronalen Netzwerks}, welches statt Faltung oder Rückkopplung nur Aufmerksamkeitsmechanismen verwendet\autocite{1706.03762}},
+	parent = {neuralnetwork},
+}																																																																									
 
 
 
 @ignored{stateoftheart,
-	name = {state-of-the-art},
+	long = {State of the art},
+	short = {SotA},
 }
 
 
@@ -271,19 +278,13 @@
 @acronym{nlp:task:mlm,
 	long = {Masked Language Model},
 	short = {MLM},
-	description-de = {Aufgabe 15\% der Tokens vorherzusagen; diese werden dafür
-	                  in der Eingabe durch ein Token ersetzt(80\% MASK-Token, 10
-	                  \% zufälliges Token, 10\% gleiches Token)\autocite[3.1 Task
-	                  \# 1]{1810.04805}},
+	description-de = {Aufgabe 15\% der Tokens vorherzusagen; diese werden dafür in der Eingabe durch ein Token ersetzt(80\% MASK-Token, 10 \% zufälliges Token, 10\% gleiches Token)\autocite[3.1 Task \# 1]{1810.04805}},
 }
 
 @acronym{nlp:task:nsp,
 	short = {NSP},
 	long = {Next Sentence Prediction},
-	description-de = {Hierbei werden zwei Sätze A und B aus dem Corpus gewählt,
-	                  sodass in 50\% der Fälle Satz B auf Satz A folgt und in 50
-	                  \% der Fälle B ein zufälliger Satz aus dem Corpus ist.
-	                  \autocite[3.1 Task \# 2]{1810.04805}},
+	description-de = {Hierbei werden zwei Sätze A und B aus dem Corpus gewählt, sodass in 50\% der Fälle Satz B auf Satz A folgt und in 50 \% der Fälle B ein zufälliger Satz aus dem Corpus ist. \autocite[3.1 Task \# 2]{1810.04805}},
 }
 
 @acronym{finitestatetransducer,
@@ -293,9 +294,9 @@
 }
 
 @acronym{i18n,
-	long={Internationalization},
-	short={I18N},
-	}
+	long = {Internationalization},
+	short = {I18N},
+}
 
 @acronym{dublincore,
 	short = {DC},
@@ -330,11 +331,135 @@
 }
 
 @acronym{opac,
-short= {OPAC},
-long = {Online Public Access Catalogue},
+	short = {OPAC},
+	long = {Online Public Access Catalogue},
 }
 
 @acronym{isbn,
-short = {ISBN},
-long = {Internationale Standardbuchnummer},
+	short = {ISBN},
+	long = {Internationale Standardbuchnummer},
+}
+
+@acronym{xslt,
+	long = {XSL Transformations},
+	short = {XSLT},
+	description-de = {Sprache um \gls{xml}[-Dokumente] in andere \gls{xml}[-Dokumente zu überführen]},
+	url = {https://www.w3.org/TR/xslt/},
+}
+
+@acronym{multilayerfinitestatetransducer,
+	short = {MLFST},
+	long = {Multi-Layer \gls{finitestatetransducer}},
+	description-de = {Verknüpfung kaskadierter \gls{finitestatetransducer}},
+}
+
+@entry{alphabet,
+	name = {Alphabet},
+	description-de = {Menge von Zeichen als Grundlage eine \glspl{code} oder einer (geschriebenen) Sprache},
+	symbol = {\ensuremath{\mathcal{A}}},
+}
+
+@entry{GBERT,
+	name = {GBERT},
+	description-de = {\gls{BERT}[-basierendes] Modell, welches auf Deutsch trainiert wurde \autocite{2010.10906}},
+}
+
+@acronym{ELECTRA,
+	short = {ELECTRA},
+	long = {\foreigntextquote{english}{Eficiently Learning an Encoder that Classifies Token Replacements Accurately}},
+	description-de = {\gls{naturallanguageprocessing}[-Modell], welches an \gls{BERT} angelehnt ist, aber das \gls{unsupervised-learning} statt durch \gls{MLM} durch \gls{replaced-token-detection} vornimmt \autocite{2003.10555}},
+}
+
+@entry{GELECTRA,
+	name = {GELECTRA},
+	description-de = {\gls{ELECTRA}[-basierendes] Modell, welches auf Deutsch trainiert wurde \autocite{2010.10906}},
+}
+
+
+@entry{nlp:task:replaced-token-detection,
+	name = {replaced token detection},
+	description-de = {das Netzwerk wird trainiert zu erkennen, welche Token den Eingabe durch einen Generator ersetzt wurden \autocite{2003.10555}},
+}
+
+@acronym{nlp:task:wwm,
+	long = {Whole Word Masking},
+	short = {WWM},
+	description-de = { Variation von \gls{nlp:task:mlm}, bei welchem aus der Maskierung eines Tokens eines Wortes die Maskierung aller Token des Wortes folgt },
+}
+
+@entry{turtle,
+	name = {turtle},
+	url = {https://www.w3.org/TR/2014/REC-turtle-20140225/},
+}
+
+
+@entry{dublin-core,
+	name = {Dublin Core \textsuperscript{\texttrademark} Element Set},
+	description-de = {standardisiert Menge von Termen zur Beschreibung einer Ressource},
+}																																													
+
+@entry{confusion-matrix,
+	name-de = {Konfusionsmatrix},
+	first-de = {Konfusionsmatrix (auch Wahrheitsmatrix genannt)},
+	description-de = {Spezialfall der \gls{contingency-table}},
+}
+
+@entry{contingency-table,
+	name-de = {Kontingenztafel (auch Kontingenztabelle oder Kreuztabelle genannt)},
+	description-de = {Tabelle, die Häufigkeiten bestimmter Merkmalsausprägungen enthält},
+}
+
+@nlptokentype{nlp:category:org,
+	short = {ORG},
+	long = {Organisation},
+	parent = {nlp:label},
+}
+
+@nlptokentype{nlp:category:loc,
+	short = {LOC},
+	long = {Location},
+	parent = {nlp:label},
+}
+
+@nlptokentype{nlp:category:per,
+	short = {PER},
+	long = {Person},
+	parent = {nlp:label},
+}
+
+@nlptokentype{nlp:category:misc,
+	short = {MISC},
+	long = {miscellaneous},
+	long = {Sonstige (Englisch: \foreigntextquote{english}{miscellaneous})},
+	parent = {nlp:label},
+}
+
+@acronym{owl,
+	short = {OWL},
+	long = {Web Ontology Language},
+	description-de = {eine Sprache die genutzt werden kann, um Klassen und ihre Beziehungen zueinander zu beschreiben},
+	editor = {Peter F. Patel-Schneider and Patrick Hayes and Ian Horrocks},
+	url = {https://www.w3.org/TR/owl-semantics/},
+}
+
+@entry{exBERT,
+	name = {exBERT},
+	description-de = {Visuelles Analysewerkzeug zum Untersuchen gelernter Repräsentationen von \gls{transformer}[-Modellen]\autocite{10.18653/v1/2020.acl-demos.22}},
+}
+
+@acronym{ERNIE,
+	long = {Enhanced Language RepresentatioN with Informative Entities},
+	short = {ERNIE},
+	description-de = {Modell, welches auf mit \gls{TransE} aus \glspl{knowledgebase} erstellten Einbettungen mittels \gls{nlp:task:mlm} und \gls{nlp:task:nsp} trainiert wurde \autocite{1905.07129}},
+}
+
+@entry{TransE,
+	name = {TransE},
+	description-de = {Modell für Einbettungen, welches darauf beruht, dass eine Entität \(t\), die zu einer Entität \(h\) in einer Relation \(r\) steht, in der Nähe der Position von \(h + v_r\) ist, wobei \(v_r\) direkt von \(r\) abhängt \autocite{10.5555/2999792.2999923}},
+}
+
+@acronym{http,
+	short = {HTTP},
+	long = {Hypertext Transfer Protocol},
+	description-de = {generisches zustandsloses objektorientiertes Protokoll auf der Anwendungsebene zur Übertragung von Daten},
 }
