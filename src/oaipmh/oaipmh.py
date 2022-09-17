@@ -56,7 +56,7 @@ class OAIPMHConfig(
         extract_fulltexts: bool = False,
         do_string_match: bool = False,
         language: typing.Union[str, None] = "all",
-        size: typing.Union[int, None] = None,
+        size: int = 100,
         token_label_classes: Union[List[str], None] = None,
         link_label_classes: Union[List[str], None] = None,
         gazetteers: Union[dict[str, Gazetteer], None] = None,
@@ -72,7 +72,7 @@ class OAIPMHConfig(
             extract_fulltexts (bool): toggle to enable text extraction from the pdf files
             do_string_match (bool): toggle to enable creation of labels by using string matching
             language (typing.Union[str, None], optional): _description_. Defaults to "all".
-            size (typing.Union[int, None], optional): number of entries to use. Defaults to None.
+            size (int, optional): number of entries to use. Defaults to 100.
             token_label_classes (Union[List[str], None], optional): list of labels used by the dataset for NER tags. Defaults to None.
             link_label_classes (Union[List[str], None], optional): list of labels used by the dataset for NER links. Defaults to None.
             gazetteers (Union[dict[str, Gazetteer], None], optional): gazetteers used for string matching. Defaults to None.
@@ -267,12 +267,13 @@ class OAIPMH(
 
         duration = datetime.now() - start_time
 
-        if _records is None:
+        if _records is None or len(_records) == 0:
             raise Exception(f"Error handling the records")
 
         logger.warning(
             f"""Parsed {len(list(self.config.oaipmh_xml_files))} files to  {len(mapped)} lists containing {len(_records)} records in {duration.total_seconds()} s."""
         )
+
         if self.config.time_log is not None:
             with open(self.config.time_log, "a") as f:
                 f.write(
@@ -336,12 +337,9 @@ class OAIPMH(
             duration = datetime.now() - start_time
 
             # Remove unsuccessful downloads
-            downloaded_pdfs = [
-                pdf_name
-                for pdf_names in downloaded_pdfs
-                if pdf_names is not None
-                for pdf_name in pdf_names
-            ]
+            downloaded_pdfs = _flatten(downloaded_pdfs)
+
+            logger.warning(f"{downloaded_pdfs[0:10]}")
 
             logger.warning(
                 f"""Downloaded {len(downloaded_pdfs)} files for {len(_records)} records in {duration.total_seconds()} s."""
@@ -363,43 +361,46 @@ class OAIPMH(
                     )
                     f.write("\n")
 
+        # Fix length
+        if self.config.size > len(_records) / 2:
+            self.config.size = int(len(_records) / 2)
+
+        # TRAIN and VALIDATION have no intersection
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
-                gen_kwargs={
-                    "records": _records[
-                        : -(self.config.size if self.config.size else 100)
-                    ]
-                },
+                gen_kwargs={"records": _records[: -(self.config.size)]},
             ),  # FIXME
             datasets.SplitGenerator(
                 name=datasets.Split.VALIDATION,
-                gen_kwargs={
-                    "records": _records[
-                        -(self.config.size if self.config.size else 100) :
-                    ]
-                },
+                gen_kwargs={"records": _records[-(self.config.size) :]},
             ),
             datasets.SplitGenerator(
                 name=datasets.Split.TEST,
-                gen_kwargs={
-                    "records": _records[: self.config.size if self.config.size else 100]
-                },
+                gen_kwargs={"records": _records[: self.config.size]},
             ),  # FIXME
         ]
 
-    def get_pdfs(self, record_dict) -> Union[list[str], None]:
-        try:
+    def get_pdfs(self, record_dict) -> list[str]:
+        try:  #
+            pdf_links = get_pdf_links(
+                record_dict,  # pyright: ignore [reportGeneralTypeIssues] # str can be assigned to Text...
+                publisher=self.config.publisher,
+            )
             link = _get_largest_pdf_url(  # TODO remove restriction to largest pdf
-                get_pdf_links(
-                    record_dict,  # pyright: ignore [reportGeneralTypeIssues] # str can be assigned to Text...
-                    publisher=self.config.publisher,
-                )
+                pdf_links
             )
         except ValueError as N:
             # raise UserWarning(f"No link for {record_dict['id']}") from N
             logger.error(f"No link for {record_dict['id']}: {N}")
-            return None
+            return []
+        except requests.RequestException as N:
+            logger.error(f"Error processing {pdf_links}: {N}")
+            return []
+        except Exception as N:
+            # raise Exception(f"Error running get_pdfs: {N}") from
+            logger.error(f"An Exception occured: {N}")
+            return []
 
         # TODO enumerate on pdf_links after sorting them
         filename = self.pdf_cache.joinpath(
@@ -519,36 +520,42 @@ class OAIPMH(
                 _record_dict.update({key: record_dict[key]})
 
         if self.config.extract_fulltexts:
-            start_time = datetime.now()
-
             try:
-                filename = self.get_pdfs(record_dict)
-                if filename:
-                    text = get_text_from_pdf(filename)
-                else:
-                    text = ""
-
+                filenames = self.get_pdfs(record_dict)
             except Exception as N:
-                logger.warning(f"Error extracting text for {record_dict['id']}")
-                text = ""
-            duration = datetime.now() - start_time
+                logger.error(f"Could not get_pdfs: {N}")
 
-            logger.warning(f"Extracted {len(text)} chars in {duration} s")
-            if self.config.time_log is not None:
-                with open(self.config.time_log, "a") as f:
-                    f.write(
-                        json.dumps(
-                            {
-                                "from_type": "pdf",
-                                "from": record_dict["id"],
-                                "to": "characters",
-                                "from_count": 1,
-                                "to_count": len(text),
-                                "duration": duration.total_seconds(),
-                            }
-                        )
+            # TODO use map
+            text = ""
+            for filename in filenames:
+                start_time = datetime.now()
+
+                try:
+                    text += get_text_from_pdf(filename)
+                except Exception as N:
+                    logger.warning(
+                        f"Error extracting text for {record_dict['id']}-{filename}: {N}"
                     )
-                    f.write("\n")
+
+                duration = datetime.now() - start_time
+
+                logger.warning(f"Extracted {len(text)} chars in {duration} s")
+
+                if self.config.time_log is not None:
+                    with open(self.config.time_log, "a") as f:
+                        f.write(
+                            json.dumps(
+                                {
+                                    "from_type": "pdf",
+                                    "from": f"{record_dict['id']}_{filename}",
+                                    "to": "characters",
+                                    "from_count": 1,
+                                    "to_count": len(text),
+                                    "duration": duration.total_seconds(),
+                                }
+                            )
+                        )
+                        f.write("\n")
 
             key = "text"
             _record_dict.update(
@@ -592,11 +599,18 @@ class OAIPMH(
             desc="Parsing records",
             disable_tqdm=not datasets.utils.logging.is_progress_bar_enabled(),
         )
+
+        if len(_records) == 0:
+            raise Exception(
+                f"Parsed {len(records)} to {len(_records)}. Something went wrong"
+            )
+
         duration = datetime.now() - start_time
 
         logger.warning(
             f"""Parsed {len(_records)} records in {duration.total_seconds()}s."""
         )
+
         if self.config.time_log is not None:
             with open(self.config.time_log, "a") as f:
                 f.write(
