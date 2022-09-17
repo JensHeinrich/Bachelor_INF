@@ -1,0 +1,161 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pagestyle}[2022/09/12 1.0.2 Fancy-Header Pagestyle]
+
+\RequirePackage{autonocite}
+
+% Load internal citations
+\addbibresource{pagestyle.bib}
+
+\autonocite{overleaf:headers} % general usage
+\autonocite{texdoc:fancyhdr} % fancypagestyle command
+\autonocite{stack:tex:iftwoside} % different styling when twoside}
+
+
+% https://tex.stackexchange.com/questions/342797/using-stix-fonts-with-pdflatex-option-clash-for-package-textcomp
+\autonocite{stack:tex:stix-textcomp}
+\RequirePackage[notextcomp]{stix}
+
+\RequirePackage{gitversion}
+
+\RequirePackage{tikz} % enables more precise positioning of graphics
+\RequirePackage{graphicx}
+\RequirePackage{fancyhdr}
+
+\RequirePackage{xparse}
+
+\RequirePackage{ifdraft}
+
+
+\DeclareDocumentCommand{\logo}{% argspec
+	m% logo path
+}{% definition
+	\DeclareDocumentCommand{\thelogo}{}{%
+		\includegraphics[%
+			height=\headheight,
+			width=\marginparwidth, % fix width and height of the loaded header image
+			keepaspectratio, %
+		]{%
+			#1
+		}
+	}%
+}
+\ProvideDocumentCommand{\thelogo}{}{%
+	\PackageWarning{pagestyle}{No `logo' defined}%
+	\includegraphics[%
+		height=\headheight,
+		width=\marginparwidth, % fix width and height of the loaded header image
+		keepaspectratio, %
+	]{%
+		example-image-a%
+	}
+
+}
+
+\DeclareDocumentCommand{\writer}{% argspec
+	m% logo path
+}{% definition
+	\DeclareDocumentCommand{\thewriter}{}{#1}%
+}
+\ProvideDocumentCommand{\thewriter}{}{%
+	\PackageWarning{pagestyle}{No `writer' defined}%
+	AUTHOR%
+}
+\AtBeginDocument{%
+	\setlength{\headheight}{33.35004pt}
+	\addtolength{\topmargin}{-21.35004pt}
+}
+
+\ifthenelse{\boolean{@twoside}}{%
+	%something true
+	\fancypagestyle{plain}{%
+		\fancyhf{} % reset header and footer
+		\fancyhead[RO]{%
+			\tikz[overlay,remember picture]
+			\node[
+				anchor= south west,
+				inner sep=0pt,
+				inner xsep=\marginparsep+1ex, % 1 ex is the internal intendation
+				inner ysep=-1ex, % bottom of logo matches header line
+				outer sep=0pt,
+			]
+			{%
+				\thelogo{}
+			};
+		}
+		\fancyhead[LE]{%
+			\tikz[overlay,remember picture]
+			\node[
+				anchor= south east,
+				inner sep=0pt,
+				inner xsep=\marginparsep+1ex, % 1 ex is the internal intendation
+				inner ysep=-1ex, % bottom of logo matches header line
+				outer sep=0pt,
+			]
+			{%
+				\thelogo{}
+			};
+		}
+		\fancyhead[C]{%
+			\ifdef{\parttitle}{% true
+				\textbf{\parttitle}\\[\baselineskip]%
+			}{% fallback
+				\leavevmode\\[\baselineskip]%
+			}%
+			\thewriter%
+		}
+		\AtEndDocument{%
+			\nocite{stack:tex:nolineheretoend}%
+		}
+		\fancyfoot[RE,LO]{%
+			\ifoptiondraft{%
+				\gitversion%
+			}%
+		}%
+
+		\fancyfoot[C]{\leftmark}
+		\fancyfoot[LE,RO]{\thepage}
+	}
+}{%
+	%something false
+	\fancypagestyle{plain}{%
+		\fancyhf{} % reset header and footer
+		\fancyhead[R]{%
+			\tikz[overlay,remember picture]
+			\node[
+				anchor= south west,
+				inner sep=0pt,
+				inner xsep=\marginparsep+1ex, % 1 ex is the internal intendation
+				inner ysep=-1ex, % bottom of logo matches header line
+				outer sep=0pt,
+			]
+			{%
+				\thelogo{}
+			};
+		}
+
+		\fancyhead[C]{%
+			\ifdef{\parttitle}{% true
+				\textbf{\parttitle}\\[\baselineskip]%
+			}{% fallback
+				\leavevmode\\[\baselineskip]%
+			}%
+			\thewriter%
+		}
+		\AtEndDocument{%
+			\nocite{stack:tex:nolineheretoend}%
+		}
+		\fancyfoot[R]{%
+			\ifoptiondraft{%
+				%\gitversion%
+			}%
+		}%
+
+		\fancyfoot[C]{\leftmark}
+		\fancyfoot[L]{\thepage}
+	}
+
+}%
+
+\AfterEndPreamble{%
+	\pagestyle{plain}
+}
