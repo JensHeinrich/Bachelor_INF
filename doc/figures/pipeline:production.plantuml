@@ -1,0 +1,27 @@
+@startuml
+split
+    -[hidden]->
+    :Input;
+    group Dataset
+        :OAI-PMH XML;
+        label extractmetadata
+        :Extract Metadata;
+        split
+            :Get PDF Links;
+            :Fetch PDF;
+            :Extract Fulltexts;
+        split again
+            ->
+        end split
+        :Combine Texts and Metadata;
+        end group
+        :Unlabeled Dataset;
+    split again
+        -[hidden]->
+        :Trained Modell;
+    end split
+    group Modell
+        :Apply Modell to Unlabeled Data;
+        end group
+        :Labeled Data;
+        @enduml

@@ -1,0 +1,46 @@
+\begin{tikzpicture}
+	[
+%		level 0/.style = {red!40!black},
+%		level 1/.style = {orange!40!black},
+%		level 2/.style = {yellow!40!black},
+%		level 3/.style = {green!40!black},
+%		level 4/.style = {cyan!40!black},
+%		level 5/.style = {purple!40!black},
+%		level1/.style = {red!40!black},
+%		level2/.style = {orange!40!black},
+%		level3/.style = {fill=yellow,draw=yellow!40!black},
+%		level4/.style = {green!40!black},
+%		level5/.style = {cyan!40!black},
+%		level6/.style = {purple!40!black},
+		level1/.style = {fill=red},
+		level2/.style = {fill=orange},
+		level3/.style = {fill=yellow},
+		level4/.style = {fill=green},
+		level5/.style = {fill=cyan},
+		level6/.style = {fill=violet!70!white},
+		every node/.append style = {draw, anchor = west},
+		grow via three points={one child at (0.5,-0.8) and two children at (0.5,-0.8) and (0.5,-1.6)},
+		edge from parent path={(\tikzparentnode\tikzparentanchor) |- (\tikzchildnode\tikzchildanchor)}]
+	 
+	
+	\node[level1] {\gls{machine-learning}}
+		child {
+			node[level1] {Feature-engineered}
+			}
+		child {
+			node[level2] {Feature-inferring}
+			child {
+				node[] {word}
+			}
+			child {
+				node[] {character}
+			}
+			child {
+				node[] {word+character}
+			}
+			child {
+				node[] {word+character+affix}
+			}
+			}
+		;
+	\end{tikzpicture}

@@ -1,0 +1,7 @@
+@startuml 
+
+:Datenaufbereitung;
+:Anwenden des Modells;
+:Vorhersage erstellen;
+
+@enduml

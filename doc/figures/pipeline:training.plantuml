@@ -1,0 +1,31 @@
+@startuml
+:Input;
+group Dataset
+    split
+        :OAI-PMH XML;
+        label extractmetadata
+        :Extract Metadata;
+        split
+            :Get PDF Links;
+            :Fetch PDF;
+            :Extract Fulltexts;
+        split again
+            ->
+        end split
+        :Combine Texts and Metadata;
+    split again
+        :Gazetteer;
+    end split
+    :Label Texts using Gazetters;
+    end group
+    :Labeled Dataset;
+
+    group Modell Training
+        repeat
+            :Train Modell;
+        repeat while (Number of Training Epochs reached) is (false)
+        ->true;
+        end group
+        :Trained Modell;
+
+        @enduml

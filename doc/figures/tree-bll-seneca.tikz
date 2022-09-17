@@ -1,0 +1,36 @@
+\begin{tikzpicture}
+	[
+		level1/.style = {fill=red},
+		level2/.style = {fill=orange},
+		level3/.style = {fill=yellow},
+		level4/.style = {fill=green},
+		level5/.style = {fill=cyan},
+		level6/.style = {fill=violet!70!white},
+		every node/.append style = {draw, anchor = west},
+		grow via three points={one child at (0.5,-0.8) and two children at (0.5,-0.8) and (0.5,-1.6)},
+		edge from parent path={(\tikzparentnode\tikzparentanchor) |- (\tikzchildnode\tikzchildanchor)}]
+	 
+	
+	\node[level1] {00}
+		child {node[level1] {BLL-Klassifikation} edge from parent [dashed]}
+		child {
+			node[level2] {02}
+			child {node[level2] {Nicht-indoeuropäische Sprachen} edge from parent [dashed]}
+			child {
+				node[level3] {02.25}
+				child {node[level3] {Indigene amerikanische Sprachen} edge from parent [dashed]}
+				child {
+					node[level4] {02.25.01}
+					child {node[level4] {Indigene Sprachen Nordamerikas und Zentralamerikas} edge from parent [dashed]}
+					child {
+						node[level5] {02.25.01.047}
+						child {node[level5] {Irokesisch} edge from parent [dashed]}
+						child {
+							node[level6] {02.25.01.047.06 }
+							child {node[level6] {Seneca} edge from parent [dashed]}
+						}
+					}
+				}
+			}
+		};
+	\end{tikzpicture}

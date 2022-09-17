@@ -1,0 +1,12 @@
+@startuml
+
+:Tokenization;
+:Sentence Splitting;
+:Part-of-speech Tagging;
+:Morphological Analysis;
+:Named Entity Recognition;
+:Syntactic Parsing;
+:Coreference Solution;
+:Other Annotations;
+
+@enduml
