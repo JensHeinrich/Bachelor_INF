@@ -108,12 +108,35 @@ dass auch \gls{BERT} teilweise ähnliche Zwischenschritte
 wie in der klassischen \gls{naturallanguageprocessing}[-Pipeline]
 abbildet.\autocite{1905.05950}
 
-
 In der Regel besteht ein solches \gls{naturallanguageprocessing}[-Modell] aus drei Stufen,
 wie in \Cref{fig:huggingface:transformer} dargestellt ist.
 Der Tokenizer wandelt den Text in eine numerische Repräsentation um.
 Diese wird durch den \gls{transformer} in einen Tensor aus Wahrscheinlichkeiten umgerechnet.
 Der head erstellt aus diesem Wahrscheinlichkeitstensor eine Interpretation für die Aufgabe.
+
+
+Auf der Ebene des Tokenizers gibt es Unterschiede.
+In \autocite[Table 1]{1910.11470} sind diese einfach zu erkennen,
+
+
+\begin{figure}[ht]
+	% https://latexdraw.com/draw-trees-in-tikz/
+	\nocite{latexdraw:trees}
+	\begin{tcolorbox}[tfigurestyle]
+		\begin{center}
+			\input{figures/tree-modell-types.tikz}
+		\end{center}
+	\end{tcolorbox}
+	\caption[%
+        Übersicht der Systemtypen für \glspt{machine-learning}%
+    ]{
+		Übersicht der Systemtypen für \gls{machine-learning} im Bereich \gls{naturallanguageprocessing}
+		nach \autocite[Table 1]{1910.11470}\\
+        Bei Feature-engineered Systemen werden die Features durch Menschen definiert,
+        während Feature-inferring Systeme diese selbstständig aus den Trainingsdaten generieren.
+	}%
+	\label{fig:model:types}
+\end{figure}
 
 
 \begin{defn}[Güte eines Modells]
