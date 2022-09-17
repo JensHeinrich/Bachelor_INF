@@ -1,0 +1,210 @@
+Da Trainingsdaten annotierte Daten sind,
+wird nachfolgend auf die Arten und die Erstellung von Annotationen eingegangen.
+
+\subsubsection{Arten der Annotation}
+
+Eine mögliche Annotation ist es, 
+den Wörtern eines Satzes ihre grammatikalische Funktion
+oder andere semantische Informationen
+zuzuordnen.
+Wenn die semantische Information ist,
+dass die annotierte Entität eine \enquote{spezielle} Entität ist,
+welche einen Namen hat,
+dann spricht man von \gls{namedentityrecognition}.
+Auch eine Annotation über die Referenz auf die Entität ist möglich.
+
+Da es keine bestehenden Annotationen für die Daten gibt,
+sollen hier Möglichkeiten für die automatische Erzeugung betrachtet werden.
+
+\subsubsection{Automatische Erzeugung von Annotationen}
+
+\citeauthor{2006.15509} listet als Möglichkeiten für die automatische Annotation
+\enquote{Stringmatchingg}, \enquote{\glssymbol{regex}} und heuristische Verfahren
+\autocite{2006.15509}.
+
+Bei ersterem wird ein Match nur erkannt,
+wenn es exakt ist.
+Dies führt dazu,
+dass die Wahrscheinlichkeit Wörter falsch zu erkennen,
+sehr niedrig ist.
+Die Rate der False Negative entsprechend steigt.
+Des Weiteren werden ausschließlich vorher bekannte Entitäten erkannt.
+So wird \enquote{Müller und Sohn} erkannt,
+wenn es vorher aufgelistet wird.
+Der Transfer,
+dass \enquote{Meier und Sohn} ebenfalls eine Entität ist,
+kann nicht stattfinden.
+Dazu kommt das Problem,
+dass insbesondere in Grammatiken,
+in denen Flexion
+wichtig ist,
+die gleiche Entität mit verschiedenen Strings repräsentiert werden kann.
+Die Laufzeit ist relativ hoch und nicht parallelisierbar.
+So liegt die Laufzeit von \Cref{alg:stringmatching:longestmatch}
+in \(\mathcal{O}\left( n \times k + l_E \right)\),
+wobei \(l_E\) die Anzahl der Wörter in der Wortliste beschreibt.
+Zusätzlich wird für das \enquote{Stringmatchingg} eine Wortliste benötigt.
+Eine Liste von Entitäten kann
+z.B.\, durch Extraktion aus einer \gls{knowledgebase}
+erstellt werden.
+In \autocite[A.1]{2006.15509} von \citetitle{2006.15509}
+wird von \citeauthor{2006.15509} eine ganze Reihe von solchen \glspl{knowledgebase}
+genannt.
+Eine solche Liste von Entitäten wird oft als \gls{gazetteer} bezeichnet
+(siehe z.B. \autocite[Introduction]{Carlson2009}).
+
+Zur Erhöhung der Trefferrate
+kann die Liste erweitert werden.
+In \autocite[Abschnitt 3.4]{OASIcs-LDK-2019-11}
+werden Ansätze zur Erweiterung der Liste erklärt.
+Die Erkennungsaufgabe wird in der eben genannten Arbeit
+von \gls{finitestatetransducer}
+durchgeführt,
+welche eine Erkennung zuerst auf der Wortebene durchführen.
+Im Beispiel von oben würden so die Worte
+\enquote{Müller}, \enquote{und} und \enquote{Sohn} auf der Zeichenebene erkannt werden
+und danach die Entität \enquote{Müller und Sohn} auf der Wortebene.
+
+Der Begriff Wortebene passt nur eingeschränkt,
+denn in Sprachen,
+die wie das Deutsche von zusammengesetzen Wörtern leben,
+ist eine Einteilung in Wortbestandteile
+(diese werden in \autocite{OASIcs-LDK-2019-11} als \foreignquote{english}{lemma} bezeichnet)
+zielführender.
+
+Der Ansatz mit der Wortebene zeigt auf einen konzeptuell-anderen Ansatz:
+Es gibt bestimmte Formulierungen oder \enquote{Muster},
+die oftmals eine Entität markieren.
+So ist ein \enquote{NAME und \{Sohn,Söhne\}} insbesondere,
+wenn es in Anführungszeichen steht,
+oftmals eine Firma.
+Dementsprechend wird den Token dieser Sequenz
+die Kategorie \gls{nlp:category:org} zugeordnet.
+Auch Ketten von Großbuchstaben sind oftmals Entitäten (Acronyme).
+Beide Beispiele lassen sich mit \glssymbol{regex} darstellen:
+\mintinline{perl}{(?P<NAME>\w*)\s+und\s+(Sohn|Söhne)}
+bzw.\, \mintinline{perl}{(?P<acronym>[[:<:]][[:upper:]]+[[:>:]])\s+(?P<description>\((.|\s)+\))?}.
+
+Die verschiedenen Ausgaben,
+der oben genannten \gls{finitestatetransducer},
+lassen sich als eine \glssymbol{regex} pro Ausgabe ansehen.
+Um die Ausführung zu beschleunigen,
+ist also eine parallele Prüfung mit verschiedenen \glssymbol{regex} denkbar.
+Das Problem,
+welches dabei auftritt,
+ist die Ambiguität,
+da den gleichen Token verschiedene Annotationen zugewiesen werden können.
+
+Mit heuristischen Ansätzen,
+wie sie z.B.\, in \autocite{1906.01378}
+beschrieben werden,
+kann eine Entscheidung getroffen werden,
+welches Annotation die \enquote{beste} ist.
+So könnte die häufigste oder auch die längste ausgewählt werden.
+
+In dieser Arbeit wird aus Zeitgründen ausschließlich \enquote{Stringmatchingg} implementiert.
+
+\subsubsection{Stringmatching}
+\label{ssec:stringmatching}
+
+Stringmatching wird,
+wie in \citetitle{1906.01378} beschrieben,
+auch hier für die Generierung der Trainingsdaten verwendet.
+
+\begin{algorithm}
+	\begin{tcolorbox}[talgostyle]
+		\begin{algorithmic}
+			\Require Wortliste $D_E$, Satz $s = \left\lbrace w_1, \hdots, w_m \right\rbrace$, Kontextlänge $k$
+			%
+			\State $i \gets 1$
+			\State $l_1 \hdots l_m \gets \texttt{unlabeled} $
+			\While{$i < m$}
+			\For{$j=k$; $j--$}
+			\If{$w_i \hdots w_{i+j} \in D_E$}
+			\State $l_i, \hdots, l_{i+j}  \gets \texttt{Positive} $
+			\State $i \gets i+j+1$
+			\State BREAK
+			\EndIf
+			\If{$j==0$}
+			\State $i \gets i + 1$
+			\State BREAK
+			\EndIf
+			\EndFor
+			\EndWhile
+			\Return teilweise annotierter Satz $\left(
+				\left\lbrace
+				w_1, \hdots, w_m
+				\right\rbrace,
+				\left\lbrace
+				l_1, \hdots, l_m
+				\right\rbrace
+				\right)$
+			%
+		\end{algorithmic}
+	\end{tcolorbox}
+	\caption{Label mit Stringmatching: Longest Match nach \autocite{1906.01378}}%
+	\label{alg:stringmatching:longestmatch}
+\end{algorithm}
+
+Der ursprüngliche~\Cref{alg:stringmatching:longestmatch}
+wird in \Cref{alg:stringmatching:optimized}
+wie folgt optimiert:
+Die verbleibende Länge des zu betrachtenden Strings wird in Betracht gezogen,
+um keine Matches zu suchen,
+die über den betrachteten String hinausragen.
+Zusätzlich werden nur Längen versucht,
+denen ein Wort in der Wortliste entspricht.
+Als Eingabe wird zusätzlich der Typ $t$,
+welcher für die Token genutzt werden soll,
+und ein Label $l$ verwendet,
+sodass der gleiche Satz mit mehreren Wortlisten nacheinander annotiert werden kann.
+Hierbei werden bereits bestehende Label nicht überschrieben. 
+
+\begin{algorithm}
+	\begin{tcolorbox}[talgostyle]
+		\begin{algorithmic}
+			\Require Wortliste $D_E$, Satz $s = \left\lbrace w_1, \hdots, w_m \right\rbrace$,Label  $l = \left\lbrace l_1, \hdots, l_m \right\rbrace$, Kontextlänge $k$, Token $t$
+			\State $lengths \gets $ Liste der Wortlängen von $D_E$ von gross nach klein sortiert
+			\State $lenghts \gets lengths + 0$
+			\While{$i < m$}
+				\For{$j \in lengths$ if $j < (m-1)$}
+					\If{ $w_i, \hdots, w_{i+j} \in D_E$}
+						\If{$l_v == \texttt{unlabeled} \forall v=i,\hdots,i+j$}
+							\State $l_i \gets "B-"+t$ 
+							\State $l_{i+1}, \hdots, l_{i+j}  \gets "I-"+t $
+							\State $i \gets i+j+1$
+							\State BREAK
+						\EndIf
+						\If{$j==0$}
+							\State $i \gets i + 1$
+							\State BREAK
+						\EndIf
+					\EndIf
+				\EndFor
+			\EndWhile
+			\Return teilweise annotierter Satz $\left(
+				\left\lbrace
+				w_1, \hdots, w_m
+				\right\rbrace,
+				\left\lbrace
+				l_1, \hdots, l_m
+				\right\rbrace
+				\right)$
+		\end{algorithmic}
+	\end{tcolorbox}
+	\caption{Label mit Stringmatching: Longest Match with Optimisations}\label{alg:stringmatching:optimized}
+\end{algorithm}
+
+Um das Named Entity Linking zu vereinfachen,
+wird für jeden \gls{gazetteer}
+eine eigene Klasse angelegt.
+So muss nach den jeweiligen Entitäten nur in einer \gls{knowledgebase} gesucht werden.  
+Für die Einheitlichkeit wird der Name des \gls{gazetteer} in Großbuchstaben verwendet.
+Z.B.\, \texttt{BLL-DE} für Einträge der \gls{bllontology} auf Deutsch.
+Inspiration hierfür sind die detaillierten \glspl{gazetteer}
+von \citeauthor{Leitner2019} in \citetitle{Leitner2019} \autocite{Leitner2019}.
+
+Dieser Algorithms wurde zur Vereinfachung von \gls{namedentitylinking}
+um die Eingabe einer Liste von Entitätsreferenzen erweitert
+und die Wortliste $D_E$ durch ein Wörterbuch ersetzt, 
+sodass den Namen eine eindeutige Referenz auf die Entität zuordnet.

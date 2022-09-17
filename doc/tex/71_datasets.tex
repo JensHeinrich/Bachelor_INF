@@ -1,0 +1,43 @@
+Hier werden Verbesserungen vorgestellt,
+die an der \gls{huggingface:datasets}[-Klasse]
+vorgenommen werden können.
+
+Durch die direkte Nutzung der \gls{api}
+statt der durch \gls{oaipmharvest} generierten \gls{xml}[-Dateien]
+könnte der Prozess vereinfacht werden.
+Der \gls{oai-pmh}[-Standard] bietet die Möglichkeit Treffer nach Datum einzuschränken.
+Die kontinuierliche Verarbeitung,
+der seit dem letzen Verarbeitungslauf hinzugekommenen Einträge,
+würde somit vereinfacht.
+Auch der zusätzlicher Schritt der Nutzung von \gls{oaipmharvest} würde wegfallen.
+
+In dem Zuge wäre auch die Umstellung auf Streaming denkbar.
+Das so erstellte \mintinline{python}{IterableDataset}
+lädt neue Daten stückweise,
+während auf die Einträge zugegriffen wird.
+Dadurch wird der Speicherbedarf reduziert
+und der Ladevorgang beschleunigt.
+
+Ein alternativer Ansatze wäre,
+anstatt die Einträge mit der Entität zu labeln,
+eine Liste von Labeln zu nutzen,
+ähnlich zum Ansatz von \autocite{2006.15509}.
+
+Das Stringmatching in \cref{lst:stringmatching} könnte stark verbessert werden
+durch die Verwendung einer besseren Datenstruktur.
+Eine Struktur die sinnvoll erscheint,
+wäre der Präfixbaum (auch Trie genannt).
+
+Alternativ würde sich die Verwendung von \gls{multilayerfinitestatetransducer},
+wie in \citetitle{OASIcs-LDK-2019-11}
+beschrieben,
+anbieten.\autocite{OASIcs-LDK-2019-11}
+Hierfür werden verschiedene \gls{finitestatetransducer}
+hintereinander kaskadiert;
+dieser Ansatz beruht auf \citetitle{10.1017/S1351324997001599}
+von \citeauthor{10.1017/S1351324997001599} \autocite{10.1017/S1351324997001599}
+mit dem Ziel keine vollständige Liste
+aller möglichen Kombinationen von Fällen,
+sondern nur solcher,
+die auch grammatikalisch vorkommen können,
+zu erstellen.

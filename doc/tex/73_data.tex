@@ -1,0 +1,64 @@
+Verbesserung der eigentlichen Daten ist auch eine Möglichkeit bessere Ergebnisse zu erzielen.
+
+Ein Hinzufügen von Kontext zu den einzelnen klassifizierenden Schritten,
+wie in \citetitle{2011.06993v1} beschrieben,
+ist vorstellbar.\autocite{2011.06993v1}
+Naheliegende Kandidaten wären hier der eigentliche Dokumentenkontext,
+aber auch eine Kontextualisierung durch die \mintinline{xml}{dc:subject}-Tags
+wäre vorstellbar.
+
+Es könnte auch ein an \gls{ERNIE} 
+orientiertes Modell trainiert werden,
+welches das Wissen der verschiedenen \glspl{knowledgebase} enthält. \autocite{1905.07129}
+Dafür muss jedoch die Rechenleistung entsprechend vorhanden sein:
+\foreignblockquote{english}[\autocite{github:thunlp:ERNIE}]{We use 8 NVIDIA-2080Ti to pre-train our model and there are 32 instances in each GPU. It takes nearly one day to finish the training (1 epoch is enough).}
+Damit die mit \gls{TransE} erzeugten Einbettungen
+kongruent sind,
+müssen die Entitäten zusätzlich vereinheitlicht werden
+oder das Training auf eine \gls{knowledgebase} beschränkt werden.
+Für die Verknüpfung der verschiedenen \glspl{knowledgebase}
+könnte,
+\href{https://github.com/KRR-Oxford/DeepOnto}{\texttt{DeepOnto}}\footnote{\url{https://github.com/KRR-Oxford/DeepOnto}}
+ein hilfreiches Werkzeug für die Identifizierung der Entitäten sein,
+wenn die \glspl{knowledgebase} jeweils bereits als \gls{ontology} vorliegen,
+
+
+Ebsenso könnten Konzepte der \gls{bllontology}
+zur Verbesserung der Daten
+mit der \gls{Dewey:Decimal:Classification} verknüpft werden.
+So hat z.B.\, der Eintrag  aus \cref{lst:ubffm:record} als \texttt{dc:subject} 
+den Wert \texttt{dcc:497},
+also nach \autocite{oclc:ddc23-summaries} \enquote{North American native languages}
+als Thema.
+
+Da sowohl die \gls{bllontology} 
+als auch ein Teil der \mintinline{xml}{dc:description} 
+bzw.\,der \mintinline{xml}{dc:title} der \gls{oai-pmh}[-Records]
+sowohl auf English
+als auch auf Deutsch vorliegen,
+könnte ein Ansatz,
+wie in \citetitle{10.1145/2396761.2398506}
+beschrieben,
+dafür verwendet werden,
+die Trainingsdaten zu verbessern. \autocite{10.1145/2396761.2398506}
+Wenn ein Begriff aus der \gls{bllontology} in einer der Sprachen vorkommt,
+ist die Wahrscheinlichkeit hoch,
+dass er auch in der anderen Sprache vorkommt.
+Sollte ein Begiff mit einer \gls{levenshtein_distance} 
+unter einer gewissen Schwelle
+zu dem erwarteten Begriff
+vorkommen,
+ist dies ein Kanditat für die Erweiterung des \gls{gazetteer}.
+Ein Beispiel ist in \cref{lst:oaipmh:xml:record:title_translation} zu sehen.
+
+\begin{longlisting}
+    \begin{tcolorbox}[tlistingstyle]
+	\inputminted[
+	]{xml}{listings/oai:publikationen.ub.uni-frankfurt.de:6099:shortened.xml}
+    \end{tcolorbox}%
+    \nopagebreak
+	\caption{Beispiel für die Parallelen zwischen den \mintinline{xml}{dc:title} Einträgen
+    am Beispiel von \linebreak[2] \mintinline{xml}{<identifier>oai:publikationen.ub.uni-frankfurt.de:6099</identifier>}}
+	\label{lst:oaipmh:xml:record:title_translation}
+\end{longlisting}
+

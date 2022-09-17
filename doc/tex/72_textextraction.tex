@@ -1,0 +1,13 @@
+Die eigentliche Textextraktion 
+könnte durch Wechsel auf eine \gls{ocr}[-basierende] Methode
+verbessert werden.
+Diese bringt jedoch auch Schwierigkeiten mit sich, 
+wie schon die Studie \citetitle{SBB:OCRStudie} aus dem Jahr \citeyear{SBB:OCRStudie}
+von \citeauthor{SBB:OCRStudie} in \autocite[6.2]{SBB:OCRStudie} aufzeigt.
+Hier wurden teilweise weniger als \(90\%\) Erkennungsgüte erreicht.
+Dennoch wäre eine Verbindung von \gls{ocr-d} mit den semantischen Annotationen
+vorstellbar.
+Aber auch eine Verbesserung von \gls{pypdf2}
+durch die Implementierung der erweiterten Encodings \texttt{/B5pc-H} und \texttt{/90msp-RKSJ-H} 
+wäre denkbar.
+Die lösten bei der Entwicklung \mintinline{python}{NotImplementedError}s aus.   

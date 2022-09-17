@@ -1,0 +1,118 @@
+Zuerst werden hier die beiden Quellen der Eingaben erklärt.
+
+\subsubsection{Erstellung eines \glspt{gazetteer} aus der \glspt{bllontology}}
+Um eine initiale Annotation der Texte durchzuführen,
+wird aus der \gls{bllontology} ein \gls{gazetteer}
+der Anzeigenamen und der Namen der Objekte erstellt.
+
+% TODO remove initial format?
+Format und Benennung waren im ersten Versuch an \citetitle{leitner2019fine} \autocite{leitner2019fine} angelehnt,
+also eine Named Entity pro Zeile,
+aber in Vorbereitung für eine der später beschriebenen Verbesserungen wurde das Format umgestellt.
+Das neuere Format für die \glspl{gazetteer},
+welches in \Cref{lst:gazetteerMitURI} zu sehen ist,
+besteht aus der Named Entity, einem Tabulator und der \gls{uri},
+welche die Named Entity eindeutig bezeichnet.
+
+\begin{listing}
+	\begin{tcolorbox}[tlistingstyle]
+		\inputminted[
+			firstline=1,
+			lastline=5,
+			fontsize=\footnotesize,
+			escapeinside=||,
+		]{xml}{../data/gazetteers/bll.de.dict}
+	\end{tcolorbox}%
+	\nopagebreak
+	\caption{Beispielhafte Einträge aus dem \texttt{bll.de.dict} \gls{gazetteer}, welches zusätzlich zum Wort noch eine \gls{uri} für das \gls{namedentitylinking} enthält}
+	\label{lst:gazetteerMitURI}
+\end{listing}
+
+Für einen vereinfachen Umgang mit den \glspl{gazetteer}
+sind in \mintinline{text}{src/oaipmh/gazetteer.py}
+Helferfunktionen \mintinline{python}{read_gazetteers},
+\mintinline{python}{read_gazetteer} und
+\mintinline{python}{write_gazetteer}
+definiert,
+deren Signatur in \cref{lst:oaipmh:gazetteer:read_gazetteers,lst:oaipmh:gazetteer:read_gazetteer,lst:oaipmh:gazetteer:write_gazetteer}
+dargestellt ist. % CHECK Reference
+
+\begin{listing}
+	\begin{minipage}{\textwidth}
+		\begin{tcolorbox}[tlistingstyle]
+			\inputminted[
+				firstline=7,
+				lastline=9,
+				fontsize=\footnotesize,
+			]{python}{../src/oaipmh/gazetteer.py}
+		\end{tcolorbox}
+		\subcaption[a]{\mintinline{python}{read_gazetteers}}% HACK
+		\label{lst:oaipmh:gazetteer:read_gazetteers}
+	\end{minipage}
+	\begin{minipage}{\textwidth}
+		\begin{tcolorbox}[tlistingstyle]
+			\inputminted[
+				firstline=28,
+				lastline=28,
+				fontsize=\footnotesize,
+			]{python}{../src/oaipmh/gazetteer.py}
+		\end{tcolorbox}
+		\subcaption[b]{\mintinline{python}{read_gazetteer}}% HACK
+		\label{lst:oaipmh:gazetteer:read_gazetteer}
+	\end{minipage}
+	\begin{minipage}{\textwidth}
+		\begin{tcolorbox}[tlistingstyle]
+			\inputminted[
+				firstline=47,
+				lastline=47,
+				fontsize=\footnotesize,
+			]{python}{../src/oaipmh/gazetteer.py}
+		\end{tcolorbox}
+		\subcaption[c]{\mintinline{python}{write_gazetteer}}% HACK
+		\label{lst:oaipmh:gazetteer:write_gazetteer}
+	\end{minipage}
+	\nopagebreak
+	\caption{Signaturen der Helferfunktionen in \mintinline{text}{src/oaipmh/gazetteer.py} für den Umgang mit \glspl{gazetteer}}
+	\label{lst:oaipmh:gazetteer}
+\end{listing}
+
+\subsubsection{Extraktion der Metadaten}\label{ssec:dataharvesting}
+Statt die Metadaten aus dem \gls{fid:linguistik}[-Portal]
+zu extrahieren,
+werden die Daten mit Hilfe von
+\gls{oaipmharvest}
+manuell
+direkt von den Anbieterseiten extrahiert.
+Die so gewonnenen \gls{xml}[-Dateien]
+werden im nächsten Schritt weiter bearbeitet.
+Durch diesen Weg kann auf die Besonderheiten jedes Anbieters eingegangen werden.
+
+
+\begin{longlisting}
+	\begin{tcolorbox}[tlistingstyle,breakable]
+		\inputminted[
+			firstline=22,
+			lastline=41,
+			fontsize=\footnotesize,
+			escapeinside=||,
+			gobble=10
+		]{xml}{listings/oaixml:shortened:2022-07-13__oai_dc__000000000000.xml}
+	\end{tcolorbox}%
+	\nopagebreak
+	\caption{Beispiel Metadaten eines \gls{oai-pmh}[-Eintrags] von \texttt{ubffm} innerhalb des \mintinline{xml}{oai_cd:dc}-Tags}
+	\label{lst:oaipmh:xml:record:metadata}
+\end{longlisting}
+
+Da das \gls{oai-pmh}[-Protokoll] standardisiert ist,
+treten Fallunterscheidungen erst auf,
+wenn die eigentlichen Volltexte geladen werden.
+
+Des Weiteren nutzt die \gls{jcs}
+auch die \gls{url} der \gls{pdf}[-Dateien]
+als \texttt{dc:identifier},
+was dazu führt,
+dass die Extraktion sehr einfach ist.
+Andere Verlage haben die Links zu den eigentlichen \glspl{pdf}
+nicht oder zumindest nicht klar erkennbar
+in die \texttt{oai:metadata} Einträge ihrer
+\texttt{oai:record} codiert.

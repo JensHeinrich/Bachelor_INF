@@ -1,0 +1,31 @@
+\thispagestyle{empty}
+\AfterPreamble{\nocite{stack:tex:abstract-multiple-languages}}
+% https://tex.stackexchange.com/questions/249356/changing-two-abstract-names-in-same-document
+
+\begin{otherlanguage}{english}
+	\begin{abstract}
+		This thesis aims to evaluate the feasibility of using \gls{BERT}
+		to enrich linguistic fulltexts with annotations
+		based on the \gls{bllontology}
+
+		The primary archievement of this thesis
+		is the implementation of the \mintinline{python}{OAIPMH} class.
+
+		Ideas for enhancements are documented at the end of this thesis.
+	\end{abstract}
+\end{otherlanguage}
+
+\cleardoublepage
+% force pagestyle empty
+\thispagestyle{empty}
+
+\begin{abstract}
+	Diese Arbeit versucht die Umsetzbarkeit der Verwendung von \gls{BERT}
+	zur Anreicherung linguistischer Volltexte mit Annotationen auf Basis
+	der \gls{bllontology} zu evaluieren.
+
+	Die primäre Leistung dieser Arbeit
+	besteht in der Implementierung der \mintinline{python}{OAIPMH} Klasse.
+
+	Ansätze für Verbesserungen sind am Ende dieser Arbeit dokumentiert.
+\end{abstract}

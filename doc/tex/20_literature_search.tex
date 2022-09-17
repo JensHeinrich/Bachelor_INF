@@ -1,0 +1,40 @@
+Die initiale Recherche zum Thema \gls{namedentityrecognition}
+mit \gls{BERT}
+lieferte viele verschiedene Ansätze.
+Inbesondere wurden viele Quellen zum Thema \gls{distant-supervision}
+gefunden.
+Die Vorteile von \gls{distant-supervision}
+werden in~\ref{ssec:distantlysupervised-namedentityrecognition}
+dargestellt
+und sollen daher noch nicht im Detail wiedergegeben werden.
+
+\citeauthor{1910.11470} bieten in \citetitle{1910.11470}
+einen breiten Überblick über die Möglichkeiten zur \gls{namedentityrecognition}
+und die Unterschiede in Abhängigkeit vom Fachgebiet.
+
+In \autocite[Table 1]{1910.11470} ist die Aufteilung am einfachsten zu erkennen
+% TODO finish sentence
+
+\begin{figure}[ht]
+	% https://latexdraw.com/draw-trees-in-tikz/
+	\nocite{latexdraw:trees}
+	\begin{tcolorbox}[tfigurestyle]
+		\begin{center}
+			\input{figures/tree-modell-types.tikz}
+		\end{center}
+	\end{tcolorbox}
+	\caption[%
+        Übersicht der Systemtypen für \glspt{machine-learning}%
+    ]{
+		Übersicht der Systemtypen für \gls{machine-learning} nach \autocite[Table 1]{1910.11470}\\
+        Bei Feature-engineered Systemen werden die Features durch Menschen definiert,
+        während Feature-inferring Systeme diese selbstständig aus den Trainingsdaten generieren.
+	}%
+	\label{fig:model:types}
+\end{figure}
+
+Bei den \glslink{neuralnetwork}{neuronalen Netzen} handelte es sich
+% TODO finish sentence
+
+% TODO Arras: Kapitel nicht nötig
+\FloatBarrier

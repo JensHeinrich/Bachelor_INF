@@ -1,0 +1,228 @@
+Im Folgenden werden die zwei Datenquellen,
+die für diese Arbeit verwendet wurden,
+beschrieben.
+Die erste Datenquelle ist die \gls{bllontology},
+die für die Erstellung der Annotationen benötigt wird.
+Danach folgt das \glsfmtfull{oai-pmh},
+welches die zu annotierenden Daten liefert.
+
+\subsubsection{\glspt{bllontology}}
+
+
+\begin{defn}[Thesaurus\autocite{Arano:ThesaurusAndOntologies}] 
+	Ein Thesaurus 
+	ist eine Art von dokumentierender
+	Sprache,
+	die die konzeptuelle Struktur des Wissens eines bestimmten Fachgebietes
+	darstellt.
+	Er stellt den semantischen Zusammenhang zwischen verschieden Konzepten
+	durch ein eingeschränktes Vokabular für die Beziehungen
+	dar.
+\end{defn}
+
+Das Ziel eines Thesaurus ist \enquote{synonymy},
+also die Überlappung der Bedeutung von Wörtern \autocite{oxfordbibliographies:Synonymy},
+und \enquote{polysemy},
+also die Mehrdeutigkeit der Bedeutung innerhalb eines Bereiches \autocite{oxfordbibliographies:Polysemy},
+zu reduzieren.
+
+Im Folgenden werden Beispiele von Dateien in der \gls{turtle}[ Syntax] gezeigt \autocite{w3c:turtle}.
+Diese wird daher kurz erklärt.
+
+Die Syntax besteht im Grunde nur aus Tripeln von \emph{Subjekt}, \emph{Prädikat} und \emph{Objekt}.
+Zur Vereinfachung bleibt das aktuelle \emph{Subjekt} bis zum nächsten \emph{Punkt (.)}
+und das aktuelle \emph{Prädikat} bis zum nächsten \emph{Semikolon (;)} aktiv.
+Ein \emph{Komma (,)} trennt in diesem Zusammenhang die \emph{Objekte}.
+Bei StringLiterals 
+ist eine \gls{i18n}
+möglich.
+\mintinline{turtle}{"TEXT"@de} ist somit als String für die Sprache Deutsch definiert.
+
+Damit die Konzepte eineindeutig sind,
+werden sie über \gls{uri} beschrieben;
+zur Vereinfachung können diese aber durch global erklärte Präfixe ersetzt werden.
+Ein Beispiel hierfür ist in \Cref{lst:bll:thesaurus:prefixes}.
+
+\begin{listing}
+	\begin{tcolorbox}[tlistingstyle]
+		\inputminted[
+			firstline=1,
+			lastline=13
+		]{turtle}{../data/bll-thesaurus.ttl}
+	\end{tcolorbox}
+	\caption{Erklärung der globalen Präfixe in der \texttt{bll-thesaurus.ttl}}
+	\label{lst:bll:thesaurus:prefixes}
+\end{listing}
+
+Nach dem die Präfixe
+erklärt sind,
+sind die zwei beispielhaften Einträge in \Cref{lst:bll:thesaurus:seneca} eindeutig definiert.
+Der Eintrag \mintinline{turtle}{bllt:bll-133103862}
+ist eine Klasse und ein Konzept.
+Er wird durch \mintinline{turtle}{"Seneca"}
+sowohl auf Deutsch,
+als auch auf Englisch
+und sowohl für das Konzept,
+wie auch für die Anzeige klassifiziert.
+Er ist eine Unterklasse von \mintinline{turtle}{bllt:BLLConcept}.
+Als gröbere Klassifizierung gilt \mintinline{turtle}{bllt:bll-133108791} (Irokesisch).
+Die Notation \mintinline{turtle}{"02.25.01.047.06"} repräsentiert diese Hierarchie,
+wie in \Cref{fig:bll:notation:seneca}
+zu sehen ist.
+
+\begin{listing}[ht]
+	\begin{tcolorbox}[tlistingstyle]
+		\inputminted[
+			firstline=12171,
+			lastline=12183
+		]{turtle}{../data/bll-thesaurus.ttl}
+	\end{tcolorbox}
+	\caption{Beispieleinträge aus \texttt{bll-thesaurus.ttl}}
+	\label{lst:bll:thesaurus:seneca}
+\end{listing}
+
+\begin{figure}[ht]
+	% https://latexdraw.com/draw-trees-in-tikz/
+	\nocite{latexdraw:trees}
+	\begin{tcolorbox}[tfigurestyle]
+		\begin{center}
+			\input{figures/tree-bll-seneca.tikz}
+		\end{center}
+	\end{tcolorbox}
+	\caption{Darstellung der Notation des Eintrages \Cref{lst:bll:thesaurus:seneca} als Baum mit den übergeordneten Klassen}%
+	\label{fig:bll:notation:seneca}
+\end{figure}
+
+\FloatBarrier
+\begin{defn}[\glspt{ontology}\autocite{10.1016/S0169-023X:97:00056-6}\autocite{Arano:ThesaurusAndOntologies}]
+	\foreignblockquote{english}[{\autocite[Abschnitt 1.]{10.1006/knac.1993.1008}  und \autocite[Abschnitt 2.1]{Borst1997} via \autocite[Abschnitt 6.1]{10.1016/S0169-023X:97:00056-6}} ]{An ontology is a formal, explicit specification of a shared conceptualisation}
+	wobei die folgenden Definitionen gelten:
+
+	\begin{enumerate}
+		\item Konzeptualisierung
+		      : Ein abstraktes Modell eines Phänomens der realen Welt basierend auf den relevanten Konzepten des Phänomens
+		\item Explizit: der Typ des Konzepts und die Einschränkungen seiner Nutzing sind explizit definiert
+		\item Formal: Die Syntax ist präzise genug, um von einem Computer verstanden zu werden
+		\item Geteilt: das Wissen ist von einer Gruppe akzeptiert
+	\end{enumerate}
+
+	Die Konzeptualisierung
+	wird von \citeauthor{Arano:ThesaurusAndOntologies}
+	noch weiter spezifiert,
+	sodass sie eine Perspektive eine bestimmten Realität involvieren muss
+	und diese auf der konzeptuellen Struktur einer \gls{knowledgebase}
+	begründet wird.
+
+	Das Ziel einer \gls{ontology}
+	ist das Teilen des Wissens,
+	welches sie repräsentiert.
+\end{defn}
+\FloatBarrier
+
+Da sich die Präfixe in der \gls{ontology}
+von denen im Thesaurus 
+unterscheiden,
+werden sie in \Cref{lst:bll:ontoloy:prefixes} noch einmal explizit dargestellt.
+
+\begin{listing}
+	\begin{tcolorbox}[tlistingstyle]
+		\inputminted[
+			firstline=1,
+			lastline=6
+		]{turtle}{listings/turtle:shortened:bll-ontology.ttl}
+	\end{tcolorbox}
+	\caption{Erklärung der globalen Präfixe in der \texttt{bll-ontology.ttl}}
+	\label{lst:bll:ontoloy:prefixes}
+\end{listing}
+
+Nachdem die Präfixe
+erklärt sind,
+sind die zwei beispielhaften Einträge in \Cref{lst:bll:ontology:seneca} eindeutig definiert.
+Das erste Beispiel ist wieder \mintinline{turtle}{"Seneca"}.
+Dieses Mal ist die Klassifizierung als \enquote{\mintinline{turtle}{a skos:Concept}} % CHECK linebreak
+nicht mehr enthalten,
+dafür ist die neue Klassifikation 
+als \enquote{\mintinline{turtle}{rdfs:subClassOf bllt:NorthernIroquoian}} % CHECK format
+hinzugekommenen.
+Das Format dieser \enquote{Elternklasse} zeigt an,
+dass es eine manuell angelegte Klasse ist,
+da der Name innerhalb des \texttt{bllt}-Namespaces keine Nummer ist.
+Das zweite Beispiel zeigt zusätzliche Prädikate in der \gls{owl}[-Syntax],
+wie Versionierungsinformationen und Äquivalenz.
+
+\begin{listing}
+	\begin{tcolorbox}[tlistingstyle]
+		\inputminted[
+			firstline=8,
+			lastline=25
+		]{turtle}{listings/turtle:shortened:bll-ontology.ttl}
+	\end{tcolorbox}
+	\caption{Leicht umformatierte Beispieleinträge aus \texttt{bll-ontology.ttl}
+		(Der Zeilenumbruch nach dem Subjekt ist jeweils entfernt,
+		damit das Syntaxhighlighting mit \gls{pygments} funktioniert)
+	}
+	\label{lst:bll:ontology:seneca}
+\end{listing}
+
+
+\begin{defn}[\glsfmtfull{bll}]
+	Die \gls{bll} ist eine Bibliographie,
+	also ein Verzeichnis von Literaturnachweisen
+	zu linguistischer Literatur,
+	insbesondere der Allgemeinen Linguistik
+	und \textquote[\autocite{linguistik:de:kataloge:info}]{der anglistischen, germanistischen und romanistischen Sprachwissenschaft}.
+\end{defn}
+
+Zu dem oben genannten Verzeichnis existiert der \gls{bll}[ Thesaurus],
+welcher für die Indizierung im Portal verwendet wird.
+Bei der Umwandelung des \gls{bll}[ Thesaurus] in die \gls{bllontology},
+die initial von \citeauthor{L16-1707} durchgeführt wird \autocite{L16-1707},
+wird der Umfang an Begriffen eingeschränkt
+auf Konzepte aus den Zweigen \foreigntextquote{english}[\autocite{data:linguistic:ontology-doc}]{Syntax, Morphology, Lexicology and Phonology}
+und einigen zusätzlichen Einträgen aus den Zweigen \foreigntextquote{english}[\autocite{data:linguistic:ontology-doc}]{Graphemics and Semantics}.
+Daher ist z.B.\,  der Term \texttt{bllt:bll-467296421} aus \Cref{lst:bll:thesaurus:seneca}
+nicht in der \gls{bllontology} verzeichnet.
+
+\subsubsection{\glsfmtfull{oai-pmh}}
+Die \glsfmtfull{openarchivesinitiative} hat mit \gls{oai-pmh}
+einen Standard für Interoperabilität zwischen verschiedenen Metadaten-Quellen
+und Dienstanbietern definiert.
+In \Cref{lst:oaipmh:xml:begin} ist der Anfang einer mit \gls{oaipmharvest} erzeugten
+\gls{xml}[-Datei] dargestellt.
+
+\begin{longlisting}
+	\begin{tcolorbox}[tlistingstyle]
+		\inputminted[
+			firstline=1,
+			lastline=21,
+			fontsize=\footnotesize,
+			escapeinside=||,
+			gobble=10
+		]{xml}{listings/oaixml:shortened:2022-07-13__oai_dc__000000000000.xml}
+	\end{tcolorbox}
+	\nopagebreak
+	\caption{Beispiel Beginn eines \gls{oai-pmh}[-Eintrags]}
+	\label{lst:oaipmh:xml:begin}
+\end{longlisting}
+
+Da der Inhalt innerhalb des \mintinline{xml}{oai_dc:dc}-Tags
+durch das \gls{dublin-core}\footnote{\url{https://www.dublincore.org/specifications/dublin-core/dces/1999-07-02/}}
+festgelegt ist,
+liegt hier der Fokus.
+Durch den Standard sind
+der Titel (\mintinline{xml}{dc:title}),
+das Thema (\mintinline{xml}{dc:subject}), welches oft als Liste von Schlagworten ausgedrückt wird,
+Beschreibungen (\mintinline{xml}{dc:description})
+und
+eindeutige Referenzen (\mintinline{xml}{dc:identifier}) auf die Ressource
+als Einträge definiert.
+Auch die verwandten Ressourcen (\mintinline{xml}{dc:relation})
+und das Format (\mintinline{xml}{dc:format})
+sind enthalten.
+
+Wenn der Volltext benötigt wird,
+müssen die \mintinline{xml}{dc:identifier} oder die \mintinline{xml}{dc:relation}-Einträge
+betrachtet werden.
+Je nach Anbieter können hier bereits Referenzen auf Volltext-Dokumente hinterlegt sein
+oder die Referenzen weisen nur auf Webseiten,
+auf welchen die Referenzen auf die Volltext-Dokumente gefunden werden müssen.

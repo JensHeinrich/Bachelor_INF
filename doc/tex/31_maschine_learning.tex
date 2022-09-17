@@ -1,0 +1,266 @@
+
+
+\subsubsection{Bewertung \glslink{machine-learning}{maschinellen Lernens}}
+Die folgenden Metriken werden oft genutzt,
+um die Güte eines Modells darzustellen:
+\gls{nlp:stats:loss},
+\gls{nlp:stats:recall},
+\gls{nlp:stats:precision} und
+\gls{nlp:stats:f1}.
+
+Zum besseren Verständnis werden im folgenden einige Begriffe eingeführt,
+bevor diese Metriken definiert werden.
+\begin{defn}[Typische Benennung bei binärer Kategorisierung]
+	Data ist hierbei die \enquote{Wahrheit},
+	während \enquote{Prediction} die Kategorisierung durch das System ist.
+	\begin{center}
+		\begin{tabularx}{0.8\textwidth}{l l | c c | r}
+			                               &                   & \multicolumn{2}{c|}{\textbf{Prediction}} &                                      \\
+			                               &                   & \textbf{Positive}                        & \textbf{Negative}  & $\sum$          \\
+			\cline{1-5}
+			\multirow{2}{*}{\textbf{Data}} & \textbf{Positive} & True Positive                            & False Negative     & Actual Positive \\
+			                               & \textbf{Negative} & False Positive                           & True Negative      & Actual Negative \\
+			\cline{1-5}
+			                               & $\sum$            & Predicted Positive                       & Predicted Negative &
+		\end{tabularx}
+	\end{center}
+	\captionof{table}{\gls{confusion-matrix}, welche die typischen Bezeichnungen der Merkmalsausprägungen für eine binäre Klassifikation zeigt}
+\end{defn}
+\FloatBarrier
+
+Für die Nachvollziehbarkeit wird in \cref{tbl:exampledistribution} die \gls{confusion-matrix} mit beispielhaften Zahlen gefüllt.
+% CHECK non floating
+\begin{table}[H]
+	\begin{center}
+		\begin{tabularx}{0.5\textwidth}{l l | c c | r}
+			                               &                   & \multicolumn{2}{c|}{\textbf{Prediction}} &                            \\
+			                               &                   & \textbf{Positive}                        & \textbf{Negative} & $\sum$ \\
+			\cline{1-5}
+			\multirow{2}{*}{\textbf{Data}} & \textbf{Positive} & 5                                        & 5                 & 10     \\
+			                               & \textbf{Negative} & 90                                       & 9900              & 9990   \\
+			\cline{1-5}
+			                               & $\sum$            & 95                                       & 9905              &
+		\end{tabularx}
+	\end{center}
+	\caption{Beispielhafte Verteilung}
+	\label{tbl:exampledistribution}
+\end{table}
+
+Die Formeln für diese sind nach \citeauthor{towardsdatascience:stats}
+wie folgt \autocite{towardsdatascience:stats} definiert:
+
+\begin{defn}[\glspt{nlp:stats:precision}]
+	\begin{equation}
+		\label{eqn:precision}
+		\text{Precision}
+		= \frac{\text{True Positive}}{\text{True Positive}+\text{False Positive}}
+		= \frac{\text{True Positive}}{\text{Predicted Positive}}
+	\end{equation}
+\end{defn}
+
+Somit wäre für \cref{tbl:exampledistribution}
+die Precision
+\(\frac{5}{95} \approx 5,3\% \).
+
+\begin{defn}[\glspt{nlp:stats:recall}]
+	\begin{equation}
+		\label{eqn:recall}
+		\text{Recall}
+		= \frac{\text{True Positive}}{\text{True Positive}+\text{False Negative}}
+		= \frac{\text{True Positive}}{\text{Actual Positive}}
+	\end{equation}
+\end{defn}
+
+Für unser Beispiel \cref{tbl:exampledistribution}
+ergibt sich ein Recall von \(\frac{5}{10} = 50\% \).
+
+\begin{defn}[\glspt{nlp:stats:f1}]
+	\begin{equation}
+		\label{eqn:f1}
+		\text{F1}
+		= 2 \times \frac{\text{Precision}\times\text{Recall}}{\text{Precision}+\text{Recall}}
+	\end{equation}
+\end{defn}
+
+Der F1-Wert ist also
+\(2 \times \frac{\frac{5}{95}\times\frac{5}{10}}{\frac{5}{95}+\frac{5}{10}}=\frac{2}{21} \approx 9,5\%\).
+
+
+\nocite{overleaf:HowToThesisPart3}
+\begin{table}
+	\begin{subtable}{0.45\textwidth}
+		\begin{center}
+			\begin{tabularx}{\textwidth}{l l | c c | r}
+				                               &                   & \multicolumn{2}{c|}{\textbf{Prediction}} &                            \\
+				                               &                   & \textbf{Positive}                        & \textbf{Negative} & $\sum$ \\
+				\cline{1-5}
+				\multirow{2}{*}{\textbf{Data}} & \textbf{Positive} & 10                                       & 0                 & 10     \\
+				                               & \textbf{Negative} & 9990                                     & 0                 & 9990   \\
+				\cline{1-5}
+				                               & $\sum$            & 10 000                                   & 0                 &
+			\end{tabularx}
+		\end{center}
+
+		\caption{Optimistisches Modell}
+		\label{tbl:optimisticmodell}
+	\end{subtable}
+	\hfill
+	\begin{subtable}{0.45\textwidth}
+		\begin{center}
+			\begin{tabularx}{\textwidth}{l l | c c | r}
+				                               &                   & \multicolumn{2}{c|}{\textbf{Prediction}} &                            \\
+				                               &                   & \textbf{Positive}                        & \textbf{Negative} & $\sum$ \\
+				\cline{1-5}
+				\multirow{2}{*}{\textbf{Data}} & \textbf{Positive} & 0                                        & 10                & 10     \\
+				                               & \textbf{Negative} & 0                                        & 9990              & 9990   \\
+				\cline{1-5}
+				                               & $\sum$            & 0                                        & 10 000            &
+			\end{tabularx}
+		\end{center}
+		\caption{Pessimistisches Modell}
+		\label{tbl:pessimisticmodell}
+	\end{subtable}
+	\caption{Konstante Modelle}
+	\label{tbl:constant-modells}
+\end{table}
+
+Sei ein Modell gegeben, 
+welches immer positiv bzw. immer negativ vorhersagt,
+dann sehen die Matritzen wie in \cref{tbl:optimisticmodell} bzw. in \cref{tbl:pessimisticmodell} aus.
+Diese erhalten die Werte in \cref{tbl:examplemetricsoverview}.
+
+\begin{table}
+	\begin{center}
+		\begin{tabularx}{0.5\textwidth}{l r r r}
+			          & Optimistic & Pessimistic & Example   \\
+			Precision & \(0,1\%\)  & NA          & \(5,3\%\) \\
+			Recall    & \(100\%\)  & \(0\%\)     & \(50\%\)  \\
+			F1        & \( 100\%\) & NA          & \(9.5\%\)
+		\end{tabularx}
+	\end{center}
+	\caption{Tabellarischer Vergleich der Metriken an einem optimistischen, einem pessimistischen und dem ursprünglichen-Beispiel Modell}
+	\label{tbl:examplemetricsoverview}
+\end{table}
+
+\begin{defn}[\glspt{nlp:stats:loss}\autocite{1906.01378}]
+	Seien
+	\(\mathbf{X} \in \mathcal{X}\)
+	und
+	\(Y \in \mathcal{Y}\)
+	Zufallsvariablen,
+	wobei
+	\(\mathcal{X}\subset\mathbb{R}^d\)
+	und
+	\(\mathcal{Y} = \left\lbrace0,1\right\rbrace\).
+	Eine \gls{nlp:stats:loss}[-Funktion]
+	ist eine Abbildung
+	\(\glssymbol{nlp:stats:loss}: \mathbb{R} \times \mathcal{Y} \to \mathbb{R}^{+}.\)
+	Hierbei ist ein kleinerer Wert besser.
+	\foreigntextquote{english}[\autocite{google:trainingandloss}]{Loss is the penalty for a bad prediction}
+\end{defn}
+
+Bei \gls{nlp:stats:loss} wird also nicht ein gutes Modell \enquote{belohnt},
+sondern ein schlechtes Modell \enquote{bestraft}.
+Für eine solche \gls{nlp:stats:loss}[ Funktion] \glssymbol{nlp:stats:loss}
+lässt sich das \glssymbol{nlp:stats:loss}[-Risiko]
+wie folgt definieren:
+
+\begin{defn}[{\glssymbol{nlp:stats:loss}[-Risiko]\autocite{1906.01378}}]
+	Seien
+	\(\mathbf{X} \in \mathcal{X}\)
+	und
+	\(Y \in \mathcal{Y}\)
+	Zufallsvariablen,
+	wobei
+	\(\mathcal{X}\subset\mathbb{R}^d\)
+	und
+	\(\mathcal{Y} = \left\lbrace0,1\right\rbrace\).
+	Für eine beliebige \gls{nlp:stats:loss}[-Funktion] \glssymbol{nlp:stats:loss}
+	und eine Klassifikationsfunktion \(f\),
+	wird das \glssymbol{nlp:stats:loss}[-Risiko] definiert als:
+	\begin{equation}
+		\label{eqn:loss-risk}
+		R_{\glssymbol{nlp:stats:loss}} \left(f\right)
+		=
+		\mathbb{E}_{\mathbf{X},Y} \glssymbol{nlp:stats:loss}\left(f(x) \mid y_{x}\right)
+	\end{equation}
+	wobei \(\mathbb{E}\) den Erwartungswert bezeichnet
+	und der Index die Zufallsvariablen bezüglich derer er gebildet wird.
+\end{defn}
+
+
+\subsubsection{Arten \glslink{machine-learning}{maschinellen Lernens}}
+\Gls{machine-learning} ist eine Unterkategorie von \gls{artificialintelligence}.
+Das Ziel ist dem Computer die Möglichkeit zu geben zu lernen,
+ohne explizit dafür programmiert zu sein \autocite{levity:howdomachineslearn}.
+
+\citeauthor{levity:howdomachineslearn} unterteilt es in die drei folgenden großen Kategorien:
+
+
+\begin{defn}[\gls{supervised-learning} \autocite{levity:howdomachineslearn}]
+	\Gls{machine-learning}
+	auf Basis von bereits annotierten Tupeln der Form
+	\(\left(X, f(X)\right)\),
+	wobei \(X\) eine Eingabe und \(f(X)\) die erwartete Ausgabe ist,
+	nennt man \gls{supervised-learning}.
+	Solche Tupel werden oft auch als \texttt{labeled data} bezeichnet.
+\end{defn}
+
+Hierbei sind nach \citeauthor{levity:howdomachineslearn}
+die Hauptaufgaben Regression und Klassifikation.
+
+Bei Klassifikation ist die Funktion definiert als
+\(f: \mathcal{X} \to \mathcal{Y}  \),
+wobei \(\mathcal{Y} = \left\lbrace \text{\texttt{LABEL}}_i \mid i=1 \vdots l \right\rbrace \)
+die Menge der möglichen Klassen ist.
+Der Wertebereich ist also diskret.\autocite{ledu:regression-versus-classification}
+Bei Regression hingegen ist der Wertebereich kontinuierlich
+und es gilt im Allgemeinen \(f: \mathcal{X} \to \mathbb{C}^{l}\)
+bzw.\, \(f: \mathcal{X} \to \mathbb{R}^{l}\) .
+
+Das so trainierte Modell ist ein Funktionsapproximation für \(f\).
+Es gibt für eine Regressionsaufgabe eine Fortsetzung und Vereinfachung der bisherigen Funktion
+und für Klassifikationsaufgaben Label für bisher unbekannte Eingaben.
+
+Neuere Methoden reduzieren den Bedarf an Trainingsdaten,
+indem sie diese nach bestimmten Regeln erzeugen.
+Dies kann durch Einbindung externer Systeme geschehen,
+wie z.B.\, bei \gls{distant-supervision} und \gls{reinforcement-learning}
+oder nur auf Grundlage der Daten.
+
+\begin{defn}[\gls{distant-supervision}\autocite{deepdive:stanford:distant-supervision}]
+	Unter Verwendung einer bestehenden \gls{knowledgebase}
+	wird die Eingabe mit einer erwarteten Ausgabe kombiniert,
+	um \texttt{labeled data} für \gls{supervised-learning} zu erzeugen.
+\end{defn}
+
+\begin{defn}[\gls{reinforcement-learning} \autocite{levity:howdomachineslearn}]
+	Hierbei gibt im Gegensatz zu \gls{supervised-learning} keine Tupel,
+	sondern eine bewertende Instanz,
+	die mitteilt,
+	ob eine bestimmte Aktion oder Entscheidung des Modells
+	\enquote{gut} oder \enquote{schlecht} war.
+\end{defn}
+
+\begin{defn}[\gls{unsupervised-learning} \autocite{levity:howdomachineslearn}]
+	Beim \gls{unsupervised-learning} sind die Daten nicht weiter klassifiziert.
+	Die Tupel \(\left(X, f(X)\right)\) können also nur automatisch erzeugt werden.
+	Diese Art des Lernens nennt man auch \textquote[\autocite{ng:deeplearning}]{self-taught learning}.
+\end{defn}
+
+\label{ssec:dartstellbarkeit}
+Da die Modelle meist durch Tensorberechnungen abgebildet werden,
+ist eine Darstellung der Informationen als dünnbesetzter Vektor
+von Vorteil.
+So müssen weniger einzelne Berechnungen durchgeführt werden
+und gleichzeitig sinkt durch eine solche Darstellung der Speicherbedarf.\autocite{10.1007/bf02331346}
+Die Darstellbarkeit von Informationen als dünnbesetzte Vektoren 
+in einer entsprechenden Basis wurde von \citeauthor{olshausen1996emergence}
+bereits \citeyear{olshausen1996emergence} in \citetitle{olshausen1996emergence}
+gezeigt. \autocite{olshausen1996emergence}
+Solch eine Darstellung kann ein System
+durch Optimierung nach einer \gls{nlp:stats:loss}[-Funktion],
+die Informationserhaltung und Dünnbesetztheit betrachtet,
+im Rahmen des \gls{unsupervised-learning}
+einfach lernen. \autocite[Formel 2-4]{olshausen1996emergence}
+% CHECK Add examples here

@@ -1,293 +1,157 @@
 \documentclass[
+english,
 german,
+main=german,
+final,
+%draft,
 ]{bachelor}
+
+\PassOptionsToPackage{
+	main=german,
+}{babel}
 
 \input{glossaries/main.tex}
 \input{bibliographies/main.tex}
 
-\author{Jens Heinrich}
-\title{%
-Analyse der Möglichkeit
-einer automatischen Anreicherung von sprachwissenschatflichen Texten
-durch Named Entity Recognition
-unter Verwendung von BERT
-mit Semantik aus der BLL Onthologie%
-}
+\input{metadata.tex}
+
+\usepackage{math_theorems}
 
 \usepackage{amsthm}
-\newtheorem{prob}{Problemstellung}
 
 \nocite{stack:tex:argmin}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \usepackage{csquotes}
+\PassOptionsToPackage{noabbrev}{cleveref}
+\usepackage{cleveref}
+\usepackage{babel}
+
+\usepackage{minted}
+\setminted{
+    breaklines,%
+    breakafter=-/,%
+    %fontsize=\footnotesize,%
+}
+\usepackage{fancy_listings}
+\usepackage{fancy_algorithms}
+
+\usepackage{tikz}
+\usetikzlibrary{trees}
+
+
+\autonocite{overleaf:HowToThesisPart3}
+% https://www.overleaf.com/learn/latex/How_to_Write_a_Thesis_in_LaTeX_(Part_3)%3A_Figures%2C_Subfigures_and_Tables
+\usepackage{subcaption}
+
+% https://texblog.org/2012/12/21/multi-column-and-multi-row-cells-in-latex-tables/
+\usepackage{tabularx}
+\usepackage{multirow}
+
+% For FloatBarrier
+\usepackage{placeins}
+
+
+\NewDocumentCommand{\InputIfExists}{m}{
+	\IfFileExists{#1}{\input{#1}}{\typeout{No file #1.}}
+}
+
+\usepackage{adjustbox}
+
+\tcbset{tpipelinestyle/.style={
+	colback={white!40!whitesmoke},%
+	colframe=black,%
+	boxrule=2pt,%
+	sharp corners,%
+}}
+
+
+\tcbset{tarchitecturestyle/.style={
+	colback={white!40!whitesmoke},%
+	colframe=black,%
+	boxrule=2pt,%
+	sharp corners,%
+}}
+
+\tcbset{tfigurestyle/.style={
+	colback={white!40!whitesmoke},%
+	colframe=black,%
+	boxrule=2pt,%
+	sharp corners,%
+}}
+
+\usepackage{breakurl}
+
+\usepackage{booktabs}
+
+\PassOptionsToPackage{
+	babel=true,
+}{microtype}
+\usepackage{microtype}
+
+\usepackage{pdfpages}
 
 \begin{document}
 
-\maketitle
+\includepdf[pages=-]{./Deckblatt_Bachelorarbeit.pdf}
 
-\tableofcontents
-\cleardoublepage
+\input{tex/00_frontmatter.tex}
+
+% set arabic numbers for main matter
+\pagenumbering{arabic}
 
 \section{Einleitung}
+\input{tex/10_introduction.tex}
 
 \section{Literaturrecherche}
+\input{tex/20_literature_search.tex}
 
-\section{Grundlagen und Definitionen/Theorie}
+\section{Grundlagen und Definitionen}
+\input{tex/30_theory.tex}
 
-\gls{maschine-learning} ist eine Unterkategorie von artificial intelligence % TODO gls
-Das Ziel ist dem Computer die Möglichkeit zu geben zu lernen, ohne explizit dafür programmiert zu sein \autocite{levity:howdomachineslearn} % TODO mark citation
+\section{Umsetzung}
+\input{tex/40_implementation.tex}
 
-\citeauthor{levity:howdomachineslearn} unterteilt es in drei grosse Kategorien: 
-\begin{itemize}
-	\item Supervised learning % TODO gls
-	\item Unsupervised learning % TODO gls
-	\item Reinforcement learning % TODO gls
-\end{itemize}
+\section{Diskussion und Herausforderungen}
+\input{tex/50_discussion.tex}
+%\section{Probleme}
+\input{tex/55_challenges.tex}
 
-Beim Supervised learning % TODO gls
-sind die Hauptaufgaben nach \autocite{levity:howdomachineslearn} Regression % TODO
-und Klassifizierung % TODO gls
 
-Beim Unsupervised Training ist das Ziel
+\section{Fazit und Ausblick}
+\input{tex/60_conclusion.tex}
 
-Klassifizierung % TODO gls
-ist der Prozess ein System mit bekannten annotierten Daten zu \enquote{trainieren} 
-und so eine Reproduktion der Annotation auf nicht annotierten Daten zu erreichen.
-
-Eine mögliche Annotation ist es den Wörtern eines Satzes ihre grammatikalische Funktion
-oder andere semantische (?) Informationen % TODO 
-zuzuordnen.
-Wenn die semantische Information ist,
-dass die annotierte Entität eine \enquote{spezielle} Entität ist, 
-welche einen Namen hat,
-dann spricht man von \gls{namedentityrecognition}.
-
-Eine Art eine Liste solcher Entitäten zu erstellen,
-ist es sie aus Wissensdatenbanken % TODO knowledge base glossary as knowledgebase
-zu extrahieren.
-In \autocite[A.1]{2006.15509} von \citetitle{2006.15509}
-wird von \citeauthor{2006.15509} eine ganze Reihe von solchen knowledgebase % TODO gls
-genannt.
-
-Eine solche Liste von Entitäten wird oft als Gazzetteer bezeichnet % TODO gls
-(siehe z.B. \autocite[Introduction]{Carlson2009}).
+%\section{Ausblick und Verbesserungen}
+\input{tex/70_enhancements.tex}
 
 
 
-Der offensichtliche Weg eine Liste bekannter Entitäten über \enquote{string matching} zuzuordnen
-hat die folgenden Probleme:
-\begin{itemize}
-	\item nur vorher bekannte Entitäten werden erkannt, 
-	z.\,B. wird \enquote{Müller und Sohn} erkannt, 
-	wenn es vorher aufgelistet wurde,
-	aber der Transfer,
-	dass auch \enquote{Meier und Sohn} eine Entität ist,
-	kann nicht stattfinden
-	\item Insbesondere in Grammatiken, 
-	in denen Flexion % TODO glossary or wikipedia
-	wichtig ist,
-	kann die gleiche Entität mit verschiedenen Strings repräsentert werden.
-	% TODO ref  ?
-	\item die Laufzeit
-	% TODO Laufzeit in Abhängigkeit von Dict und String ausdrücken
-\end{itemize}
+\cleardoublepage
 
-Eine Erweiterung dieses Ansatzes,
-ist es die Liste zu erweitern,
-wie es prinzipiell in \autocite[Abschnitt 3.4]{OASIcs-LDK-2019-11} 
-für eine bessere Version der Worterkennung durchgeführt wird.
-Hierbei wird die Erkennungsaufgabe von FST % TODO Glossary Finite State Transducern
-erledigt,
-welche eine Erkennung zuerst auf der Wortebene durchführen.
-In unserem Beispiel von oben würden so die Worte 
-\enquote{Müller}, \enquote{und} und \enquote{Sohn} auf der Zeichenebene erkannt werden,
-und danach die Entität \enquote{Müller und Sohn} auf der Wortebene.
-
-Wortebene ist hier tatsächlich schon nicht die vollständige Wahrheit,
-denn in Sprachen,
-die wie das Deutsche von zusammengesetzen Wörtern leben,
-ist eine Einteilung in Wortbestandteile
-(diese werden in \autocite{OASIcs-LDK-2019-11} als \foreignquote{english}{lemma} bezeichnet)
-zielführender.
-
-% TODO andere Möglichkeiten Darstellen
-
-Der Ansatz mit der Wortebene zeigt auch schon auf einen konzeptuell-anderen Ansatz:
-Es gibt bestimmte Formulierungen oder eher \enquote{Muster},
-die oftmals eine Entität markieren.
-So ist ein \enquote{\$NAME und \{Sohn,Söhne\}} insbesondere, 
-wenn es in Anführungszeichen steht,
-meistens eine Firma, also Kategorie ORG. % TODO NER Kategorien in gls
-
-Auch Ketten von Grossbuchstaben sind oftmals Entitäten (Acronyme) % TODO gls
-
-
-
-
-\subsection{Training}
-Der Prozess des Trainings
-% TODO
-Es gibt verschiedene Möglichkeiten das Training durchzuführen
-
-
-
-
-\subsection{\glspt{bllonthology}}
-Was ist eine \gls{ontology}?
-% TODO
-Was ist die \gls{bll}?
-% TODO
-
-\subsection{Datenquellen}
-% TODO Überlegen ob bllonthology hier hin passt
-Was ist \gls{openaccess}?
-Verwendung des \gls{oai-pmh} zum Sammeln von Informationen
-mithilfe des \gls{oaipmharvest}
-% TODO
-
-
-
-\subsection{Datapreparation}
-\subsubsection{Datacollection}
-Eine Liste der potent
-\subsubsection{Metadataextraction}
-\subsubsection{Textextraction} (Optional)
-\subsubsection{Stringmatching}
-
-
-
-\subsection{Named Entity Recognition}
-\subsubsection{Tokenization}
-Die Eingabe für BERT % TODO gls
-% TODO oder ein anderes Netzwerk (?)
-
-\subsubsection{Tokenclassification}
-
-\subsection{Named Entity Linking}
-Der Prozess der \gls{namedentityrecognition}
-lässt sich nach \autocite{2006.15509} als Lösung des folgenden mathematischen Problems beschreiben:
-
-\begin{prob}{\glspt{namedentityrecognition}}\label{prob:nlp:ner}
-	Für ein \gls{nlp:sentence} \glsentryformula{nlp:sentence}
-	wird eine \gls{nlp:label_sequence} \glsentryformula{nlp:label_sequence} gesucht,
-	sodass \(
-	\glssymbol{nlp:label}_i \in
-	\left\lbrace
-	\glssymbol{nlp:label:beginning}\texttt{-X},
-	\glssymbol{nlp:label:inside}\texttt{-X},
-	\glssymbol{nlp:label:outside}
-	:
-	\text{\texttt{X} ist Entitätstyp}
-	\right\rbrace
-	\)
-	und gilt:
-	\[
-		\glssymbol{nlp:label}_i =	
-		\begin{cases}
-			\texttt{\glssymbol{nlp:label:beginning}-X},
-			\text{wenn \(\glssymbol{nlp:token}_i\)
-				der Beginn einer Entität vom Typ \(\texttt{X}\) ist
-			} \\
-			\texttt{\glssymbol{nlp:label:inside}-X},
-			\text{wenn \(\glssymbol{nlp:token}_i\)
-				ein Token einer Entität vom Typ \(\texttt{X}\)
-				und nicht deren Beginn ist
-			} \\
-			\glssymbol{nlp:label:outside}, \text{sonst}.
-		\end{cases}
-	\]
-	Diese \texttt{BIO}-Klassifikation geht auf \citeauthor{10.1145/2396761.2398506} zurück \autocite{10.1145/2396761.2398506}.
-\end{prob}
-
-Seien \(M\) bereits annotierte \glslink{nlp:sentence}{Sätze}
-\glsentryformula{nlp:labelled_sentences} gegeben
-und beschreibe \glsentryformula{nlp:model} ein \gls{namedentityrecognition}[-Modell],
-wobei \glssymbol{nlp:sentence} ein Satz
-und \glssymbol{nlp:model:parameters} die Parameter des Modells sind.
-Dann lässt sich anhand der Problemstellung~\cref{prob:nlp:ner}
-die Güte des Modells über eine Metrik bestimmen.
-Eine beliebte Metrik im Rahmen des \gls{machine-learning} ist die \gls{crossentropyloss}[-Funktion],
-wie sie in \autocite[5.5]{juraksky2000speech} definiert wird:
-\glsentryformula{crossentropyloss}.
-Hierbei wäre der ideale Fall,
-dass jeder Satz
-\gls{nlp:label} entsprechend der vorgegeben (idealen) Annotation
-zugewiesen bekommt.
-Dementsprechend werden die \gls{nlp:model:parameters} so gesucht,
-dass sie diese Distanz über alle Trainingsdaten minimieren.
-Somit sind die idealen Parameter durch die Formel
-\autocite[1]{2006.15509}
-gegeben:
-\begin{equation}
-	\hat{\glssymbol{nlp:model:parameters}} : =
-	\argmin_{\glssymbol{nlp:model:parameters}}
-	\frac{1}{M}
-	\sum_{m=1}^{M}
-	\glssymbol{crossentropyloss}\left(
-	\glssymbol{nlp:label_sequence}_m,
-	\glssymbol{nlp:model}\left(
-		\glssymbol{nlp:sentence}_m;
-		\glssymbol{nlp:model:parameters}
-		\right)
-	\right)
-\end{equation}
-
-\subsection{fernüberwachte \glspt{namedentityrecognition}}
-Hierbei sind im Gegensatz zur \enquote{klassischen} \gls{namedentityrecognition}
-% TODO das klingt unrund
-nicht die \gls{nlp:token} selber beschriftet,
-sondern der gesamte Text wird automatisch mit \glspl{nlp:label} versehen.
-\citeauthor{2006.15509} listet als Möglichkeiten hierfür
-\enquote{string matching}, \enquote{regexp} und heuristische Verfahren
-\autocite{2006.15509}.
-
-\section{Vorherige Arbeiten}
-
-
-\section{Methodik/Umsetzung}
-
-\subsection{Erstellung eines Gazetteers aus der \glspt{bllonthology}} % TODO gls
-Um eine initiale Annotation der Texte durchzuführen,
-wurde aus der \gls{bllonthology} ein Gazetteer % TODO gls
-der Anzeigenamen der Objekte erstellt.
-
-\subsection{Vorbereitung der Beispieldokumente}
-Da die Beispieldokumente als \gls{pdf} vorliegen,
-müssen die eigentlichen Texte extrahiert werden.
-Hierfür gibt es verschiedenen Werkzeuge und Bibliotheken,
-wie z.B.\, \gls{pypdf2} oder \gls{pdftotext}.
-
-Der erste Versuch der Extraktion wird mit \gls{pypdf2} durchgeführt.
-Dieses analysiert die \gls{pdf} seitenweise.
-Der kommentierte Code findet sich in \texttt{src/extract\_fulltexts.ipynb}.
-
-\subsection{\glspt{naturallanguageprocessing} mit \glspt{BERT}}
-Der Prozess des \gls{naturallanguageprocessing} mit \gls{BERT} besteht aus verschiedenen Schritten.
-Zuerst wird der Text in Tokens aufgeteilt,
-welche in numerische Werte übersetzt werden können.
-Diese numerischen Werte können durch das neuronale Netzwerk verarbeitet werden,
-da dieses aber eine Eingabe fixer Länge erwartet,
-müssen zu lange Sequenzen abgeschnitten (\enquote{truncate})
-und zu kurze Sequenzen ergänzt (\enquote{pad}) werden.
-Die so bearbeiteten Werte werden dann in einen \gls{tensor} umgewandelt
-mit dem die weiteren Berechnungen durchgeführt werden können.
-Diese Schritte wird von einem \enquote{preprocessor}
-bzw.\, \enquote{tokenizer} ausgeführt.
-\autocite{huggingface:docs:Transformers:preprocessing}
-Eine beliebte Bibliothek hierfür ist \gls{huggingface:tokenizers}.
-
-
-
-Der darauf folgende Schritt ist die Auswertung durch
-% TODO
-
-
-
-\section{Diskussion}
-
-\section{Fazit}
+% set roman numbers for appendix
+\pagenumbering{roman}x
+\newpage
 
 \appendix
 
-\printunsrtglossaries
+\printbibliography
+\addcontentsline{toc}{section}{\listoflistingscaption}
+\listoflistings
+\addcontentsline{toc}{section}{\listtablename}
+\listoftables
+\addcontentsline{toc}{section}{\listfigurename}
+\listoffigures
+\addcontentsline{toc}{section}{Liste~der~Algorithmen}% TODO translate
+\listofmyalgorithms
+
+
+% TODO fix this \printunsrtglossary[match={category={symbol}}]
+\printunsrtglossary[type=glossary % TODO fix this ,not-match={category={symbol}}
+]
+
+\clearpage
+\printunsrtglossary[type=hardware,style=hardwarestyle]
+% TODO still needed? \printunsrtglossary[type=software]
+
+% TODO still needed? \section{Code}
+
 \end{document}

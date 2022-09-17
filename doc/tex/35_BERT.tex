@@ -1,0 +1,93 @@
+\glsfmtfull{BERT} ist ein Modell für \gls{naturallanguageprocessing}.
+Es wurde von \citeauthor{1810.04805} auf Basis von \gls{transformer} entworfen,
+Diese Architektur beruht vor allem auf Aufmerksamkeitsmechanismen,
+welche in \autocite{1706.03762} vorgestellt wurde.
+Der Vorteil dieser Architektur bei \gls{naturallanguageprocessing}
+gegenüber den vorherigen \gls{lstm}-basierenden Architekturen ist es,
+dass beidseitiger Kontext für die Bewertung der Eingaben herangezogen werden kann.
+
+\subsubsection{Training des Modells}
+Das Modell wird auf \texttt{unlabeled data}
+mit zwei verschiedenen Aufgaben trainiert.
+Beim \gls{nlp:task:mlm}
+werden randomisiert 15\% der Token maskiert.
+Da in späteren Aufgaben keine \texttt{[MASK]}
+Token mehr auftauchen,
+werden 10\% der Token durch ein anderes Token
+und 10\% der Token durch sich selbst \enquote{maskiert}.
+\autocite[3.1 Task \# 1]{1810.04805}.
+Dieser Task ermöglicht dem Modell
+eine kontextuelles \enquote{Verständnis}
+einzelner Wörter bzw. Token im Satz zu erlernen.
+
+Die zweite Aufgabe ist \gls{nlp:task:nsp}.
+Hierbei werden zwei Sätze A und B aus dem Corpus gewählt,
+sodass in 50\% der Fälle Satz B auf Satz A folgt
+und in 50\% der Fälle B ein zufälliger Satz aus dem Corpus ist.
+\autocite[3.1 Task \# 2]{1810.04805}.
+Die kontextuelle Einbettung des  \texttt{[CLS]} Tokens
+wird hierbei für die Auswertung betrachtet.
+Das Modell lernt somit Zusammenhänge zwischen Sätzen.
+
+Insgesamt entwickelt das Modell eine Darstellung der Informationen,
+wie sie in~\Cref{ssec:dartstellbarkeit}
+beschrieben wird.
+Diese Darstellung wird von den \texttt{heads} verwendet,
+um die eigentlichen Aufgabenstellungen zu lösen.
+Verschiedenen \texttt{heads} sind am Beispiel der \gls{huggingface:transformers}[-Bibliothek]
+in \Cref{tbl:transformers-heads} aufgelistet.
+
+\begin{table}
+	\begin{tabularx}{\linewidth}{lccp{3cm}p{3cm}}
+		\toprule
+		\multicolumn{5}{c}{\textbf{Heads}}                                                                                                                                   \\
+		Name                    & Input                         & Output                   & Tasks                                       & Ex. Datasets                      \\
+		\midrule
+		Language Modeling       & $x_{1:n-1}$                   & $x_n \in {\cal V}$       & Generation                                  & WikiText-103                      \\
+		Sequence Classification & $x_{1:N}$                     & $y \in {\cal C}$         & Classification, \newline Sentiment Analysis & GLUE, SST, \newline MNLI          \\
+		Question Answering      & $x_{1:M},$ \newline $x_{M:N}$ & $y$ span $[1:N]$         & QA,  Reading\newline Comprehension          & SQuAD, \newline Natural Questions \\
+		Token Classification    & $x_{1:N}$                     & $y_{1:N} \in {\cal C}^N$ & NER, Tagging                                & OntoNotes, WNUT                   \\
+		Multiple Choice         & $x_{1:N}, {\cal X}$           & $y \in {\cal X}$         & Text Selection                              & SWAG, ARC                         \\
+		Masked LM               & $x_{1:N\setminus n}$          & $x_n \in {\cal V}$       & Pretraining                                 & Wikitext, C4                      \\
+		Conditional Generation  & $x_{1:N}$                     & $y_{1:M} \in {\cal V}^M$ & Translation,\newline Summarization          & WMT, IWSLT, \newline CNN/DM, XSum \\
+		\bottomrule
+	\end{tabularx}
+	\caption[{Übersicht der verschiedenen \foreigntextquote{english}{Heads} aus {\autocite[Figure 2,top]{1910.03771}}}]{%
+		Übersicht der verschiedenen \foreigntextquote{english}{Heads} aus \autocite[Figure 2,top]{1910.03771}.
+		Die Token Sequenzen \(x_{1:N}\) stammen hierbei aus einem Vokabular \(\mathcal{V}\),
+		während die \(y\) z.B.\, aus einer Menge von Klassen \(\mathcal{C}\) stammen kann.
+	}
+	\label{tbl:transformers-heads}
+\end{table}
+
+Beim \enquote{fine-tuning} werden die einzelnen Parameter des bereits trainierten Netzwerks
+für den expliziten Task optimiert. \autocite{towardsdatascience:what-exactly-happens-when-we-fine-tune-bert}
+Dies kann durch verschiedene Mechanismen geschehen.
+Der einfachste Ansatz sind randomisierte \emph{kleine} Änderungen der Parameter.
+Modernere Ansätze gehen hier jedoch gezielter vor
+und betrachten z.B.\, Gradienten.
+% CHECK Reference AdamW
+
+\subsubsection{Eingaben des Modells}
+Mögliche Eingaben in das Modell sind in \Cref{tbl:transformers-heads}
+zu sehen.
+Die Token \(x_i\) werden durch Zahlen identifiziert
+in welche sie von einem \texttt{Tokenizer} umgewandelt werden.
+Der \gls{BERT}[-Tokenizer] benutzt sogenannte \foreignquote{english}{sub word}-Token.
+Hierbei kann ein Wort aus mehreren Token bestehen.
+Die typische \texttt{\#\#ing} des englischen Gerund,
+wird hierbei der z.B.\, der Zahl 270 zugeordnet.
+
+% TODO
+
+Die Eingabe in das Netzwerk besteht aus den Tokens Tokens11 ... Tokens1N
+bzw. Tokens21 ... Tokens2M,
+welche den Text repräsentieren,
+und den folgenden \enquote{technischen} Token:
+CLS, SEP und dem optionale [MASK] Token.
+
+Eine gute Übersicht,
+wie die Eingabe in ein solches Netzwerk aussehen kann,
+ist in \Cref{tbl:transformers-heads} zu sehen.
+
+

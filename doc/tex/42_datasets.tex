@@ -1,0 +1,267 @@
+
+Nachdem im vorherigen Schritt die Daten gewonnen wurden,
+werden sie nun vorverarbeitet.
+Hierfür werden Helferfunktionen erstellt
+und in eine \gls{huggingface:datasets}[-Klasse] integiert.
+
+\subsubsection{Extraktion der Daten aus den \gls{oai-pmh} \gls{xml}[-Dateien]}
+
+Obwohl der Standard die Beschreibung der Elemente
+durch das \gls{dublin-core}\footnote{\url{https://www.dublincore.org/specifications/dublin-core/dces/1999-07-02/}} vorschreibt,
+gibt es z.B.\, bei \texttt{dc:format}
+nur eine Empfehlung
+für die Art des Inhalts.
+Die \gls{jcs} folgt der Empfehlung und liefert den \gls{mime}[-Typ]
+der Dateien,
+während Language Science Press dies nicht tut.
+
+Da bei \texttt{lang-sci-press} und per Definition nicht zwingend eine \gls{url} als \mintinline{xml}{dc:identifiers}
+hinterlegt sein muss,
+muss auch hier nachgefiltert werden.
+
+Die Extraktion ist sowohl für \texttt{ubffm} als auch für \texttt{lang-sci-press}
+als Quellen implementatiert.
+Um nicht für alle Einträge des \glsxtrshort{html}[-Quellcodes] der \texttt{lang-sci-press} Webseite durchsuchen zu müssen,
+werden auch die verwandten Resourcen (\mintinline{xml}{dc:relation}) extrahiert,
+da hier bei \texttt{lang-sci-press} teilweise die \gls{pdf}[-Ressource] enthalten ist
+(siehe \Cref{lst:ubffm:record}).
+
+\begin{listing}
+	\begin{tcolorbox}[tlistingstyle]
+		\inputminted[
+			fontsize=\footnotesize,
+		]{xml}{listings/ubffm:record.xml}
+	\end{tcolorbox}
+	\caption{Beispielhafter \mintinline{xml}{dc:record} aus einer \gls{oai-pmh}[-Datei] von \texttt{ubffm}}
+	\label{lst:ubffm:record}
+\end{listing}
+
+Ein Auswahl der Einträge aufgrund des Dateiformats ist bei den \texttt{ubffm} Einträgen möglich,
+da als \mintinline{xml}{dc:format} entsprechend der Empfehlung der \gls{mime}[-Typ] der Ressource angegeben wird.
+Da \texttt{lang-sci-press} das Format von Einträgen,
+wie in \Cref{lst:lang-sci-press:record} zu sehen ist,
+nicht als \gls{mime}[-Typ] angibt,
+ist dieser Filter nicht implementiert.
+
+\begin{listing}
+	\begin{tcolorbox}[tlistingstyle]
+		\inputminted[
+			fontsize=\footnotesize,
+			escapeinside=||,
+		]{xml}{listings/lang-sci-press:record.xml}
+	\end{tcolorbox}
+	\caption{Beispielhafter gekürzter \mintinline{xml}{dc:record} aus einer \gls{oai-pmh}[-Datei] von \texttt{lang-sci-press}}
+	\label{lst:lang-sci-press:record}
+\end{listing}
+
+\FloatBarrier
+Das initiale Auslesen geschieht mittels der \gls{lxml}
+Bibliothek, wie in \Cref{lst:xml_loader:load_xml_file} zu sehen ist.
+
+\begin{longlisting}
+	\begin{tcolorbox}[tlistingstyle,breakable]
+		\inputminted[
+			firstline=121,
+			lastline=152,
+			fontsize=\footnotesize
+		]{python}{../src/oaipmh/xml_loader.py}
+	\end{tcolorbox}
+	\caption{Code zum Laden einer \gls{oai-pmh} \gls{xml}[-Datei]. \texttt{src/oaipmh/xml\_loader.py}}
+	\label{lst:xml_loader:load_xml_file}
+\end{longlisting}
+
+Hierbei werden die eigentlichen Einträge jeweils mit der in \Cref{lst:xml_loader:_parse_record}
+in das in \Cref{lst:xml_loader:OAIXMLRecordDict} dargestellte \texttt{OAIXMLRecordDict} Format umgewandelt.
+
+\begin{longlisting} % CHECK longlisting?
+\begin{tcolorbox}[tlistingstyle,breakable]
+	\inputminted[
+		firstline=93,
+		lastline=118,
+		fontsize=\footnotesize
+	]{python}{../src/oaipmh/xml_loader.py}
+\end{tcolorbox}
+\caption{Code zum Umwandeln eines in \Cref{lst:xml_loader:load_xml_file} gewonnen \gls{oai-pmh}[-Record]
+	in das in \Cref{lst:xml_loader:OAIXMLRecordDict} definierte Format. \texttt{src/oaipmh/xml\_loader.py}}
+\label{lst:xml_loader:_parse_record}
+\end{longlisting}
+
+
+\begin{listing}% CHECK longlisting
+	\begin{tcolorbox}[tlistingstyle,breakable]
+		\inputminted[
+			firstline=69,
+			lastline=90,
+			fontsize=\footnotesize
+		]{python}{../src/oaipmh/xml_loader.py}
+	\end{tcolorbox}
+	\caption{Dedizierte Datenklasse für die einheitliche Typisierung der \gls{oai-pmh}[-Records]. \texttt{src/oaipmh/xml\_loader.py}}
+	\label{lst:xml_loader:OAIXMLRecordDict}
+\end{listing}
+
+Die verschiedenen \texttt{get\_...} Funktionen,
+die in \Cref{lst:xml_loader:load_xml_file,lst:xml_loader:_parse_record,lst:xml_loader:OAIXMLRecordDict}
+verwendet werden,
+sind \texttt{XPath} ausdrücke,
+welche eine direkte Suche im \gls{xml}[-Baum] darstellen.
+Mehr zur Syntax dieser Ausdrücke
+kann \href{https://lxml.de/xpathxslt.html}{in der Dokumentation}\footnote{\url{https://lxml.de/xpathxslt.html}}
+von \gls{lxml} gefunden werden.
+
+In einem nächsten Schritt kann hier auch eine Extraktion des Volltextes geschehen.
+Dafür muss je nach \gls{openarchivesinitiative}[-Anbieter]
+der Link zur \gls{pdf}[-Datei] noch mittes \gls{beautiful-soup}
+aus den in den \mintinline{xml}{dc:identifier}
+referenzierten Webseiten extrahiert werden.
+Der Code dafür ist in \Cref{lst:publishers:find_pdf_urls} dargestellt.
+
+\begin{longlisting}
+	\begin{tcolorbox}[tlistingstyle,breakable]
+		\inputminted[
+			firstline=14,
+			lastline=67,
+			fontsize=\footnotesize
+		]{python}{../src/oaipmh/publishers.py}
+	\end{tcolorbox}
+	\caption{Code zum Finden der \gls{url}, welche auf \glspl{pdf} verweisen, in Abhängigkeit des Anbieters. \texttt{src/oaipmh/publishers.py}}
+	\label{lst:publishers:find_pdf_urls}
+\end{longlisting}
+
+Da nicht alle Referenzen valide Weblinks sind,
+wird mit \Cref{lst:_peak_url} eine Wrapper definiert,
+der \mintinline{python}{None}
+für diese zurückgibt.
+
+\begin{longlisting}
+	\begin{tcolorbox}[tlistingstyle,breakable]
+		\inputminted[
+			firstline=12,
+			lastline=29,
+			fontsize=\footnotesize
+		]{python}{../src/oaipmh/helpers.py}
+	\end{tcolorbox}
+	\caption{Wrapper, um \gls{requests} in List Comprehensions mit Listen invalider Links zu nutzen \texttt{src/oaipmh/helpers.py}}
+	\label{lst:_peak_url}
+\end{longlisting}
+
+Da bei den in \Cref{tbl:find_pdf_urls:failed} aufgeführten sieben der 1027 Einträgen
+des \texttt{ubffm}-Providers
+keine \gls{url} gefunden wird,
+die auf eine entsprechende \gls{pdf} Datei verweist,
+ist Fehlerbehandlung wichtig.
+
+
+\subsubsection{Extraktion der Volltexte}
+Da die Volltexte als \gls{pdf} vorliegen,
+müssen die eigentlichen Texte extrahiert werden.
+Hierfür gibt es verschiedenen Werkzeuge und Bibliotheken,
+wie z.B.\, \gls{pypdf2}, \gls{pdfminer.six} oder \gls{pdftotext}.
+
+Der erste Versuch der Extraktion wird mit \gls{pypdf2} durchgeführt.
+Dieses analysiert die \gls{pdf} seitenweise.
+Wenn dies nicht funktioniert,
+wird ein erneuter Versuch mit \gls{pdfminer.six} gestartet.
+Sollte dies auch fehlschlagen,
+wird ein leerer Text zurückgegeben.
+Die Implementierung ist in \Cref{lst:extract_pdf}
+dargestellt.
+
+\begin{longlisting}
+	\begin{tcolorbox}[tlistingstyle,breakable]
+		\inputminted[
+			fontsize=\footnotesize
+		]{python}{../src/oaipmh/extract_pdf.py}
+	\end{tcolorbox}
+	\caption{Code zur Extraktion des Textes aus einer \glspt{pdf}-Datei. \texttt{src/oaipmh/extract\_pdf.py}}
+	\label{lst:extract_pdf}
+\end{longlisting}
+
+\subsubsection{Implementierung des Stringmatching}
+\label{ssec:implementation:stringmatching}
+In \Cref{lst:stringmatching} ist die Implementierung des Algorithmus,
+der am Ende von \Cref{ssec:stringmatching} beschrieben wird,
+zu sehen.
+
+\begin{longlisting}
+	\begin{tcolorbox}[tlistingstyle,breakable]
+		\inputminted[
+			fontsize=\footnotesize,
+			firstline=2,
+			lastline=107,
+		]{python}{../src/oaipmh/dict_matcher.py}
+	\end{tcolorbox}
+	\caption[Implementierung des Stringmatching]{Implementierung des Stringmatching basierend auf \Cref{alg:stringmatching:optimized}. \texttt{src/oaipmh/dict\_matcher.py}}
+	\label{lst:stringmatching}
+\end{longlisting}
+
+\subsubsection{Einbettung in \gls{huggingface:datasets}}
+Um die Verwendung von \gls{huggingface:transformers}
+zu vereinfachen,
+werden die bisher definierten Methoden in \gls{huggingface:datasets} eingebunden.
+
+Hierfür wird zunächst die \texttt{OAIPMHConfig} Konfigurationsklasse erstellt,
+deren Parameter in \Cref{lst:oaipmhconfig} dargestellt sind.
+
+\begin{longlisting}
+	\begin{tcolorbox}[tlistingstyle,breakable]
+		\inputminted[
+			fontsize=\footnotesize,
+			firstline=51,
+			lastline=90,
+		]{python}{../src/oaipmh/oaipmh.py}
+	\end{tcolorbox}
+	\caption[Beginn der Konfigurationsklasse \texttt{OAIPMHConfig}]{Beginn der Konfigurationsklasse \texttt{OAIPMHConfig} für das \texttt{OAIPMH} Dataset. \texttt{src/oaipmh/oaipmh.py}}
+	\label{lst:oaipmhconfig}
+\end{longlisting}
+
+
+Die Fehlerbehandlung in \Cref{lst:extract_pdf},
+die immer mindestens den leeren Text zurückgibt,
+der am Anfang der Funktion definiert wird,
+ist an dieser Stelle wichtig,
+da die Funktion aus \Cref{lst:publishers:find_pdf_urls}
+bei 8 der 1027 Einträgen auf Deutsch der \texttt{ubffm}
+keine \gls{url} gefunden wird.
+Die betreffenden \mintinline{xml}{dc:identifier} sind in \Cref{tbl:find_pdf_urls:failed}
+aufgelistet.
+
+% FIXME check entries
+\begin{table}
+	\begin{tabularx}{\textwidth}{l p{0.5\linewidth}}
+		\mintinline{xml}{dc:identifier}                               & Besonderheit                                                                                          \\
+		\mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:7101}  & Besteht aus einem Hauptband und einem Materialien Teil, die auf der Webseite referenziert werden \\
+		\mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:47810} & Ist eine Zeitschrift                                                                             \\
+		\mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:23611} & Ist eine Zeitschrift                                                                             \\
+		\mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:4620}  & Ist eine Zeitschrift                                                                             \\
+		\mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:30655} & Ist eine Zeitschrift                                                                             \\
+		\mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:48364} & Ist eine Zeitschrift                                                                             \\
+		\mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:33792} & Ist eine Zeitschrift                                                                             \\
+		\mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:34780} & Besteht aus mehreren Dateien, die auf der Webseite referenziert werden                           \\
+	\end{tabularx}
+	\caption{\gls{oai-pmh}[-Records] der \texttt{ubffm},
+		bei denen die Funktion aus \Cref{lst:publishers:find_pdf_urls} keinen Treffer liefert,
+		und die zusätzliche Information über die Besonderheiten des Record
+	}
+	\label{tbl:find_pdf_urls:failed}
+\end{table}
+
+
+
+Zur Implementierung der \mintinline{python}{OAIPMH} Klasse
+muss zum einen der Typ der Konfigurationsklasse definiert werden
+und zum anderen müssen die \mintinline{python}{_info},
+die \mintinline{python}{_split_generators}
+und die \mintinline{python}{_generate_examples}
+Methoden überschrieben werden.
+In der \mintinline{python}{_info} Methode werden hierbei die Features festgelegt,
+die das Dataset zurückgibt.
+Die \mintinline{python}{_split_generators} Methode
+liest die \gls{xml}[-Dateien]
+mit der in \Cref{lst:xml_loader:load_xml_file} dargestellten Methhode
+ein
+und lädt potentiell die \glspl{pdf} herunter.
+Die Volltextextraktion und das Stringmatching
+werden potentiell in der \mintinline{python}{_generate_examples} Methode durchgeführt,
+bevor die einzelnen Datensätze zurückgegeben werden.
+
+Diese können danach durch die \gls{huggingface:transformers}[-Bibliothek] verwendet werden.

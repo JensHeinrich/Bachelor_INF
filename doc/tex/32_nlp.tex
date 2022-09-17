@@ -1,0 +1,181 @@
+Bei \gls{naturallanguageprocessing}
+geht es um die Verarbeitung und Interpretation von menschlicher Sprache.
+Das Ziel ist es Informationen zu gewinnen.
+
+\subsubsection{\glsfmtfull{namedentityrecognition}}
+Der Prozess der \gls{namedentityrecognition}
+lässt sich nach \autocite{2006.15509} als Lösung des folgenden mathematischen Problems beschreiben:
+
+\begin{prob}[\glsfmtfull{namedentityrecognition}]\label{prob:nlp:ner}
+	Für einen \gls{nlp:sentence} \glsentryformula{nlp:sentence}
+	wird eine \gls{nlp:label_sequence} \glsentryformula{nlp:label_sequence} gesucht.
+	Die \texttt{BIO}-Klassifikation von \citeauthor{10.1145/2396761.2398506}
+	\autocite{10.1145/2396761.2398506}
+	fordert hierbei,
+	dass \(
+	\glssymbol{nlp:label}_i \in
+	\left\lbrace
+	\glssymbol{nlp:label:beginning}\texttt{-X},
+	\glssymbol{nlp:label:inside}\texttt{-X},
+	\glssymbol{nlp:label:outside}
+	:
+	\text{\texttt{X} ist Entitätstyp}
+	\right\rbrace
+	\)
+	und dass gilt:
+	\[
+		\glssymbol{nlp:label}_i =
+		\begin{cases}
+			\texttt{\glssymbol{nlp:label:beginning}-X},
+			\text{wenn \(\glssymbol{nlp:token}_i\)
+				der Beginn einer Entität vom Typ \(\texttt{X}\) ist
+			} \\
+			\texttt{\glssymbol{nlp:label:inside}-X},
+			\text{wenn \(\glssymbol{nlp:token}_i\)
+				ein Token einer Entität vom Typ \(\texttt{X}\)
+				und nicht deren Beginn ist
+			} \\
+			\glssymbol{nlp:label:outside}, \text{sonst}.
+		\end{cases}
+	\]
+	Da die \glspl{nlp:sentence} meistens in Tokens aufgeteilt werden,
+	spricht man auch von einer Tokenklassifizierung-Aufgabe.
+\end{prob}
+
+Der klassische Ansatz zur Erzeugung einer \gls{nlp:label_sequence} ist es,
+die Eingabe in mehreren Schritten die Eingabe um Informationen (Features) anzureichern.
+Diese werden in den jeweils darauf folgenden Schritten, unterstützend eingesetzt.
+Dazu gehören z.B.\, \textquote[{\autocite[§19]{fortext-2018-id-36}}]{häufig vorher genannte Wörter (sowie z.B. bei Orten das Wort „in"),
+	Darstellungsformat (bei Daten so etwas wie Zahl Monat Jahr),
+	Groß- und Kleinschreibung} oder auch
+die \textquote[{\autocite[§19]{fortext-2018-id-36}}]{Position im Satz}. % CHECK how this looks
+Eine Darstellung einer beispielhaften \gls{naturallanguageprocessing}[-Architektur] ist in \Cref{fig:corenlp:architecture}
+zu sehen.
+
+% https://tex.stackexchange.com/questions/83069/how-to-stack-two-subfigures-next-to-a-third-subfigure
+\nocite{stack:tex:two-subfigures-next-to-a-third-subfigure}
+\begin{figure}
+	\begin{subfigure}[b]{0.45\textwidth}
+		\begin{tcolorbox}[tpipelinestyle]
+			\begin{adjustbox}{center,max width=0.9\linewidth,max totalheight=0.9\textheight}
+				\InputIfExists{figures/pipeline:corenlp.latex}
+			\end{adjustbox}
+		\end{tcolorbox}
+		\caption{Darstellung der Architektur von Stanford CoreNLP \autocite[Figure 1]{P14-5010}}
+		\label{fig:corenlp:architecture}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\begin{tcolorbox}[tpipelinestyle]
+			\begin{adjustbox}{center,max width=\linewidth,max totalheight=0.9\textheight}
+				\InputIfExists{figures/pipeline:nlp:machinelearning.latex}
+			\end{adjustbox}
+		\end{tcolorbox}
+		\caption{Aufbau der Pipeline für die Datenverarbeitung}
+		\label{fig:pipeline:nlp:machinelearning}
+		%\end{subfigure}
+
+		\vfill
+
+		%\begin{subfigure}[b]{0.45\textwidth}
+		\begin{tcolorbox}[tpipelinestyle]
+			\begin{adjustbox}{center,max width=\linewidth,max totalheight=0.9\textheight}
+				\InputIfExists{figures/huggingface:model.latex}
+			\end{adjustbox}
+		\end{tcolorbox}
+		\caption[Aufbau eines {\gls{transformer}[ Modells]}]{Aufbau eines \gls{transformer}[ Modells]:
+			Der Tokenizer übersetzt die Eingabe in dünnbesetzte Vektoren über einer entsprechenden Basis.
+			Diese Vektoren bzw.\, Tensoren werden dann durch den eigentlichen \gls{transformer}
+			in eine kontextuelle Einbettung
+			überführt.
+			Diese wird dann durch den Head auf eine aufgabenspezifische Vorhersage umgerechnet.
+		}
+		\label{fig:huggingface:transformer}
+	\end{subfigure}
+	\caption{Darstellung von Architekturen und Pipelines}
+\end{figure}
+
+Ein gängiger Aufbau für eine \gls{naturallanguageprocessing}
+Pipeline
+auf Basis von \glslink{machine-learning}{maschinellem Lernen}
+ist nach
+\autocite{1910.03771}
+der in \Cref{fig:pipeline:nlp:machinelearning} dargestellte.
+Hierbei werden keine weiteren Features definiert
+und das System muss diese selber erkennen.
+\citeauthor{1905.05950} stellen in \citetitle{1905.05950} jedoch fest,
+dass auch \gls{BERT} teilweise ähnliche Zwischenschritte
+wie in der klassischen \gls{naturallanguageprocessing}[-Pipeline]
+abbildet.\autocite{1905.05950}
+
+
+In der Regel besteht ein solches \gls{naturallanguageprocessing}[-Modell] aus drei Stufen,
+wie in \Cref{fig:huggingface:transformer} dargestellt ist.
+Der Tokenizer wandelt den Text in eine numerische Repräsentation um.
+Diese wird durch den \gls{transformer} in einen Tensor aus Wahrscheinlichkeiten umgerechnet.
+Der head erstellt aus diesem Wahrscheinlichkeitstensor eine Interpretation für die Aufgabe.
+
+
+\begin{defn}[Güte eines Modells]
+	Seien \(M\) bereits annotierte \glslink{nlp:sentence}{Sätze}
+	\glsentryformula{nlp:labelled_sentences} gegeben
+	und beschreibe \glsentryformula{nlp:model} ein \gls{namedentityrecognition}[-Modell],
+	wobei \glssymbol{nlp:sentence} ein Satz
+	und \glssymbol{nlp:model:parameters} die Parameter des Modells sind.
+	Dann lässt sich anhand von \Cref{prob:nlp:ner}
+	die Güte des Modells über eine Metrik bestimmen.
+\end{defn}
+
+Eine beliebte Metrik im Rahmen des \gls{machine-learning} ist die \gls{crossentropyloss}[-Funktion],
+wie sie in \autocite[Abschnitt 5.5]{jurafsky2000speech} definiert wird:
+\glsentryformula{crossentropyloss}.
+Hierbei wäre der ideale Fall,
+dass jeder Satz
+\glspl{nlp:label} entsprechend der vorgegeben (idealen) Annotation
+zugewiesen bekommt.
+
+\begin{thm}
+	Dementsprechend werden die \gls{nlp:model:parameters} so gesucht,
+	dass sie diese Distanz über alle Trainingsdaten minimieren.
+	Somit sind die idealen Parameter für die \(M\) \glslink{nlp:sentence}{Sätze}
+	durch die Formel
+	\autocite[1]{2006.15509}
+	gegeben:
+	\begin{equation}
+		\hat{\glssymbol{nlp:model:parameters}} : =
+		\argmin_{\glssymbol{nlp:model:parameters}}
+		\frac{1}{M}
+		\sum_{m=1}^{M}
+		\glssymbol{crossentropyloss}\left(
+		\glssymbol{nlp:label_sequence}_m,
+		\glssymbol{nlp:model}\left(
+			\glssymbol{nlp:sentence}_m;
+			\glssymbol{nlp:model:parameters}
+			\right)
+		\right)
+	\end{equation}
+\end{thm}
+
+\subsubsection{\glsfmtfull{namedentitylinking}}
+Das Ziel von \gls{namedentitylinking} ist es
+die die per \gls{namedentityrecognition} erkannten Entitäten
+mit einer \gls{knowledgebase} zuverknüpfen.
+Dies lässt sich als folgendes Problem darstellen.
+
+\begin{prob}[\glsfmtfull{namedentitylinking}]\label{prob:nlp:nel}
+	Für einen \gls{nlp:sentence} \glsentryformula{nlp:sentence}
+	wird eine \gls{nlp:label_sequence} \glsentryformula{nlp:label_sequence} gesucht,
+	sodass \(
+	\glssymbol{nlp:label}_i \in
+	\left\lbrace
+	\text{Entitätsreferenz}
+	\right\rbrace
+	\cup
+	\left\lbrace
+	\text{NONE}
+	\right\rbrace
+	\).
+\end{prob}
+
+Da es oftmals mehrere Kandidaten  für die Verlinkung in der \gls{knowledgebase} gibt,
+wird im Schritt der \gls{namedentitydisambiguation} eine ausgewählt.

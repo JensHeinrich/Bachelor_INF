@@ -1,0 +1,35 @@
+\subsubsection{Vorbereitung der Eingaben}
+
+Zuerst wird der Text in Tokens aufgeteilt,
+welche in numerische Werte übersetzt werden können.
+Diese numerischen Werte können durch das neuronale Netzwerk verarbeitet werden,
+da dieses aber eine Eingabe fixer Länge erwartet,
+müssen zu lange Sequenzen abgeschnitten (\enquote{truncate})
+und zu kurze Sequenzen ergänzt (\enquote{pad}) werden.
+Die so bearbeiteten Werte werden anschießend in einen \gls{tensor} umgewandelt,
+mit dem die weiteren Berechnungen durchgeführt werden können.
+Diese werden wird von einem \enquote{preprocessor}
+bzw.\, \enquote{tokenizer} ausgeführt.
+\autocite{huggingface:docs:Transformers:preprocessing}
+
+\subsubsection{Training}
+
+Da potentiell die Grenzen der so erzeugten Token
+nicht mit den Grenzen der Token des \gls{huggingface:datasets}
+übereinstimmen,
+müssen die Annotationen angepasst werden.
+Die \mintinline{python}{tokenize_and_align_labels} Funktion,
+die in \Cref{lst:train} dargestellt ist,
+iteriert über die Token
+und weisst dem jeweils ersten Token eines Worts die Annotation des Worts zu.\autocite{huggingface:course:chapter7:2}
+
+
+\begin{listing}% CHECK longlisting
+	\begin{tcolorbox}[tlistingstyle,breakable]
+		\inputminted[
+			fontsize=\footnotesize
+		]{python}{../src/train.py}
+	\end{tcolorbox}
+	\caption{Code zum Trainieren eines Modells \texttt{src/train.py}}
+	\label{lst:train}
+\end{listing}

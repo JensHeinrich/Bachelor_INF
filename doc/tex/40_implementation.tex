@@ -1,0 +1,38 @@
+
+Die Verarbeitung der verschiedenen Eingaben
+geschieht für das Training in der in \Cref{fig:pipeline:training}
+dargestellten Pipeline,
+während die Verarbeitung der produktiven Daten in einer Pipeline,
+wie sie in \Cref{fig:pipeline:production} dargestellt ist,
+erfolgen würde.
+
+\begin{figure}
+	% \begin{tcolorbox}[tpipelinestyle]
+		\begin{adjustbox}{center,max width=\textwidth,max totalheight=0.9\textheight}
+			\InputIfExists{figures/pipeline:training.latex}
+		\end{adjustbox}
+	% \end{tcolorbox}
+	\caption{Aufbau der Pipeline für das Training des Modells}
+	\label{fig:pipeline:training}
+\end{figure}
+
+\begin{figure}
+	% \begin{tcolorbox}[tpipelinestyle]
+		\begin{adjustbox}{pagecenter,max width=\textwidth,max totalheight=0.9\textheight}
+			\InputIfExists{figures/pipeline:production.latex}
+		\end{adjustbox}
+	% \end{tcolorbox}
+	\caption{Aufbau der Pipeline für die Datenverarbeitung}
+	\label{fig:pipeline:production}
+\end{figure}
+
+Im Folgenden werden die einzelnen Abschnitte der Implementierung näher erläutert.
+
+\subsection{Datenquellen}
+\input{tex/41_datasources.tex}
+
+\subsection{Erstellung einer \gls{huggingface:datasets}[-Klasse]}
+\input{tex/42_datasets}
+
+\subsection{Verwendung von \gls{huggingface:transformers}}
+\input{tex/43_transformers.tex}

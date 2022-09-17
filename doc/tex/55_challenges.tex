@@ -1,0 +1,105 @@
+\subsection{Allgemeine Herausforderungen}
+Die grundsätzlichen Probleme von \gls{unsupervised-learning}
+auf Basis von ungefilterten Daten,
+wie die Reproduktion von Vorurteilen,
+wie z.B.\,Sexismus oder Rassismus,
+welche in der Datenbasis abgebildet sind,
+betreffen auch die hier verwendeten Modelle.
+\citeauthor{2010.10906} haben versucht diese bei \gls{GBERT}
+zu reduzieren \autocite[3.1]{2010.10906},
+aber warnen:
+\foreignblockquote{english}[{\autocite[3.1]{2010.10906}}]{ The main portion (89\%) of our training data, namely the OSCAR dataset, uses texts
+	scraped from the internet, which is in some respects problematic. First off, this dataset contains a lot of
+	explicit and indecent material. While we filtered out many of these documents through keyword matching, we cannot guarantee that this method was successful in every case}
+
+Da hier jedoch keine Bewertung vorgenommen wird,
+sollte der Effekt gering bleiben.
+
+\subsection{Verschwundene Daten}
+
+Viele der Experimente der Quellen ließen sich nicht mehr reproduzieren,
+da selbst wenn der Code auf \gls{github}
+verfügbar war,
+die eigentlichen Datendateien nicht abrufbar waren.
+Im folgenden werden zwei Beispiele explizit aufgeführt.
+
+\citetitle{notebook:annotated-transformer} ist eine mit Code annotierte Fassung von \citetitle{1706.03762}.
+Letzteres ist das Paper,
+welches die \gls{transformer}[ Architektur] vorgestellt hat.
+Ersteres wäre also ein guter Ansatz für die Einarbeitung in diese Architektur gewesen.
+Da jedoch das in \autocite[Data Loading]{notebook:annotated-transformer} verwendete \texttt{Multi30k} Dataset
+nicht geladen werden konnte,
+war diese Einarbeitung nicht so interaktiv wie geplant.
+Der Fehler beim Laden lag daran,
+dass \gls{pytorch}
+die Datei mit den \href{http://www.quest.dcs.shef.ac.uk/wmt16_files_mmt/training.tar.gz}{Trainingsdaten}\footnote{\url{http://www.quest.dcs.shef.ac.uk/wmt16_files_mmt/training.tar.gz}}
+nicht herunterladen konnte.
+Das Problem war im Nachhinein bereits am 2022-06-01 bekannt,
+wie die nachträgliche Recherche zeigt\autocite{pytorch:text:issues:1765}
+und die Datei ist mit dem Stand 2022-09-05 wieder verfügbar.
+
+
+Bei \gls{AutoNER}
+wird in den Beispielskripten auf ein bestimmtes
+\href{http://dmserv4.cs.illinois.edu/bio_embedding.pk}{Embedding} \footnote{\url{http://dmserv4.cs.illinois.edu/bio_embedding.pk}}
+verwiesen,
+welches Stand 2022-09-05 immer noch nicht verfügbar ist\footnote{
+	Eine E-Mail des Autors an die IT-Abteilung des \foreigntextquote{english}{Department of Computer Science}
+	des \foreigntextquote{english}{Grainger College of Engineering}
+	der \foreigntextquote{english}{University of Illinois}
+	wurde Stand 2022-09-06
+	nicht beantwortet}.
+Durch den GitHub Issue \autocite{shangjingbo1226:AutoNER:issues:44} von
+\citeauthor{shangjingbo1226:AutoNER:issues:44}
+wird zumindest das Format aufgeklärt
+und ein Testlauf mit den originalen \gls{GloVe}-Embeddings konnte durch geführt werden. \autocite{pennington2014glove}
+
+
+\subsection{Veränderung der Software}
+
+Die API der Software Bibliotheken hat sich geändert,
+insbesondere die API von \gls{pytorch}
+und auch das Paket
+selbst wurde von \mintinline{python}{pytorch} in
+\mintinline{python}{torch} umbenannt.
+
+\subsection{Eingeschränkte Hardware}
+Durch das Fehlen von \gls{cuda}[-Unterstützung]
+auf der Entwicklungshardware,
+wurde das Testen bestehender Lösungen erschwert,
+da bei \gls{python}[-Programmen],
+welche nicht entsprechend der aktuellen \enquote{Best practices}
+in \autocite[Device-agnostic code]{pytorch:docs:1.12:notes:cuda},
+der Quellcode angepasst werden musste,
+um auf \gls{hardware:lenovo:20S1S06B00} lauffähig zu sein.
+
+Auch mit \gls{hardware:dell:08R8KJ} waren nicht alle Aufgaben ausführbar,
+da der Grafikspeicher zu beschränkt war,
+um den \texttt{AdamW} Optimierer zu laden.
+
+
+
+% TODO more on Hardware Restrictions
+% TODO Grafikspeicher Grösse dokumentieren für Lenovo
+% TODO Codebeispiel einbinden
+
+
+
+\subsection{Fehlerhafte Annahmen}
+Im Rahmen dieser Arbeit wurden an einigen Stellen fehlerhafte Annahmen getroffen,
+welche den Gesamtfortschritt eingeschränkt haben.
+Hier ist zu erst die Annahme der Existenz eines bereits annotierten Korpus zu nennen.
+Daher konnte nicht mit den klassischen Ansätzen zum Training von \gls{neuralnetwork} gearbeitet werden.
+Infolgedessen wurden Ansätze zur \gls{namedentityrecognition} auf Basis von \gls{distant-supervision}
+recherchiert.
+Die nächste falsche Annahme betraf die Funktionsweise von \gls{distant-supervision};
+hierbei wurde zunächst angenommen,
+dass nicht die Eingabe selber
+annotiert wird,
+sondern dass die Annotationen in Form von Tags als Eingabe in das Modell eingehen.
+Bereits in \cref{ssec:ziele} war die Annahme,
+dass diese drei Schritte gemacht werden müssen,
+nicht zielführend,
+da das eigentliche Ziel das \gls{namedentitylinking} ist.
+Ansätze für das direkte Training eines Modells für \gls{namedentitylinking}
+finden sich in \autocite{1911.03834}, \autocite{Raheim2022}, \autocite{K19-1063}.
