@@ -87,7 +87,7 @@ in das in \Cref{lst:xml_loader:OAIXMLRecordDict} dargestellte \texttt{OAIXMLReco
 \end{longlisting}
 
 
-\begin{listing}% CHECK longlisting
+\begin{longlisting}% CHECK longlisting
 	\begin{tcolorbox}[tlistingstyle,breakable]
 		\inputminted[
 			firstline=69,
@@ -97,7 +97,7 @@ in das in \Cref{lst:xml_loader:OAIXMLRecordDict} dargestellte \texttt{OAIXMLReco
 	\end{tcolorbox}
 	\caption{Dedizierte Datenklasse für die einheitliche Typisierung der \gls{oai-pmh}[-Records]. \texttt{src/oaipmh/xml\_loader.py}}
 	\label{lst:xml_loader:OAIXMLRecordDict}
-\end{listing}
+\end{longlisting}
 
 Die verschiedenen \texttt{get\_...} Funktionen,
 die in \Cref{lst:xml_loader:load_xml_file,lst:xml_loader:_parse_record,lst:xml_loader:OAIXMLRecordDict}
@@ -227,7 +227,7 @@ aufgelistet.
 
 % FIXME check entries
 \begin{table}
-	\begin{tabularx}{\textwidth}{l p{0.5\linewidth}}
+	\begin{tabularx}{\textwidth}{l p{0.4\linewidth}}
 		\mintinline{xml}{dc:identifier}                               & Besonderheit                                                                                          \\
 		\mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:7101}  & Besteht aus einem Hauptband und einem Materialien Teil, die auf der Webseite referenziert werden \\
 		\mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:47810} & Ist eine Zeitschrift                                                                             \\

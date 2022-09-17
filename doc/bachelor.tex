@@ -103,30 +103,29 @@ final,
 \input{tex/10_introduction.tex}
 
 \section{Grundlagen und Definitionen}
-\input{tex/30_theory.tex}
+\input{tex/20_theory.tex}
 
 \section{Umsetzung}
-\input{tex/40_implementation.tex}
+\input{tex/30_implementation.tex}
 
 \section{Diskussion und Herausforderungen}
-\input{tex/50_discussion.tex}
+\input{tex/40_discussion.tex}
 %\section{Probleme}
-\input{tex/55_challenges.tex}
+\input{tex/45_challenges.tex}
 
 
 \section{Fazit und Ausblick}
-\input{tex/60_conclusion.tex}
+\input{tex/50_conclusion.tex}
 
 %\section{Ausblick und Verbesserungen}
-\input{tex/70_enhancements.tex}
+\input{tex/60_enhancements.tex}
 
 
 
 \cleardoublepage
 
 % set roman numbers for appendix
-\pagenumbering{roman}x
-\newpage
+\pagenumbering{roman}
 
 \appendix
 
@@ -137,18 +136,12 @@ final,
 \listoftables
 \addcontentsline{toc}{section}{\listfigurename}
 \listoffigures
-\addcontentsline{toc}{section}{Liste~der~Algorithmen}% TODO translate
+\addcontentsline{toc}{section}{Liste~der~Algorithmen}% HACK
 \listofmyalgorithms
 
 
-% TODO fix this \printunsrtglossary[match={category={symbol}}]
-\printunsrtglossary[type=glossary % TODO fix this ,not-match={category={symbol}}
-]
+\printunsrtglossary[type=glossary]
 
-\clearpage
 \printunsrtglossary[type=hardware,style=hardwarestyle]
-% TODO still needed? \printunsrtglossary[type=software]
-
-% TODO still needed? \section{Code}
 
 \end{document}

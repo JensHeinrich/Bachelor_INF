@@ -16,7 +16,9 @@ wie z.B.\, \mintinline{xml}{oai:publikationen.ub.uni-frankfurt.de:23611}.
 Dies wurde bei der Erstellung von \Cref{tbl:find_pdf_urls:failed} festgestellt.
 
 In \Cref{tbl:pdf_extraction:duration}
-
+wird die durchschnittliche Dauer der Extraktion der \gls{pdf}
+mit weniger als 32 Sekunden angegeben.
+In einzelnen Fällen dauert sie jedoch fast 17 Minuten.
 
 \begin{table}
 	\centering
@@ -27,44 +29,35 @@ In \Cref{tbl:pdf_extraction:duration}
 
 \subsection{Bewertung der Trainingsdaten}
 
-Die Trainingsdaten sind stark verzerrt,
-da 
-\begin{table}
-	\begin{tabularx}{\textwidth}{lr}
-		O        & 11361634 \\
-		B-BLL-DE & 141366   \\
-		B-BLL-EN & 14078    \\
-		I-BLL-DE & 239      \\
-		I-BLL-EN & 194
-	\end{tabularx}
-\end{table}
-
+Die Trainingsdaten sind stark verezrrt,
+wie an der Dominanz ersten Balken in \cref{fig:statistics:tags,fig:statistics:links}
+trotz logarithmischer Skalierung zu erkennen ist.
 
 \begin{figure}
 	\begin{adjustbox}{center,max width=0.9\linewidth,max totalheight=0.9\textheight}
-		\begin{tcolorbox}
-			\input{figures/statistics:tags.pgf}
-		\end{tcolorbox}
+		%\begin{tcolorbox}
+		\input{figures/statistics:tags.pgf}
+		%\end{tcolorbox}
 	\end{adjustbox}
 	\caption{Darstellung der Verteilung der Tags im \texttt{SPEEDTEST\_lang-sci-press\_ft\_debug}-Dataset}
+	\label{fig:statistics:tags}
 \end{figure}
 
 \begin{figure}
 	\begin{adjustbox}{center,max width=0.9\linewidth,max totalheight=0.9\textheight}
-		\begin{tcolorbox}
-			\input{figures/statistics:links.pgf}
-		\end{tcolorbox}
+		%\begin{tcolorbox}
+		\input{figures/statistics:links.pgf}
+		%\end{tcolorbox}
 	\end{adjustbox}
+	\caption{Darstellung der Verteilung der Top 10 Links im \texttt{SPEEDTEST\_lang-sci-press\_ft\_debug}-Dataset}
+	\label{fig:statistics:links}
 \end{figure}
-\caption{Darstellung der Verteilung der Top 10 Links im \texttt{SPEEDTEST\_lang-sci-press\_ft\_debug}-Dataset}
 
 
 \citeauthor{1906.01378}
 Bei einer zu ungleichmässigen Verteilung der \gls{nlp:label} kann mit Gewichten,
 wie in \autocite[Loss Definition]{1906.01378} beschrieben,
 ein Ausgleich geschaffen werden.
-
-% TODO show example with witghs
 
 
 \subsection{Bewertung des Modells}
@@ -75,7 +68,4 @@ dass ein Token einer bestimmten Klasse zugeordnet wird,
 in Abhängigkeit von der echten Klasse des Tokens visualisiert wird.
 
 Da kein Modell mit den finalen Daten trainiert ist,
-findet hier keine weiter Auswertung statt.
-
-\subsection{Bewertung der Pipeline}
-% TODO Dauer XML Parsing pro Eintrag
+findet hier keine weitere Auswertung statt.

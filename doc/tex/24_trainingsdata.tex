@@ -3,7 +3,7 @@ wird nachfolgend auf die Arten und die Erstellung von Annotationen eingegangen.
 
 \subsubsection{Arten der Annotation}
 
-Eine mögliche Annotation ist es, 
+Eine mögliche Annotation ist es,
 den Wörtern eines Satzes ihre grammatikalische Funktion
 oder andere semantische Informationen
 zuzuordnen.
@@ -19,7 +19,7 @@ sollen hier Möglichkeiten für die automatische Erzeugung betrachtet werden.
 \subsubsection{Automatische Erzeugung von Annotationen}
 
 \citeauthor{2006.15509} listet als Möglichkeiten für die automatische Annotation
-\enquote{Stringmatchingg}, \enquote{\glssymbol{regex}} und heuristische Verfahren
+\enquote{Stringmatching}, \enquote{\glssymbol{regex}} und heuristische Verfahren
 \autocite{2006.15509}.
 
 Bei ersterem wird ein Match nur erkannt,
@@ -43,7 +43,7 @@ Die Laufzeit ist relativ hoch und nicht parallelisierbar.
 So liegt die Laufzeit von \Cref{alg:stringmatching:longestmatch}
 in \(\mathcal{O}\left( n \times k + l_E \right)\),
 wobei \(l_E\) die Anzahl der Wörter in der Wortliste beschreibt.
-Zusätzlich wird für das \enquote{Stringmatchingg} eine Wortliste benötigt.
+Zusätzlich wird für das \enquote{Stringmatching} eine Wortliste benötigt.
 Eine Liste von Entitäten kann
 z.B.\, durch Extraktion aus einer \gls{knowledgebase}
 erstellt werden.
@@ -81,9 +81,26 @@ oftmals eine Firma.
 Dementsprechend wird den Token dieser Sequenz
 die Kategorie \gls{nlp:category:org} zugeordnet.
 Auch Ketten von Großbuchstaben sind oftmals Entitäten (Acronyme).
-Beide Beispiele lassen sich mit \glssymbol{regex} darstellen:
-\mintinline{perl}{(?P<NAME>\w*)\s+und\s+(Sohn|Söhne)}
-bzw.\, \mintinline{perl}{(?P<acronym>[[:<:]][[:upper:]]+[[:>:]])\s+(?P<description>\((.|\s)+\))?}.
+Beide Beispiele lassen sich mit \glssymbol{regex} darstellen,
+siehe \cref{lst:regex:and-sons,lst:regex:acronym}.
+
+\begin{listing}
+	\begin{minipage}{\linewidth}
+		\begin{tcolorbox}[tlistingstyle]
+			\mintinline{perl}{(?P<NAME>\w*)\s+und\s+(Sohn|Söhne)}
+		\end{tcolorbox}
+		\subcaption[a]{\enquote{Name und Sohn} bzw.\, enquote{Name und Söhne}}% HACK
+		\label{lst:regex:and-sons}
+	\end{minipage}
+	\begin{minipage}{\linewidth}
+		\begin{tcolorbox}[tlistingstyle]
+			\mintinline{perl}{(?P<acronym>[[:<:]][[:upper:]]+[[:>:]])\s+(?P<description>\((.|\s)+\))?}
+		\end{tcolorbox}
+		\subcaption[a]{Acronyme}% HACK
+		\label{lst:regex:acronym}
+	\end{minipage}
+	\caption{Beispielhafte \glslink{regex}{reguläre Ausdrücke}}
+\end{listing} % CHECK linebreak
 
 Die verschiedenen Ausgaben,
 der oben genannten \gls{finitestatetransducer},
@@ -102,7 +119,7 @@ kann eine Entscheidung getroffen werden,
 welches Annotation die \enquote{beste} ist.
 So könnte die häufigste oder auch die längste ausgewählt werden.
 
-In dieser Arbeit wird aus Zeitgründen ausschließlich \enquote{Stringmatchingg} implementiert.
+In dieser Arbeit wird aus Zeitgründen ausschließlich \enquote{Stringmatching} implementiert.
 
 \subsubsection{Stringmatching}
 \label{ssec:stringmatching}
@@ -158,7 +175,7 @@ Als Eingabe wird zusätzlich der Typ $t$,
 welcher für die Token genutzt werden soll,
 und ein Label $l$ verwendet,
 sodass der gleiche Satz mit mehreren Wortlisten nacheinander annotiert werden kann.
-Hierbei werden bereits bestehende Label nicht überschrieben. 
+Hierbei werden bereits bestehende Label nicht überschrieben.
 
 \begin{algorithm}
 	\begin{tcolorbox}[talgostyle]
@@ -167,20 +184,20 @@ Hierbei werden bereits bestehende Label nicht überschrieben.
 			\State $lengths \gets $ Liste der Wortlängen von $D_E$ von gross nach klein sortiert
 			\State $lenghts \gets lengths + 0$
 			\While{$i < m$}
-				\For{$j \in lengths$ if $j < (m-1)$}
-					\If{ $w_i, \hdots, w_{i+j} \in D_E$}
-						\If{$l_v == \texttt{unlabeled} \forall v=i,\hdots,i+j$}
-							\State $l_i \gets "B-"+t$ 
-							\State $l_{i+1}, \hdots, l_{i+j}  \gets "I-"+t $
-							\State $i \gets i+j+1$
-							\State BREAK
-						\EndIf
-						\If{$j==0$}
-							\State $i \gets i + 1$
-							\State BREAK
-						\EndIf
-					\EndIf
-				\EndFor
+			\For{$j \in lengths$ if $j < (m-1)$}
+			\If{ $w_i, \hdots, w_{i+j} \in D_E$}
+			\If{$l_v == \texttt{unlabeled} \forall v=i,\hdots,i+j$}
+			\State $l_i \gets "B-"+t$
+			\State $l_{i+1}, \hdots, l_{i+j}  \gets "I-"+t $
+			\State $i \gets i+j+1$
+			\State BREAK
+			\EndIf
+			\If{$j==0$}
+			\State $i \gets i + 1$
+			\State BREAK
+			\EndIf
+			\EndIf
+			\EndFor
 			\EndWhile
 			\Return teilweise annotierter Satz $\left(
 				\left\lbrace
@@ -198,7 +215,7 @@ Hierbei werden bereits bestehende Label nicht überschrieben.
 Um das Named Entity Linking zu vereinfachen,
 wird für jeden \gls{gazetteer}
 eine eigene Klasse angelegt.
-So muss nach den jeweiligen Entitäten nur in einer \gls{knowledgebase} gesucht werden.  
+So muss nach den jeweiligen Entitäten nur in einer \gls{knowledgebase} gesucht werden.
 Für die Einheitlichkeit wird der Name des \gls{gazetteer} in Großbuchstaben verwendet.
 Z.B.\, \texttt{BLL-DE} für Einträge der \gls{bllontology} auf Deutsch.
 Inspiration hierfür sind die detaillierten \glspl{gazetteer}
@@ -206,5 +223,5 @@ von \citeauthor{Leitner2019} in \citetitle{Leitner2019} \autocite{Leitner2019}.
 
 Dieser Algorithms wurde zur Vereinfachung von \gls{namedentitylinking}
 um die Eingabe einer Liste von Entitätsreferenzen erweitert
-und die Wortliste $D_E$ durch ein Wörterbuch ersetzt, 
+und die Wortliste $D_E$ durch ein Wörterbuch ersetzt,
 sodass den Namen eine eindeutige Referenz auf die Entität zuordnet.
