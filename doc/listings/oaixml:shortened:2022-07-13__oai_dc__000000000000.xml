@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet type="text/xsl" href="xsl/oai2.xsl"?>
+<OAI-PMH xmlns="http://www.openarchives.org/OAI/2.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/ http://www.openarchives.org/OAI/2.0/OAI-PMH.xsd">
+  <responseDate>2022-07-13T08:05:19Z</responseDate>
+  <request verb="ListRecords" until="collections:Linguistik" metadataPrefix="oai_dc">http://publikationen.ub.uni-frankfurt.de/oai</request>
+  <ListRecords>
+    <record>
+      <header>
+        <identifier>oai:publikationen.ub.uni-frankfurt.de:744</identifier>
+        <datestamp>2022-03-31</datestamp>
+        <setSpec>doc-type:magisterthesis</setSpec>
+        <setSpec>bibliography:false</setSpec>
+        <setSpec>ddc</setSpec>
+        <setSpec>ddc:400</setSpec>
+        <setSpec>collections</setSpec>
+        <setSpec>collections:Linguistik</setSpec>
+        <setSpec>open_access</setSpec>
+        <setSpec>open_access:open_access</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xsi:schemaLocation="http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title xml:lang="deu">Explizit performative Äußerungen : Deklarationen, Feststellungen oder indirekte Sprechakte?</dc:title>
+          <dc:creator>Runkel, Andreas</dc:creator>
+          <dc:subject>Pragmatik </dc:subject>
+          <dc:subject>Sprechakttheorie </dc:subject>
+          <dc:subject>Austin, John L. </dc:subject>
+          <dc:subject>Searle, John R.</dc:subject>
+          <dc:subject>Illokutiver Akt </dc:subject>
+          <dc:subject>Illokutionäres Verb</dc:subject>
+          <dc:subject>ddc:400</dc:subject>
+          <dc:description xml:lang="deu">Die vorliegende Arbeit befasst sich mit einem spezifischen Phänomen innerhalb der Sprachphilosophie |\textelp{}|</dc:description>
+          <dc:date>2007-07-31</dc:date>
+          <dc:type>magisterthesis</dc:type>
+          <dc:type>doc-type:magisterthesis</dc:type>
+          <dc:format>application/pdf</dc:format>
+          <dc:identifier>http://publikationen.ub.uni-frankfurt.de/frontdoor/index/index/docId/744</dc:identifier>
+          <dc:identifier>urn:nbn:de:hebis:30-47103</dc:identifier>
+          <dc:identifier>http://nbn-resolving.de/urn/resolver.pl?urn:nbn:de:hebis:30-47103</dc:identifier>
+          <dc:identifier>http://publikationen.ub.uni-frankfurt.de/files/744/Magisterarbeit_Andreas_Runkel.pdf</dc:identifier>
+          <dc:language>deu</dc:language>
+          <dc:rights>Deutsches Urheberrecht</dc:rights>
+        </oai_dc:dc>
+      </metadata>
+    </record>
+    <resumptionToken expirationDate="2022-07-14T08:05:21Z" completeListSize="2901" cursor="0">165769952100000</resumptionToken>
+  </ListRecords>
+</OAI-PMH>

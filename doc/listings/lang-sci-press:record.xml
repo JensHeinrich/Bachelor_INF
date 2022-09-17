@@ -1,0 +1,29 @@
+    <record>
+      <header>
+        <identifier>oai:omp.langsci-press.org:publicationFormat/22</identifier>
+        <datestamp>2015-03-05T08:26:54Z</datestamp>
+        <setSpec>LangSci-Press:silp</setSpec>
+      </header>
+      <metadata>
+        <oai_dc:dc xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://
+www.openarchives.org/OAI/2.0/oai_dc/  http://www.openarchives.org/OAI/2.0/oai_dc.xsd">
+          <dc:title xml:lang="0">Linguistic variation, identity construction and cognition</dc:title>
+          <dc:creator>Drager, Katie K.; University of Hawai‘i at Mānoa</dc:creator>
+          <dc:description xml:lang="en-US">Speakers use a variety of different linguistic resources in the construction of their identities |\textelp{}|</dc:des
+cription>
+          <dc:publisher xml:lang="en-US">Language Science Press</dc:publisher>
+          <dc:date>2015-11-03</dc:date>
+          <dc:type xml:lang="en-US">Book</dc:type>
+          <dc:format>Digital (DA)
+                        </dc:format>
+          <dc:identifier>https://langsci-press.org/catalog/book/75</dc:identifier>
+          <dc:identifier>10.17169/langsci.b75.22</dc:identifier>
+          <dc:identifier>978-3-946234-24-1</dc:identifier>
+          <dc:source xml:lang="en-US">Language Science Press; </dc:source>
+          <dc:language>eng</dc:language>
+          <dc:relation>https://langsci-press.org/index.php/Language%20Science%20Press/catalog/view/75/22/295-1</dc:relation>
+          <dc:relation>https://langsci-press.org/index.php/Language%20Science%20Press/catalog/view/75/22/320-1</dc:relation>
+          <dc:relation>https://langsci-press.org/index.php/Language%20Science%20Press/catalog/view/75/22/321-2</dc:relation>
+        </oai_dc:dc>
+      </metadata>
+    </record>

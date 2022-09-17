@@ -1,0 +1,25 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix bllt: <http://data.linguistik.de/bll/bll-ontology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+bllt:bll-133103862 a owl:Class ;
+    rdf:value "02.25.01.047.06" ;
+    rdfs:label "Seneca"@de, "Seneca"@en ;
+    rdfs:subClassOf bllt:BLLConcept, bllt:NorthernIroquoian ;
+    skos:prefLabel "Seneca"@de, "Seneca"@en .
+
+bllt:bll-133103870 a owl:Class ;
+    rdf:value "04.03.13.004" ;
+    rdfs:label "Capital letters/Small letters"@en, "Grossschreibung/Kleinschreibung"@de ;
+    rdfs:subClassOf bllt:AmbiguouslyDefinedConcept, bllt:BLLConcept ;
+    owl:equivalentClass [
+        a owl:Class ;
+        owl:unionOf (bllt:CapitalLetter
+            bllt:SmallLetter
+        )
+    ] ;
+    owl:versionInfo "The primary BLL category Capital letters/Small letters was modeled as the disjunction of the newly created classes CapitalLetter and SmallLetter."@en ;
+    skos:prefLabel "Capital letters/Small letters"@en, "Grossschreibung/Kleinschreibung"@de .
