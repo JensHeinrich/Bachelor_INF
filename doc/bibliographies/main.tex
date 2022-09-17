@@ -21,6 +21,9 @@
 % Allow linebreak after numeric characters in bibliography urls 
 \setcounter{biburlnumpenalty}{9000}
 
+\def\UrlBreaks{\do\/\do-\do_}
+
+\appto{\bibsetup}{\raggedright}
 % Add bib for project
 \addbibresource{bibliographies/projecthocco.bib}
 
@@ -32,6 +35,9 @@
 
 % Add bib for math thesis
 \addbibresource{bibliographies/import-from-math.bib}
+
+% Add bib for tooling
+\addbibresource{bibliographies/tool_references.bib}
 
 % Add bib for technical tweaks
 \addbibresource{bibliographies/technical.bib}
